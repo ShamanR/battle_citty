@@ -9,6 +9,7 @@ import (
 	"image"
 	_ "image/png"
 	"os"
+	"time"
 )
 
 func loadPicture(path string) (pixel.Picture, error) {
@@ -49,6 +50,7 @@ func run() {
 	}
 	go userActor.AttachToKeyboard(win)
 	for !win.Closed() {
+		<-time.After(time.Millisecond * 30)
 		win.Clear(colornames.Black)
 		tank.Draw(win)
 		win.Update()

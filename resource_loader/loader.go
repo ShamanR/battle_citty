@@ -58,10 +58,10 @@ func (l *Loader) MakeUserTank() *tank.Tank {
 	obj := objects.Object{}
 	obj.SetPosition(pixel.ZV)
 	obj.Show()
-	obj.SetAnimation(l.GetTankAnimation(0))
+	obj.SetAnimation(l.GetTankAnimation(3))
 	obj.SetScale(3)
 
-	animation := l.GetTankAnimation(0)
+	animation := l.GetTankAnimation(3)
 	tankAnimation := map[int][]*pixel.Sprite{
 		tank.OrientationTop:   {animation[0], animation[1]},
 		tank.OrientationLeft:  {animation[2], animation[3]},
