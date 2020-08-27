@@ -35,21 +35,38 @@ func (l *Loader) Init() {
 	l.texture = textures
 }
 
-func (l *Loader) GetUserTankAnimation() []*pixel.Sprite {
-	size := float64(16)
-	sprite1 := pixel.NewSprite(l.texture, pixel.Rect{pixel.Vec{0, 256}, pixel.Vec{size, 256 - size}})
-	sprite2 := pixel.NewSprite(l.texture, pixel.Rect{pixel.Vec{size, 256}, pixel.Vec{size * 2, 256 - size}})
-	return []*pixel.Sprite{
-		sprite1,
-		sprite2,
-	}
+func (l *Loader) GetTankAnimation(spriteRow int) []*pixel.Sprite {
+	return l.loadAnimation(0, 256-spriteRow*16, 16, 8)
 }
 
-func (l *Loader) MakeUserTank() *tank.UserTank {
+func (l *Loader) loadAnimation(topX int, topY int, spriteSize int, frames int) []*pixel.Sprite {
+	result := make([]*pixel.Sprite, 0, frames)
+	for i := 0; i < frames; i++ {
+		sprite := pixel.NewSprite(
+			l.texture,
+			pixel.Rect{
+				pixel.Vec{float64(topX + spriteSize*i), float64(topY)},
+				pixel.Vec{float64(topX + spriteSize*(i+1)), float64(topY - spriteSize)},
+			},
+		)
+		result = append(result, sprite)
+	}
+	return result
+}
+
+func (l *Loader) MakeUserTank() *tank.Tank {
 	obj := objects.Object{}
 	obj.SetPosition(pixel.ZV)
 	obj.Show()
-	obj.SetAnimation(l.GetUserTankAnimation())
+	obj.SetAnimation(l.GetTankAnimation(0))
 	obj.SetScale(3)
-	return &tank.UserTank{obj}
+
+	animation := l.GetTankAnimation(0)
+	tankAnimation := map[int][]*pixel.Sprite{
+		tank.OrientationTop:   {animation[0], animation[1]},
+		tank.OrientationLeft:  {animation[2], animation[3]},
+		tank.OrientationDown:  {animation[4], animation[5]},
+		tank.OrientationRight: {animation[6], animation[7]},
+	}
+	return &tank.Tank{Object: obj, TankAnimation: tankAnimation}
 }

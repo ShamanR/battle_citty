@@ -10,6 +10,7 @@ type Tank interface {
 	MoveRight()
 	MoveTop()
 	MoveDown()
+	Stop()
 	Shoot()
 }
 
@@ -23,18 +24,23 @@ type keyboardInterface interface {
 
 func (u *User) AttachToKeyboard(keyboard keyboardInterface) {
 	for {
+		<-time.After(time.Millisecond * 30)
 		if keyboard.Pressed(pixelgl.KeyLeft) {
 			u.Tank.MoveLeft()
+			continue
 		}
 		if keyboard.Pressed(pixelgl.KeyRight) {
 			u.Tank.MoveRight()
+			continue
 		}
 		if keyboard.Pressed(pixelgl.KeyUp) {
 			u.Tank.MoveTop()
+			continue
 		}
-		if keyboard.Pressed(pixelgl.KeyUp) {
+		if keyboard.Pressed(pixelgl.KeyDown) {
 			u.Tank.MoveDown()
+			continue
 		}
-		<-time.After(time.Millisecond * 30)
+		u.Tank.Stop()
 	}
 }

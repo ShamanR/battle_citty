@@ -3,6 +3,7 @@ package objects
 import "github.com/faiface/pixel"
 
 type Object struct {
+	speed          pixel.Vec
 	position       pixel.Vec
 	angle          float64
 	scale          float64
@@ -10,6 +11,14 @@ type Object struct {
 	animation      []*pixel.Sprite
 	animationFrame int
 	nestedObjects  []*Object
+}
+
+func (o *Object) SetSpeed(vec pixel.Vec) {
+	o.speed = vec
+}
+
+func (o *Object) GetSpeed() pixel.Vec {
+	return o.speed
 }
 
 func (o *Object) GetPosition() pixel.Vec {

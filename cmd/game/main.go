@@ -26,7 +26,7 @@ func loadPicture(path string) (pixel.Picture, error) {
 
 func run() {
 	cfg := pixelgl.WindowConfig{
-		Title:  "Platformer",
+		Title:  "Battle City 1990",
 		Bounds: pixel.R(0, 0, 1024, 768),
 		VSync:  true,
 	}
