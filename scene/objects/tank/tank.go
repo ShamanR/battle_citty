@@ -30,7 +30,7 @@ func (t *Tank) MoveRight() {
 }
 
 func (t *Tank) Draw(target pixel.Target) {
-	t.sprite.Frame().Moved(t.pos)
+	//t.sprite.Frame().Moved(t.pos)
 	mat := pixel.IM.Rotated(pixel.ZV, t.angle).Scaled(pixel.ZV, 3).Moved(t.pos)
 
 	t.sprite.Draw(target, mat)

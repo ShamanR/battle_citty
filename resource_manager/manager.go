@@ -25,8 +25,8 @@ const (
 )
 
 const (
-	spriteSheetSizeY = 400
-	spriteSheetSizeX = 256
+	spriteSheetSizeY = 256
+	spriteSheetSizeX = 400
 	defaultSpriteSize = 16
 
 	SimpleTankOrangeUp     SpriteType = "SimpleTankOrangeUp"
@@ -36,7 +36,7 @@ const (
 var spriteSheetSize = pixel.V(spriteSheetSizeX, spriteSheetSizeY)
 
 var spriteMap = map[SpriteType]*SpritePosition{
-	SimpleTankOrangeUp:     newSpritePosition(spriteSheetSize, defaultSpriteSize, 1, 1),
+	SimpleTankOrangeUp:     newSpritePosition(spriteSheetSize, defaultSpriteSize, 0, 0),
 	SimpleTankOrangeUpMove: newSpritePosition(spriteSheetSize, defaultSpriteSize, 2, 1),
 }
 
@@ -57,10 +57,10 @@ func newSpritePosition(spriteSheetSize pixel.Vec, size float64, posX float64, po
 }
 
 func (s *SpritePosition) Bounds() pixel.Rect {
-	spriteStartY := s.spriteSheetSize.Y - s.positionX * s.spriteSize
-	spriteStartX := s.spriteSheetSize.X + s.positionY * s.spriteSize
+	spriteStartY := s.spriteSheetSize.Y - s.positionY * s.spriteSize
+	spriteStartX := s.positionX * s.spriteSize
 
-	return pixel.R(spriteStartX, spriteStartY, spriteStartX + s.spriteSize, spriteStartY + s.spriteSize)
+	return pixel.R(spriteStartX, spriteStartY, spriteStartX + s.spriteSize, spriteStartY - s.spriteSize)
 }
 
 type resourceManager struct {
