@@ -1,7 +1,6 @@
 package interfaces
 
 import (
-	"github.com/shamanr/battle_citty/resource_manager"
 	"time"
 
 	"github.com/faiface/pixel"
@@ -59,9 +58,8 @@ const (
 )
 
 type ResourceManager interface {
-	GetSprite(name resource_manager.SpriteType) *pixel.Sprite
 	GetSpriteMap(name ObjectType) *SceneObjectAnimateList
-	LoadMap() SceneMap
+	LoadMap(path string) LevelMap
 	MakeTank(name ObjectType) SceneObject
 }
 

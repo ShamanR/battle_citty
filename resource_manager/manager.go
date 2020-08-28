@@ -28,7 +28,8 @@ var spriteMap = map[SpriteType]*spritePosition{
 }
 
 var animationsMap = map[interfaces.ObjectType]*animationPosition{
-	interfaces.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2),
+	interfaces.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
+	interfaces.ObjectTypeBrickWall: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 4, false),
 }
 
 type spritePosition struct {
@@ -94,6 +95,9 @@ func (rm *resourceManager) getSceneObjectAnimateList(name interfaces.ObjectType,
 		framesCounter ++
 		if framesCounter == position.frames {
 			(*animationsList)[sides[currentSide]] = framesBuff
+			if !position.movable {
+				return animationsList
+			}
 			framesCounter = 0
 			currentSide++
 			framesBuff = make([]*pixel.Sprite, 0, position.frames)
@@ -121,10 +125,6 @@ func (s *resourceManager) loadSprite(name SpriteType, spriteElement *spritePosit
 	s.cache[name] = sprite
 
 	return sprite
-}
-
-func (s *resourceManager) LoadMap() *interfaces.SceneMap {
-	return &interfaces.SceneMap{}
 }
 
 func loadPicture(path string) (pixel.Picture, error) {

@@ -18,15 +18,17 @@ type animationPosition struct {
 	positionX int
 	positionY int
 	frames int
+	movable bool
 }
 
-func newAnimationPosition(spriteSheetSize pixel.Vec, spriteSize, startX, startY, frames int) *animationPosition {
+func newAnimationPosition(spriteSheetSize pixel.Vec, spriteSize, startX, startY, frames int, movable bool) *animationPosition {
 	return &animationPosition{
 		spriteSheetSize: spriteSheetSize,
 		spriteSize: spriteSize,
 		positionX:  startX,
 		positionY:  startY,
 		frames: frames,
+		movable: movable,
 	}
 }
 
