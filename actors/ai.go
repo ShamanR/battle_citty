@@ -57,7 +57,7 @@ func (ai *AI) Move(orientation consts.Orientation) {
 }
 
 func (ai *AI) RandomDirection() {
-	switch ai.rand.Intn(3) {
+	switch ai.rand.Intn(4) {
 	case consts.OrientationTop:
 		ai.Move(consts.OrientationTop)
 	case consts.OrientationLeft:
