@@ -97,6 +97,7 @@ type Scene interface {
 	AddObject(object SceneObject)
 	GetSceneMap() SceneMap
 	GetLevelMap() LevelMap
+	MakeEmptyObj() SceneObject
 	Draw(target pixel.Target)
 }
 type Physics interface {

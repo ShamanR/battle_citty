@@ -97,7 +97,7 @@ func (o *Object) GetScale() float64 {
 }
 
 // Bounds возвращает границы объекта
-func (o *Object) Bounds() *pixel.Rect {
+func (o *Object) GetSize() *pixel.Rect {
 	return &o.bounds
 }
 

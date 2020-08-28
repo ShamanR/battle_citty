@@ -2,13 +2,12 @@ package actors
 
 import (
 	"github.com/faiface/pixel/pixelgl"
-	"time"
 )
 
 type Tank interface {
 	MoveLeft()
 	MoveRight()
-	MoveTop()
+	MoveUp()
 	MoveDown()
 	Stop()
 	Shoot()
@@ -22,29 +21,26 @@ type keyboardInterface interface {
 	Pressed(button pixelgl.Button) bool
 }
 
-func (u *User) SetTank(tank *Tank) {
+func (u *User) SetTank(tank Tank) {
 	u.Tank = tank
 }
 
 func (u *User) AttachToKeyboard(keyboard keyboardInterface) {
-	for {
-		<-time.After(time.Millisecond * 30)
-		if keyboard.Pressed(pixelgl.KeyLeft) {
-			u.Tank.MoveLeft()
-			continue
-		}
-		if keyboard.Pressed(pixelgl.KeyRight) {
-			u.Tank.MoveRight()
-			continue
-		}
-		if keyboard.Pressed(pixelgl.KeyUp) {
-			u.Tank.MoveTop()
-			continue
-		}
-		if keyboard.Pressed(pixelgl.KeyDown) {
-			u.Tank.MoveDown()
-			continue
-		}
-		u.Tank.Stop()
+	if keyboard.Pressed(pixelgl.KeyLeft) {
+		u.Tank.MoveLeft()
+		return
 	}
+	if keyboard.Pressed(pixelgl.KeyRight) {
+		u.Tank.MoveRight()
+		return
+	}
+	if keyboard.Pressed(pixelgl.KeyUp) {
+		u.Tank.MoveUp()
+		return
+	}
+	if keyboard.Pressed(pixelgl.KeyDown) {
+		u.Tank.MoveDown()
+		return
+	}
+	u.Tank.Stop()
 }

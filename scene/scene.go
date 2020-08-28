@@ -11,6 +11,13 @@ type Scene struct {
 	objCounter int64
 }
 
+func NewScene() *Scene {
+	return &Scene{
+		objects:    []interfaces.SceneObject{},
+		objCounter: 0,
+	}
+}
+
 func (s *Scene) GetObjects() []interfaces.SceneObject {
 	return s.objects
 }
