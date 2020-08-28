@@ -1,10 +1,13 @@
 # github.com/TheTitanrain/w32 v0.0.0-20180517000239-4f5cfb03fabf
 github.com/TheTitanrain/w32
 # github.com/aquilax/go-perlin v0.0.0-20191229124216-0af9ce917c28
+## explicit
 github.com/aquilax/go-perlin
 # github.com/beefsack/go-astar v0.0.0-20200827232313-4ecf9e304482
+## explicit
 github.com/beefsack/go-astar
 # github.com/faiface/beep v1.0.2
+## explicit
 github.com/faiface/beep
 github.com/faiface/beep/speaker
 github.com/faiface/beep/vorbis
@@ -13,11 +16,13 @@ github.com/faiface/glhf
 # github.com/faiface/mainthread v0.0.0-20171120011319-8b78f0a41ae3
 github.com/faiface/mainthread
 # github.com/faiface/pixel v0.10.0
+## explicit
 github.com/faiface/pixel
 github.com/faiface/pixel/imdraw
 github.com/faiface/pixel/pixelgl
 github.com/faiface/pixel/text
 # github.com/faiface/pixel-examples v0.0.0-20190423111245-0d1d22b509d4
+## explicit
 github.com/faiface/pixel-examples/community/amidakuji/glossary
 github.com/faiface/pixel-examples/community/amidakuji/glossary/jukebox
 github.com/faiface/pixel-examples/community/game_of_life/life
@@ -25,12 +30,15 @@ github.com/faiface/pixel-examples/community/maze/stack
 # github.com/go-gl/gl v0.0.0-20190320180904-bf2b1f2f34d7
 github.com/go-gl/gl/v3.3-core/gl
 # github.com/go-gl/glfw v0.0.0-20200707082815-5321531c36a2
+## explicit
 github.com/go-gl/glfw/v3.2/glfw
 # github.com/go-gl/glfw/v3.3/glfw v0.0.0-20191125211704-12ad95a8df72
 github.com/go-gl/glfw/v3.3/glfw
 # github.com/go-gl/mathgl v0.0.0-20190416160123-c4601bc793c7
+## explicit
 github.com/go-gl/mathgl/mgl32
 # github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
+## explicit
 github.com/golang/freetype/raster
 github.com/golang/freetype/truetype
 # github.com/gopherjs/gopherjs v0.0.0-20180825215210-0210a2f0f73c
@@ -38,6 +46,7 @@ github.com/gopherjs/gopherjs/js
 # github.com/gopherjs/gopherwasm v1.0.0
 github.com/gopherjs/gopherwasm/js
 # github.com/gotk3/gotk3 v0.4.0
+## explicit
 github.com/gotk3/gotk3/cairo
 github.com/gotk3/gotk3/gdk
 github.com/gotk3/gotk3/glib
@@ -51,12 +60,16 @@ github.com/jfreymuth/oggvorbis
 # github.com/jfreymuth/vorbis v1.0.0
 github.com/jfreymuth/vorbis
 # github.com/pkg/errors v0.8.1
+## explicit
 github.com/pkg/errors
 # github.com/pkg/profile v1.5.0
+## explicit
 github.com/pkg/profile
 # github.com/salviati/go-tmx v0.0.0-20180901011116-8dae25beffeb
+## explicit
 github.com/salviati/go-tmx/tmx
 # github.com/sqweek/dialog v0.0.0-20200601143742-43ea34326190
+## explicit
 github.com/sqweek/dialog
 github.com/sqweek/dialog/cocoa
 # golang.org/x/exp v0.0.0-20180710024300-14dda7b62fcd
@@ -69,6 +82,7 @@ golang.org/x/exp/shiny/driver/internal/win32
 golang.org/x/exp/shiny/driver/internal/x11key
 golang.org/x/exp/shiny/screen
 # golang.org/x/image v0.0.0-20190523035834-f03afa92d3ff
+## explicit
 golang.org/x/image/colornames
 golang.org/x/image/font
 golang.org/x/image/font/basicfont
