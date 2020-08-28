@@ -3,33 +3,16 @@ package main
 import (
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
-	"github.com/shamanr/battle_citty/resources"
+	"github.com/shamanr/battle_citty/resource_manager"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
 	"golang.org/x/image/colornames"
-	"image"
 	_ "image/png"
-	"os"
 	"time"
 )
 
-func loadPicture(path string) (pixel.Picture, error) {
-	file, err := os.Open("resources/" + path)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	img, _, err := image.Decode(file)
-	if err != nil {
-		return nil, err
-	}
-	return pixel.PictureDataFromImage(img), nil
-}
-
 func run() {
-	// ресурсы
-	// open and load the spritesheet
-	manager := resources.NewResourceManager("resources/textures.png")
-	sprite := manager.GetSprite(resources.SimpleTankOrangeUp)
+	manager := resource_manager.NewResourceManager("resources/textures.png")
+	sprite := manager.GetSprite(resource_manager.SimpleTankOrangeUp)
 
 	cfg := pixelgl.WindowConfig{
 		Title:  "Platformer",

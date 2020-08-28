@@ -1,4 +1,4 @@
-package resources
+package resource_manager
 
 import (
 	"github.com/faiface/pixel"
@@ -28,14 +28,14 @@ const (
 	spriteSheetSizeX = 256
 	defaultSpriteSize = 16
 
-	SimpleTankOrangeUp SpriteType = "SimpleTankOrangeUp"
-	SimpleTankOrangeUpMove = "SimpleTankOrangeUpMove"
+	SimpleTankOrangeUp     SpriteType = "SimpleTankOrangeUp"
+	SimpleTankOrangeUpMove            = "SimpleTankOrangeUpMove"
 )
 
 var spriteSheetSize pixel.Vec = pixel.V(spriteSheetSizeX, spriteSheetSizeY)
 
 var spriteMap = map[SpriteType]*SpritePosition{
-	SimpleTankOrangeUp: newSpritePosition(spriteSheetSize, defaultSpriteSize, 1, 1),
+	SimpleTankOrangeUp:     newSpritePosition(spriteSheetSize, defaultSpriteSize, 1, 1),
 	SimpleTankOrangeUpMove: newSpritePosition(spriteSheetSize, defaultSpriteSize, 2, 1),
 }
 
