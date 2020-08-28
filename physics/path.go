@@ -26,7 +26,7 @@ func (p *Physics) PathTo(from, to pixel.Vec, sceneMap consts.LevelMap) []*pixel.
 	res := make([]*pixel.Vec, 0, len(path))
 	for _, pp := range path {
 		t := pp.(*tile)
-		v := pixel.V(float64(t.x*p.tileSize*p.scale), float64(t.y*p.tileSize*p.scale))
+		v := pixel.V(float64(t.x*p.tileSize*p.scale + p.tileSize*p.scale/2), float64(t.y*p.tileSize*p.scale + p.tileSize*p.scale/2))
 		res = append(res, &v)
 	}
 	return res

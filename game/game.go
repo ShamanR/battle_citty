@@ -2,6 +2,7 @@ package game
 
 import (
 	"github.com/faiface/pixel"
+	"github.com/faiface/pixel/imdraw"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/actors"
 	"github.com/shamanr/battle_citty/consts"
@@ -91,6 +92,18 @@ func (g *Game) StartLevel() {
 		g.ai.Tick(dt)
 		g.physics.MoveObjects(g.scene.GetObjects(), dt)
 		g.scene.Draw(g.window)
+
+		path := g.physics.PathTo(pixel.V(0, 0), pixel.V(550, 600), g.scene.GetLevelMap())
+		prev := pixel.V(0, 0)
+		for _, pp := range path {
+			dr := imdraw.New(nil)
+			dr.Push(prev, *pp)
+			dr.Color = pixel.RGB(1, 0, 0)
+			dr.Line(10)
+			dr.Draw(g.window)
+			prev = *pp
+		}
+
 		g.window.Update()
 	}
 }

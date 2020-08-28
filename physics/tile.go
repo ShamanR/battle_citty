@@ -62,7 +62,7 @@ func (t *tile) PathNeighbors() []astar.Pather {
 			continue
 		}
 
-		if !isFreeType((t.Container.level)[ny][nx]) {
+		if !isFreeType((t.Container.level)[12 - ny][nx]) {
 			continue
 		}
 
