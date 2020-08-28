@@ -1,7 +1,5 @@
 package consts
 
-import "time"
-
 // Orientation ориентация
 type Orientation uint8
 
@@ -10,6 +8,4 @@ const (
 	OrientationRight  = 1
 	OrientationBottom = 2
 	OrientationLeft   = 3
-
-	FrameDuration = 30 * time.Millisecond
 )

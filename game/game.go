@@ -38,7 +38,7 @@ func (g *Game) Init() {
 	// Создаем ресурс-менеджер
 	g.rm = resource_manager.NewResourceManager("resources/textures.png")
 	// создаем физику
-	g.physics = physics.New(time.Millisecond * 33)
+	g.physics = physics.New(33 * time.Millisecond, 16, 3)
 	// ЗАГРУЖАЕМ НА СЦЕНУ КАРТУ
 	//mapObjects := g.rm.LoadMap("")
 	//for _, obj := range mapObjects {
@@ -78,12 +78,12 @@ func (g *Game) StartLevel() {
 	last := time.Now()
 	for !g.window.Closed() {
 		dt := time.Since(last)
+		last = time.Now()
 		<-time.After(time.Millisecond * 30)
 		g.player.AttachToKeyboard(g.window)
 		g.physics.MoveObjects(g.scene.GetObjects(), dt)
 		g.scene.Draw(g.window)
 		g.window.Update()
-		last = time.Now()
 	}
 }
 

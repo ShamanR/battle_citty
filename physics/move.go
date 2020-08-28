@@ -42,7 +42,7 @@ func calcMovement(currentObj interfaces.SceneObject, dt, fd time.Duration) pixel
 }
 
 func isMoving(object interfaces.SceneObject) bool {
-	return object.GetSpeed().Eq(pixel.ZV)
+	return !object.GetSpeed().Eq(pixel.ZV)
 }
 
 func bounds(obj interfaces.SceneObject) pixel.Rect {

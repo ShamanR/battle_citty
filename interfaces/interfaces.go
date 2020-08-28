@@ -61,5 +61,5 @@ type Scene interface {
 }
 type Physics interface {
 	MoveObjects(sceneMap SceneMap, dt time.Duration)
-	PathTo(from, to pixel.Vec, sceneMap consts.LevelMap)
+	PathTo(from, to pixel.Vec, sceneMap consts.LevelMap) []*pixel.Vec
 }
