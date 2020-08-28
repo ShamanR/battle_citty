@@ -3,7 +3,6 @@ package resource_manager
 import (
 	"fmt"
 	"github.com/faiface/pixel"
-	"github.com/google/uuid"
 	"github.com/pkg/errors"
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
@@ -32,7 +31,7 @@ var spriteMap = map[SpriteType]*spritePosition{
 
 var animationsMap = map[consts.ObjectType]*animationPosition{
 	consts.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
-	consts.ObjectTypeBrickWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 4, false),
+	consts.ObjectTypeBrickWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 1, false),
 	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
 }
 
