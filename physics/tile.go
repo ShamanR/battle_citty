@@ -3,18 +3,20 @@ package physics
 import (
 	"github.com/beefsack/go-astar"
 	"github.com/faiface/pixel"
-	i "github.com/shamanr/battle_citty/interfaces"
+	"github.com/shamanr/battle_citty/consts"
 )
+
+const tileSize = 16
 
 type tile struct {
 	x, y int
-	level i.LevelMap
+	level consts.LevelMap
 }
 
-func newTile(pos pixel.Vec, level i.LevelMap) tile {
+func newTile(pos pixel.Vec, level consts.LevelMap) tile {
 	return tile{
-		x: int(pos.X / i.TileSize),
-		y: int(pos.X / i.TileSize),
+		x: int(pos.X / tileSize),
+		y: int(pos.X / tileSize),
 		level: level,
 	}
 }
@@ -60,11 +62,11 @@ func (t tile) PathEstimatedCost(to astar.Pather) float64 {
 	return float64(absX + absY)
 }
 
-func isFreeType(objectType i.ObjectType) bool {
-	return objectType != i.ObjectTypeBrickWall && objectType != i.ObjectTypeIronWall && objectType != i.ObjectTypeWater
+func isFreeType(objectType consts.ObjectType) bool {
+	return objectType != consts.ObjectTypeBrickWall && objectType != consts.ObjectTypeIronWall && objectType != consts.ObjectTypeWater
 }
 
-func isInsideLevel(x, y int, level i.LevelMap) bool {
+func isInsideLevel(x, y int, level consts.LevelMap) bool {
 	return x < 0 || y < 0 || x >= len(level[0]) || y >= len(level)
 }
 
