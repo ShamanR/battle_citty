@@ -8,8 +8,7 @@ import (
 )
 
 // NewTank возвращает объект танка
-func NewTank(objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Tank {
-	obj := object.NewObject(objectType, pos, spriteList)
+func NewTank(obj *object.Object) *Tank {
 	return &Tank{obj}
 }
 

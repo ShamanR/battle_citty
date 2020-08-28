@@ -10,12 +10,12 @@ import (
 )
 
 const (
-	spriteSheetSizeY = 256
-	spriteSheetSizeX = 400
+	spriteSheetSizeY  = 256
+	spriteSheetSizeX  = 400
 	defaultSpriteSize = 16
 
 	SimpleTankOrangeUp     interfaces.SpriteType = "SimpleTankOrangeUp"
-	SimpleTankOrangeUpMove            = "SimpleTankOrangeUpMove"
+	SimpleTankOrangeUpMove                       = "SimpleTankOrangeUpMove"
 )
 
 var spriteSheetSize = pixel.V(spriteSheetSizeX, spriteSheetSizeY)
@@ -26,35 +26,35 @@ var spriteMap = map[interfaces.SpriteType]*spritePosition{
 }
 
 var animationsMap = map[interfaces.ObjectType]*animationPosition{
-	interfaces.SimpleOrangeTank: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2),
+	interfaces.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2),
 }
 
 type spritePosition struct {
 	spriteSheetSize pixel.Vec
-	spriteSize int
-	positionX int
-	positionY int
+	spriteSize      int
+	positionX       int
+	positionY       int
 }
 
 func newSpritePosition(spriteSheetSize pixel.Vec, size int, posX int, posY int) *spritePosition {
 	return &spritePosition{
 		spriteSheetSize: spriteSheetSize,
-		spriteSize: size,
-		positionX:  posX,
-		positionY:  posY,
+		spriteSize:      size,
+		positionX:       posX,
+		positionY:       posY,
 	}
 }
 
 func (s *spritePosition) Bounds() pixel.Rect {
-	spriteStartY := s.spriteSheetSize.Y - float64(s.positionY * s.spriteSize)
+	spriteStartY := s.spriteSheetSize.Y - float64(s.positionY*s.spriteSize)
 	spriteStartX := float64(s.positionX * s.spriteSize)
 
-	return pixel.R(spriteStartX, spriteStartY, spriteStartX + float64(s.spriteSize), spriteStartY - float64(s.spriteSize))
+	return pixel.R(spriteStartX, spriteStartY, spriteStartX+float64(s.spriteSize), spriteStartY-float64(s.spriteSize))
 }
 
 type resourceManager struct {
 	spriteSheet pixel.Picture
-	cache map[interfaces.SpriteType]*pixel.Sprite
+	cache       map[interfaces.SpriteType]*pixel.Sprite
 }
 
 func NewResourceManager(spritePath string) *resourceManager {
@@ -65,7 +65,7 @@ func NewResourceManager(spritePath string) *resourceManager {
 
 	return &resourceManager{
 		spriteSheet: spriteSheet,
-		cache: make(map[interfaces.SpriteType]*pixel.Sprite),
+		cache:       make(map[interfaces.SpriteType]*pixel.Sprite),
 	}
 }
 
@@ -84,7 +84,7 @@ func (rm *resourceManager) getSceneObjectAnimateList(name interfaces.ObjectType,
 	framesCounter := 0
 	currentSide := 0
 	framesBuff := make([]*pixel.Sprite, position.frames, 0)
-	for i := 0; i < position.frames * 4; i++ {
+	for i := 0; i < position.frames*4; i++ {
 		spritePos := newSpritePosition(spriteSheetSize, defaultSpriteSize, position.positionX+i, position.positionY+i)
 		sprite := rm.loadSprite(interfaces.SpriteType(fmt.Sprintf("%v%d", name, currentSide)), spritePos)
 		framesBuff = append(framesBuff, sprite)
