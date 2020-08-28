@@ -11,7 +11,6 @@ import (
 	"github.com/shamanr/battle_citty/physics"
 	"github.com/shamanr/battle_citty/resource_manager"
 	"github.com/shamanr/battle_citty/scene"
-	object "github.com/shamanr/battle_citty/scene/objects"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
 	"math"
 	"time"
@@ -97,7 +96,7 @@ func (g *Game) getTileSize() pixel.Vec {
 func (g *Game) getScale() pixel.Vec {
 	tileSize := g.getTileSize()
 
-	return pixel.V(tileSize.X / consts.MapTileSize, tileSize.Y / consts.MapTileSize)
+	return pixel.V(tileSize.X/consts.MapTileSize, tileSize.Y/consts.MapTileSize)
 }
 
 func (g *Game) getNewId() int64 {
@@ -112,7 +111,7 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	for y, row := range levelMap {
 		for x, objType := range row {
 			tileSize := g.getTileSize()
-			currentPos := pixel.V(float64(x) * tileSize.X, g.window.Bounds().Max.Y - float64(y) * tileSize.Y)
+			currentPos := pixel.V(float64(x)*tileSize.X, g.window.Bounds().Max.Y-float64(y)*tileSize.Y)
 
 			sceneObj := g.getGameObjectByType(objType, currentPos)
 			scale := g.getScale()
@@ -131,9 +130,15 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 	// Сейчас switch не очень нужен, но в будущем будем так создавать игровые объекты Танк, Стена и т.д.
 	switch typ {
 	case consts.ObjectTypeBrickWall:
-		return object.NewObject(g.getNewId(), typ, &pos, g.rm.GetSpriteMap(typ))
+		obj := g.scene.MakeEmptyObj(typ)
+		obj.SetPos(&pos)
+		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+		return obj
 	case consts.ObjectTypePlayerSpawn:
-		return object.NewObject(g.getNewId(), typ, &pos, g.rm.GetSpriteMap(typ))
+		obj := g.scene.MakeEmptyObj(typ)
+		obj.SetPos(&pos)
+		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+		return obj
 	case consts.ObjectTypeEmpty:
 		return nil
 	}
