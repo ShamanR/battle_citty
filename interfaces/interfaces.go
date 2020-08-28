@@ -2,13 +2,13 @@ package interfaces
 
 import (
 	"github.com/faiface/pixel"
-	"github.com/shamanr/battle_citty/resource_manager"
+	"github.com/shamanr/battle_citty/scene/objects/tank"
 )
 
 type ObjectType uint8
 type SceneMap []SceneObject
 type LevelMap [][]ObjectType
-
+type SpriteType string
 /*
 {
 	"maps": {
@@ -19,9 +19,24 @@ type LevelMap [][]ObjectType
 }
 */
 
+const (
+	BrickWall ObjectType = iota
+	IronWall
+	Water
+	Forest
+	Ice
+	Headquarters
+	PlayerSpawn
+	AISpawn
+	Bonus
+	SimpleOrangeTank
+)
+
 type ResourceManager interface {
-	GetSprite(name string) *pixel.Sprite
-	LoadMap() SceneMap
+	GetSprite(name SpriteType) *pixel.Sprite
+	GetSpriteMap(name ObjectType) *SceneObjectAnimateList
+	LoadMap() *SceneMap
+	MakeTank(name ObjectType) *tank.Tank
 }
 type SceneObjectAnimateList struct {
 	LeftSprite   []*pixel.Sprite
@@ -44,7 +59,7 @@ type SceneObject interface {
 	IsVisible() bool
 	SetVisible(visible bool)
 	GetObjects() []SceneObject
-	GetObjectType() resource_manager.ObjectType
+	GetObjectType() ObjectType
 	Delete()
 }
 type Scene interface {
