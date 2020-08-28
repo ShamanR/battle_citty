@@ -1,6 +1,8 @@
 package game
 
 import (
+	"errors"
+	"fmt"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/actors"
@@ -9,6 +11,7 @@ import (
 	"github.com/shamanr/battle_citty/physics"
 	"github.com/shamanr/battle_citty/resource_manager"
 	"github.com/shamanr/battle_citty/scene"
+	object "github.com/shamanr/battle_citty/scene/objects"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
 	"time"
 )
@@ -19,6 +22,8 @@ type Game struct {
 	physics interfaces.Physics
 	window  *pixelgl.Window
 	player  actors.User
+
+	lastID	int64
 }
 
 func (g *Game) Init() {
@@ -33,6 +38,7 @@ func (g *Game) Init() {
 		panic(err)
 	}
 	g.window = win
+	g.lastID = 0
 	// Создаем СЦЕНУ
 	g.scene = scene.NewScene()
 	// Создаем ресурс-менеджер
@@ -76,6 +82,9 @@ func (g *Game) Init() {
 
 func (g *Game) StartLevel() {
 	last := time.Now()
+	g.lastID = 0
+	// Стартуем первый уровень
+	g.fillSceneByMap("resources/level1.json")
 	for !g.window.Closed() {
 		dt := time.Since(last)
 		<-time.After(time.Millisecond * 30)
@@ -84,6 +93,36 @@ func (g *Game) StartLevel() {
 		g.window.Update()
 		last = time.Now()
 	}
+}
+
+func (g *Game) getNewId() int64 {
+	g.lastID++
+	return g.lastID
+}
+
+func (g *Game) fillSceneByMap(levelMapPath string) {
+	levelMap := g.rm.LoadMap(levelMapPath)
+
+	var sceneObjects []interfaces.SceneObject
+	for y, row := range levelMap {
+		for x, objType := range row {
+			currentPos := pixel.V(float64(x * consts.MapTileSize), float64(y * consts.MapTileSize))
+
+			sceneObjects = append(sceneObjects, g.getGameObjectByType(objType, currentPos))
+		}
+	}
+}
+
+func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfaces.SceneObject {
+	// Сейчас switch не очень нужен, но в будущем будем так создавать игровые объекты Танк, Стена и т.д.
+	switch typ {
+	case consts.ObjectTypeBrickWall:
+		return object.NewObject(g.getNewId(), typ, &pos, g.rm.GetSpriteMap(typ))
+	case consts.ObjectTypePlayerSpawn:
+		return object.NewObject(g.getNewId(), typ, &pos, g.rm.GetSpriteMap(typ))
+	}
+
+	panic(errors.New(fmt.Sprintf("Unable to create object type %s", typ)))
 }
 
 func (g *Game) MakeTank() *tank.Tank {
