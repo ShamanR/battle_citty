@@ -38,7 +38,6 @@ func (g *Game) Init() {
 		panic(err)
 	}
 	g.window = win
-	g.lastID = 0
 	// Создаем СЦЕНУ
 	g.scene = scene.NewScene()
 	// Создаем ресурс-менеджер
@@ -74,7 +73,6 @@ func (g *Game) Init() {
 
 func (g *Game) StartLevel() {
 	last := time.Now()
-	g.lastID = 0
 	for !g.window.Closed() {
 		dt := time.Since(last)
 		last = time.Now()
@@ -97,11 +95,6 @@ func (g *Game) getScale() pixel.Vec {
 	tileSize := g.getTileSize()
 
 	return pixel.V(tileSize.X/consts.MapTileSize, tileSize.Y/consts.MapTileSize)
-}
-
-func (g *Game) getNewId() int64 {
-	g.lastID++
-	return g.lastID
 }
 
 func (g *Game) fillSceneByMap(levelMapPath string) {
