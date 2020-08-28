@@ -4,13 +4,17 @@ import (
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/interfaces"
-	"github.com/shamanr/battle_citty/resource_manager"
+	"github.com/shamanr/battle_citty/scene"
+	"github.com/shamanr/battle_citty/scene/objects/tank"
 )
 
 type Game struct {
+	scene  scene.Scene
+	rm     interfaces.ResourceManager
+	window *pixelgl.Window
 }
 
-func (g *Game) Run() {
+func (g *Game) Init() {
 	// СОЗДАЕМ ОКНО ИГРЫ
 	cfg := pixelgl.WindowConfig{
 		Title:  "Platformer",
@@ -47,10 +51,13 @@ func (g *Game) Run() {
 	}
 
 	//
-	userTank := rm.MakeTank(interfaces.ObjectTypePlayerTank1)
 }
 
-func (g *Game) MakeTank() {}
+func (g *Game) MakeTank() *tank.Tank {
+	obj := g.scene.MakeEmptyObj()
+	obj.SetSpriteList(g.rm.GetSpriteMap(interfaces.ObjectTypePlayerTank1))
+	return &tank.Tank{obj}
+}
 
 func (g *Game) MakeScene() interfaces.Scene {
 	return nil

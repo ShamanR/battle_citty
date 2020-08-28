@@ -35,7 +35,7 @@ type Object struct {
 // - spriteList -- структура спрайтов для анимации
 func NewObject(ID int64, objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Object {
 	obj := Object{
-		ID:         ID,
+		id:         ID,
 		objectType: objectType,
 	}
 	obj.SetPos(pos)
@@ -67,8 +67,8 @@ func (o *Object) SetSpeed(vect *pixel.Vec) {
 	o.speed = pixel.V(vect.X, vect.Y)
 }
 
-// getSprite возвращает активный спрайт
-func (o *Object) getSprite() *pixel.Sprite {
+// GetSprite возвращает активный спрайт
+func (o *Object) GetSprite() *pixel.Sprite {
 	o.spriteIndex++
 	o.spriteIndex %= o.getSriteListLen()
 	if o.orientation == interfaces.OrientationTop {
@@ -111,7 +111,7 @@ func (o *Object) getSriteListLen() int64 {
 
 // Draw выполняет отрисовку объекта в target
 func (o *Object) Draw(target pixel.Target) {
-	s := o.getSprite()
+	s := o.GetSprite()
 	m := pixel.IM.Scaled(pixel.ZV, o.scale).Moved(*o.GetPos())
 	s.Draw(target, m)
 }

@@ -1,6 +1,7 @@
 package interfaces
 
 import (
+	"github.com/shamanr/battle_citty/resource_manager"
 	"time"
 
 	"github.com/faiface/pixel"
@@ -14,7 +15,6 @@ type SceneMap []SceneObject
 
 // LevelMap ...
 type LevelMap [][]ObjectType
-type SpriteType string
 
 // Orientation ориентация
 type Orientation uint8
@@ -30,7 +30,8 @@ type Orientation uint8
 */
 
 const (
-	ObjectTypeBrickWall ObjectType = iota
+	ObjectTypeEmpty ObjectType = iota
+	ObjectTypeBrickWall
 	ObjectTypeIronWall
 	ObjectTypeWater
 	ObjectTypeForest
@@ -58,9 +59,9 @@ const (
 )
 
 type ResourceManager interface {
-	GetSprite(name SpriteType) *pixel.Sprite
+	GetSprite(name resource_manager.SpriteType) *pixel.Sprite
 	GetSpriteMap(name ObjectType) *SceneObjectAnimateList
-	LoadMap() *SceneMap
+	LoadMap() SceneMap
 	MakeTank(name ObjectType) SceneObject
 }
 
@@ -69,14 +70,13 @@ type SceneObjectAnimateList map[Orientation][]*pixel.Sprite
 
 // SceneObject интерфейс
 type SceneObject interface {
-	GetId() int64
+	GetID() int64
 	GetPos() *pixel.Vec
 	SetPos(vect *pixel.Vec)
 	GetSpeed() *pixel.Vec
 	SetSpeed(vect *pixel.Vec)
-	getSprite() *pixel.Sprite
+	GetSprite() *pixel.Sprite
 	SetSpriteList(list *SceneObjectAnimateList)
-	getSriteListLen() int64
 	Draw(target pixel.Target)
 	SetScale(scale float64)
 	GetScale() float64
