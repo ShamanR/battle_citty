@@ -19,7 +19,8 @@ const (
 	Forest
 	Ice
 	Headquarters
-	Spawn
+	PlayerSpawn
+	AISpawn
 	Bonus
 )
 
@@ -32,7 +33,7 @@ const (
 	SimpleTankOrangeUpMove            = "SimpleTankOrangeUpMove"
 )
 
-var spriteSheetSize pixel.Vec = pixel.V(spriteSheetSizeX, spriteSheetSizeY)
+var spriteSheetSize = pixel.V(spriteSheetSizeX, spriteSheetSizeY)
 
 var spriteMap = map[SpriteType]*SpritePosition{
 	SimpleTankOrangeUp:     newSpritePosition(spriteSheetSize, defaultSpriteSize, 1, 1),
