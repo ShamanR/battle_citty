@@ -19,6 +19,14 @@ func (p *Physics) initCollisionsMap() {
 		consts.ObjectTypeIronWall:    true,
 		consts.ObjectTypeWater:       true,
 		consts.ObjectTypeProjectile:  true,
+		consts.ObjectTypeBrickWallDamagedTop: true,
+		consts.ObjectTypeBrickWallDamagedLeft: true,
+		consts.ObjectTypeBrickWallDamagedRight: true,
+		consts.ObjectTypeBrickWallDamagedDown: true,
+		consts.ObjectTypeIronWallDamagedTop: true,
+		consts.ObjectTypeIronWallDamagedLeft: true,
+		consts.ObjectTypeIronWallDamagedRight: true,
+		consts.ObjectTypeIronWallDamagedDown: true,
 	}
 
 	p.collisionRules = map[consts.ObjectType]map[consts.ObjectType]bool{
@@ -42,6 +50,14 @@ func (p *Physics) initCollisionsMap() {
 			consts.ObjectTypeBrickWall:    true,
 			consts.ObjectTypeIronWall:     true,
 			consts.ObjectTypeHeadquarters: true,
+			consts.ObjectTypeBrickWallDamagedTop: true,
+			consts.ObjectTypeBrickWallDamagedLeft: true,
+			consts.ObjectTypeBrickWallDamagedRight: true,
+			consts.ObjectTypeBrickWallDamagedDown: true,
+			consts.ObjectTypeIronWallDamagedTop: true,
+			consts.ObjectTypeIronWallDamagedLeft: true,
+			consts.ObjectTypeIronWallDamagedRight: true,
+			consts.ObjectTypeIronWallDamagedDown: true,
 		},
 	}
 }
