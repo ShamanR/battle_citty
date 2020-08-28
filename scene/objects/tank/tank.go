@@ -75,7 +75,7 @@ func (t *Tank) Stop() {
 // Shoot стрельба
 func (t *Tank) Shoot() {
 	bulletObj := t.GetScene().MakeEmptyObj(consts.ObjectTypeProjectile)
-	vec := t.GetPos().Add((*t.getOrientationVec()).Scaled(48))
+	vec := t.GetPos().Add((*t.getOrientationVec()).Scaled(8))
 	bulletObj.SetPos(&vec)
 	bulletObj.SetOrientation(t.GetOrientation())
 	bulletObj.SetVisible(true)
