@@ -1,17 +1,32 @@
 package resource_manager
 
-import "github.com/shamanr/battle_citty/interfaces"
+import (
+	"github.com/faiface/pixel"
+	"github.com/shamanr/battle_citty/interfaces"
+)
 
-func NewSceneObjectAnimateList(startX, startY, frames int) *interfaces.SceneObjectAnimateList {
-	for i := 0; i < frames * 4; i++ {
-		sprite := newSpritePosition(spriteSheetSize, defaultSpriteSize, startX+i, startY+i)
-	}
+var sides = [4]interfaces.Orientation{
+	interfaces.OrientationTop,
+	interfaces.OrientationLeft,
+	interfaces.OrientationBottom,
+	interfaces.OrientationRight,
+}
 
-	return &interfaces.SceneObjectAnimateList{
-		LeftSprite:   nil,
-		RightSprite:  nil,
-		TopSprite:    nil,
-		BottomSprite: nil,
+type animationPosition struct {
+	spriteSheetSize pixel.Vec
+	spriteSize int
+	positionX int
+	positionY int
+	frames int
+}
+
+func newAnimationPosition(spriteSheetSize pixel.Vec, spriteSize, startX, startY, frames int) *animationPosition {
+	return &animationPosition{
+		spriteSheetSize: spriteSheetSize,
+		spriteSize: spriteSize,
+		positionX:  startX,
+		positionY:  startY,
+		frames: frames,
 	}
 }
 
