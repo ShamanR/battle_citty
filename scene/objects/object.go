@@ -13,7 +13,7 @@ type Object struct {
 
 	// props
 	visible bool
-	scale pixel.Vec
+	scale   pixel.Vec
 
 	// bounds and pos
 	pos         pixel.Vec
@@ -77,9 +77,12 @@ func (o *Object) GetSprite() *pixel.Sprite {
 	if o.spriteList == nil || len(*o.spriteList) == 0 {
 		return nil
 	}
+	return (*o.spriteList)[o.orientation][o.spriteIndex]
+}
+
+func (o *Object) NextSprite() {
 	o.spriteIndex++
 	o.spriteIndex %= int64(len((*o.spriteList)[o.orientation]))
-	return (*o.spriteList)[o.orientation][o.spriteIndex]
 }
 
 // SetSpriteList обновляет spriteList объекта

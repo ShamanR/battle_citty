@@ -2,14 +2,14 @@ package resource_manager
 
 import (
 	"fmt"
-	"github.com/faiface/pixel"
-	"github.com/google/uuid"
-	"github.com/pkg/errors"
-	"github.com/shamanr/battle_citty/consts"
-	"github.com/shamanr/battle_citty/interfaces"
 	"image"
 	_ "image/png"
 	"os"
+
+	"github.com/faiface/pixel"
+	"github.com/pkg/errors"
+	"github.com/shamanr/battle_citty/consts"
+	"github.com/shamanr/battle_citty/interfaces"
 )
 
 type SpriteType string
@@ -91,7 +91,7 @@ func (rm *resourceManager) getSceneObjectAnimateList(name consts.ObjectType, pos
 	framesCounter := 0
 	currentSide := 0
 	framesBuff := make([]*pixel.Sprite, 0, position.frames)
-	for i := 0; i < position.frames * len(sides); i++ {
+	for i := 0; i < position.frames*len(sides); i++ {
 		spritePos := newSpritePosition(spriteSheetSize, defaultSpriteSize, position.positionX+i, position.positionY)
 		sprite := rm.loadSprite(SpriteType(fmt.Sprintf("%d%d", spritePos.positionY, spritePos.positionX)), spritePos)
 		framesBuff = append(framesBuff, sprite)

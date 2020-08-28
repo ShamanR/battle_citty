@@ -1,8 +1,9 @@
 package interfaces
 
 import (
-	"github.com/shamanr/battle_citty/consts"
 	"time"
+
+	"github.com/shamanr/battle_citty/consts"
 
 	"github.com/faiface/pixel"
 )
@@ -47,6 +48,7 @@ type SceneObject interface {
 	GetObjectType() consts.ObjectType
 	SetOrientation(orient consts.Orientation)
 	GetOrientation() consts.Orientation
+	NextSprite()
 	Delete()
 }
 
