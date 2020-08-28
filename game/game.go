@@ -130,6 +130,7 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	}
 
 	g.scene.SetSceneObjects(sceneObjects)
+	g.scene.SetLevelMap(levelMap)
 }
 
 func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfaces.SceneObject {

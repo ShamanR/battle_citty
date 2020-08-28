@@ -1,28 +1,52 @@
 package physics
 
 import (
+	"fmt"
 	"github.com/beefsack/go-astar"
-	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/consts"
 )
 
 type tile struct {
-	x, y int
-	level consts.LevelMap
-	tileSize, scale int
+	x, y      int
+	Container *tileContainer
 }
 
-func newTile(pos pixel.Vec, level consts.LevelMap, tileSize, scale int) tile {
-	return tile{
-		x: int(pos.X / float64(tileSize * scale)),
-		y: int(pos.X / float64(tileSize * scale)),
+type tileContainer struct {
+	level consts.LevelMap
+	tiles [][]*tile
+}
+
+func newTileContainer(level consts.LevelMap) *tileContainer {
+	tiles := make([][]*tile, len(level))
+	for i := range tiles {
+		tiles[i] = make([]*tile, len(level[i]))
+	}
+	return &tileContainer{
 		level: level,
-		tileSize: tileSize,
-		scale: scale,
+		tiles: tiles,
 	}
 }
 
-func (t tile) PathNeighbors() []astar.Pather {
+func (c *tileContainer) getTile(x, y int) *tile {
+	if x < 0 || y < 0 || y >= len(c.level) || x >= len(c.level[0]) {
+		return nil
+	}
+
+	t := c.tiles[y][x]
+	if t != nil {
+		return t
+	}
+
+	t = &tile{
+		x:         x,
+		y:         y,
+		Container: c,
+	}
+	c.tiles[y][x] = t
+	return t
+}
+
+func (t *tile) PathNeighbors() []astar.Pather {
 	var neighbors []astar.Pather
 	for _, offset := range [][]int{
 		{-1, 0},
@@ -33,26 +57,27 @@ func (t tile) PathNeighbors() []astar.Pather {
 		nx := t.x + offset[0]
 		ny := t.y + offset[1]
 
-		if !isInsideLevel(nx, ny, t.level) {
+		nt := t.Container.getTile(nx, ny)
+		if nt == nil {
 			continue
 		}
 
-		if !isFreeType(t.level[ny][nx]) {
+		if !isFreeType((t.Container.level)[ny][nx]) {
 			continue
 		}
 
-		neighbors = append(neighbors, newTile(pixel.V(float64(nx), float64(ny)), t.level, t.tileSize, t.scale))
+		neighbors = append(neighbors, nt)
 	}
 	return neighbors
 }
 
-func (t tile) PathNeighborCost(to astar.Pather) float64 {
+func (t *tile) PathNeighborCost(to astar.Pather) float64 {
 	return 1
 }
 
-func (t tile) PathEstimatedCost(to astar.Pather) float64 {
+func (t *tile) PathEstimatedCost(to astar.Pather) float64 {
 	toT := to.(*tile)
-	absX := toT.x - t.y
+	absX := toT.x - t.x
 	if absX < 0 {
 		absX = -absX
 	}
@@ -63,11 +88,10 @@ func (t tile) PathEstimatedCost(to astar.Pather) float64 {
 	return float64(absX + absY)
 }
 
+func (t tile) String() string {
+	return fmt.Sprintf("%d.%d", t.x, t.y)
+}
+
 func isFreeType(objectType consts.ObjectType) bool {
 	return objectType != consts.ObjectTypeBrickWall && objectType != consts.ObjectTypeIronWall && objectType != consts.ObjectTypeWater
 }
-
-func isInsideLevel(x, y int, level consts.LevelMap) bool {
-	return x < 0 || y < 0 || x >= len(level[0]) || y >= len(level)
-}
-

@@ -58,6 +58,7 @@ type Scene interface {
 	SetSceneObjects(objects []SceneObject)
 	GetSceneMap() SceneMap
 	GetLevelMap() consts.LevelMap
+	SetLevelMap(levelMap consts.LevelMap)
 	MakeEmptyObj(objType consts.ObjectType) SceneObject
 	Draw(target pixel.Target)
 }
