@@ -1,9 +1,16 @@
 package main
 
-import "github.com/shamanr/battle_citty/game"
+import (
+	"github.com/faiface/pixel/pixelgl"
+	"github.com/shamanr/battle_citty/game"
+)
 
-func main() {
+func run() {
 	game := game.Game{}
 	game.Init()
 	game.StartLevel()
+}
+
+func main() {
+	pixelgl.Run(run)
 }

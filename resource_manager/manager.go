@@ -7,6 +7,7 @@ import (
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
 	"image"
+	_ "image/png"
 	"os"
 )
 

@@ -36,27 +36,30 @@ func (g *Game) Init() {
 	// Создаем СЦЕНУ
 	g.scene = scene.NewScene()
 	// Создаем ресурс-менеджер
-	g.rm = resource_manager.NewResourceManager("./resources/textures.png")
+	g.rm = resource_manager.NewResourceManager("resources/textures.png")
 	// создаем физику
 	g.physics = physics.New(time.Millisecond * 33)
 	// ЗАГРУЖАЕМ НА СЦЕНУ КАРТУ
-	mapObjects := g.rm.LoadMap("")
-	for _, obj := range mapObjects {
-		g.scene.AddObject(obj)
-	}
-	// Ищем точки РЕСПА ИГРОКА и Врагов
-	var userSpawn interfaces.SceneObject
-	var enemySpawns []interfaces.SceneObject
-	userSpawn = nil
-	for _, obj := range mapObjects {
-		if obj.GetObjectType() == consts.ObjectTypePlayerSpawn {
-			userSpawn = obj
-			continue
-		}
-		if obj.GetObjectType() == consts.ObjectTypeAISpawn {
-			enemySpawns = append(enemySpawns, obj)
-		}
-	}
+	//mapObjects := g.rm.LoadMap("")
+	//for _, obj := range mapObjects {
+	//	g.scene.AddObject(obj)
+	//}
+	//// Ищем точки РЕСПА ИГРОКА и Врагов
+	//var userSpawn interfaces.SceneObject
+	//var enemySpawns []interfaces.SceneObject
+	//userSpawn = nil
+	//for _, obj := range mapObjects {
+	//	if obj.GetObjectType() == consts.ObjectTypePlayerSpawn {
+	//		userSpawn = obj
+	//		continue
+	//	}
+	//	if obj.GetObjectType() == consts.ObjectTypeAISpawn {
+	//		enemySpawns = append(enemySpawns, obj)
+	//	}
+	//}
+	userSpawn := g.scene.MakeEmptyObj()
+	pos := g.window.Bounds().Center()
+	userSpawn.SetPos(&pos)
 	if userSpawn == nil {
 		panic("userSpawn not found on map")
 	}
@@ -73,7 +76,7 @@ func (g *Game) Init() {
 
 func (g *Game) StartLevel() {
 	last := time.Now()
-	for g.window.Closed() {
+	for !g.window.Closed() {
 		dt := time.Since(last)
 		<-time.After(time.Millisecond * 30)
 		g.physics.MoveObjects(g.scene.GetObjects(), dt)

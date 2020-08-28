@@ -11,7 +11,9 @@ type Physics struct {
 }
 
 func New(frameDuration time.Duration) *Physics {
-	p := &Physics{}
+	p := &Physics{
+		frameDuration: frameDuration,
+	}
 	p.initCollisionsMap()
 	return p
 }

@@ -52,6 +52,7 @@ func (s *Scene) MakeEmptyObj() interfaces.SceneObject {
 	pos := pixel.V(-100, -100) // за пределами экрана
 	obj := object.NewObject(id, consts.ObjectTypeEmpty, &pos, nil)
 	obj.SetVisible(false)
+	s.objects = append(s.objects, obj)
 	return obj
 }
 
