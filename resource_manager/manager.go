@@ -83,16 +83,18 @@ func (rm *resourceManager) getSceneObjectAnimateList(name interfaces.ObjectType,
 
 	framesCounter := 0
 	currentSide := 0
-	framesBuff := make([]*pixel.Sprite, position.frames, 0)
+	framesBuff := make([]*pixel.Sprite, 0, position.frames)
 	for i := 0; i < position.frames * 4; i++ {
-		spritePos := newSpritePosition(spriteSheetSize, defaultSpriteSize, position.positionX+i, position.positionY+i)
+		spritePos := newSpritePosition(spriteSheetSize, defaultSpriteSize, position.positionX+i, position.positionY)
 		sprite := rm.loadSprite(interfaces.SpriteType(fmt.Sprintf("%v%d", name, currentSide)), spritePos)
 		framesBuff = append(framesBuff, sprite)
 
-		framesCounter += 1
+		framesCounter ++
 		if framesCounter == position.frames {
 			(*animationsList)[sides[currentSide]] = framesBuff
 			framesCounter = 0
+			currentSide++
+			framesBuff = make([]*pixel.Sprite, 0, position.frames)
 		}
 	}
 
