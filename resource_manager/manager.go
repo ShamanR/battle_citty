@@ -37,7 +37,7 @@ var spriteSheetSize = pixel.V(spriteSheetSizeX, spriteSheetSizeY)
 
 var spriteMap = map[SpriteType]*SpritePosition{
 	SimpleTankOrangeUp:     newSpritePosition(spriteSheetSize, defaultSpriteSize, 0, 0),
-	SimpleTankOrangeUpMove: newSpritePosition(spriteSheetSize, defaultSpriteSize, 2, 1),
+	SimpleTankOrangeUpMove: newSpritePosition(spriteSheetSize, defaultSpriteSize, 1, 0),
 }
 
 type SpritePosition struct {

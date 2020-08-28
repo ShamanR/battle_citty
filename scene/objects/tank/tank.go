@@ -1,7 +1,7 @@
 package tank
 
 import (
-	object "playground/battle_citty/scene/objects"
+	object "github.com/shamanr/battle_citty/scene/objects"
 
 	"github.com/faiface/pixel"
 )
