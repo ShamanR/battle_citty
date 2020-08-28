@@ -13,6 +13,7 @@ import (
 	"github.com/shamanr/battle_citty/scene"
 	object "github.com/shamanr/battle_citty/scene/objects"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
+	"math"
 	"time"
 )
 
@@ -85,6 +86,19 @@ func (g *Game) StartLevel() {
 	}
 }
 
+func (g *Game) getTileSize() pixel.Vec {
+	tileSizeX := math.Round(g.window.Bounds().Max.X / consts.MapSize)
+	tileSizeY := math.Round(g.window.Bounds().Max.Y / consts.MapSize)
+
+	return pixel.V(tileSizeX, tileSizeY)
+}
+
+func (g *Game) getScale() pixel.Vec {
+	tileSize := g.getTileSize()
+
+	return pixel.V(tileSize.X / consts.MapTileSize, tileSize.Y / consts.MapTileSize)
+}
+
 func (g *Game) getNewId() int64 {
 	g.lastID++
 	return g.lastID
@@ -96,7 +110,7 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	var sceneObjects []interfaces.SceneObject
 	for y, row := range levelMap {
 		for x, objType := range row {
-			currentPos := pixel.V(float64(x*consts.MapTileSize), g.window.Bounds().Max.Y-float64(y*consts.MapTileSize))
+			currentPos := pixel.V(float64(x * consts.MapTileSize * consts.ScaleSprites), g.window.Bounds().Max.Y - float64(y * consts.MapTileSize * consts.ScaleSprites))
 
 			sceneObj := g.getGameObjectByType(objType, currentPos)
 			if sceneObj != nil {
