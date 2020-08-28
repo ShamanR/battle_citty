@@ -53,12 +53,7 @@ type ResourceManager interface {
 }
 
 // SceneObjectAnimateList структуры анимации (для танков?)
-type SceneObjectAnimateList struct {
-	LeftSprite   []*pixel.Sprite
-	RightSprite  []*pixel.Sprite
-	TopSprite    []*pixel.Sprite
-	BottomSprite []*pixel.Sprite
-}
+type SceneObjectAnimateList map[Orientation][]*pixel.Sprite
 
 // SceneObject интерфейс
 type SceneObject interface {
