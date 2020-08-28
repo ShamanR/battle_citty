@@ -28,8 +28,9 @@ func (ai *AI) SetTank(tank Tank) {
 }
 
 func (ai *AI) Tick(dt time.Duration) {
-	if ai.wait < time.Millisecond*500 {
+	if ai.wait < time.Millisecond*300 {
 		ai.wait += dt
+		ai.Move(ai.currentOrientation)
 		return
 	}
 	ai.wait = 0
