@@ -79,6 +79,7 @@ func (g *Game) StartLevel() {
 	for !g.window.Closed() {
 		dt := time.Since(last)
 		<-time.After(time.Millisecond * 30)
+		g.player.AttachToKeyboard(g.window)
 		g.physics.MoveObjects(g.scene.GetObjects(), dt)
 		g.scene.Draw(g.window)
 		g.window.Update()
