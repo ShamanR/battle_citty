@@ -6,18 +6,19 @@ import (
 	"github.com/shamanr/battle_citty/consts"
 )
 
-const tileSize = 16
-
 type tile struct {
 	x, y int
 	level consts.LevelMap
+	tileSize, scale int
 }
 
-func newTile(pos pixel.Vec, level consts.LevelMap) tile {
+func newTile(pos pixel.Vec, level consts.LevelMap, tileSize, scale int) tile {
 	return tile{
-		x: int(pos.X / tileSize),
-		y: int(pos.X / tileSize),
+		x: int(pos.X / float64(tileSize * scale)),
+		y: int(pos.X / float64(tileSize * scale)),
 		level: level,
+		tileSize: tileSize,
+		scale: scale,
 	}
 }
 
@@ -40,7 +41,7 @@ func (t tile) PathNeighbors() []astar.Pather {
 			continue
 		}
 
-		neighbors = append(neighbors, newTile(pixel.V(float64(nx), float64(ny)), t.level))
+		neighbors = append(neighbors, newTile(pixel.V(float64(nx), float64(ny)), t.level, t.tileSize, t.scale))
 	}
 	return neighbors
 }
