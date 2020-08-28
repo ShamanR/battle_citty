@@ -75,7 +75,7 @@ func (g *Game) Init() {
 	g.ai = actors.NewAI()
 	aiTank := g.MakeTank()
 	// Инстанцируем объект на сцену в точку респа
-	enemyPos := userSpawn.GetPos().Add(pixel.V(100, 100))
+	enemyPos := userSpawn.GetPos().Add(pixel.V(100, 140))
 	aiTank.SetPos(&enemyPos)
 	aiTank.SetScale(g.getScale())
 	g.ai.SetTank(aiTank)
@@ -117,7 +117,7 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	for y, row := range levelMap {
 		for x, objType := range row {
 			tileSize := g.getTileSize()
-			currentPos := pixel.V(float64(x)*tileSize.X + tileSize.X/2, g.window.Bounds().Max.Y-float64(y)*tileSize.Y - tileSize.Y/2)
+			currentPos := pixel.V(float64(x)*tileSize.X+tileSize.X/2, g.window.Bounds().Max.Y-float64(y)*tileSize.Y-tileSize.Y/2)
 
 			sceneObj := g.getGameObjectByType(objType, currentPos)
 			scale := g.getScale()
