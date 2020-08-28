@@ -1,37 +1,49 @@
 package tank
 
 import (
+	object "playground/battle_citty/scene/objects"
+
 	"github.com/faiface/pixel"
-	"math"
 )
 
-func NewTank(sprite *pixel.Sprite, pos pixel.Vec) *Tank {
-	return &Tank{
-		sprite: sprite,
-		pos:    pos,
-		angle:  0,
-	}
+func NewTank() *Tank {
+	return &Tank{}
 }
 
 type Tank struct {
-	sprite *pixel.Sprite
-	angle  float64
-	pos    pixel.Vec
+	object.Object
 }
 
+// MoveLeft передвигает танк влево
 func (t *Tank) MoveLeft() {
-	t.pos.X = t.pos.X - 5
-	t.angle = math.Pi / 2
+	v := t.GetPos()
+	vn := pixel.V(v.X-5, v.Y)
+	t.SetPos(&vn)
+	// t.pos.X = t.pos.X - 5
+	t.SetOrientation(object.OrientationLeft)
 }
 
+// MoveRight передвигает танк вправо
 func (t *Tank) MoveRight() {
-	t.pos.X = t.pos.X + 5
-	t.angle = -math.Pi / 2
+	v := t.GetPos()
+	vn := pixel.V(v.X+5, v.Y)
+	t.SetPos(&vn)
+	t.SetOrientation(object.OrientationRight)
 }
 
-func (t *Tank) Draw(target pixel.Target) {
-	//t.sprite.Frame().Moved(t.pos)
-	mat := pixel.IM.Rotated(pixel.ZV, t.angle).Scaled(pixel.ZV, 3).Moved(t.pos)
+// MoveUp передвигает танк влево
+func (t *Tank) MoveUp() {
+	v := t.GetPos()
+	vn := pixel.V(v.X, v.Y+5)
+	t.SetPos(&vn)
+	// t.pos.X = t.pos.X - 5
+	t.SetOrientation(object.OrientationTop)
+}
 
-	t.sprite.Draw(target, mat)
+// MoveDown передвигает танк вправо
+func (t *Tank) MoveDown() {
+	v := t.GetPos()
+	vn := pixel.V(v.X, v.Y-5)
+	t.SetPos(&vn)
+	t.SetOrientation(object.OrientationBottom)
 }
