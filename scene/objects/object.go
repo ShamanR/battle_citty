@@ -34,6 +34,7 @@ type SceneObject interface {
 	SetSpeed(vect *pixel.Vec)
 	getSprite() *pixel.Sprite
 	SetSpriteList(list *SceneObjectAnimateList)
+	getSriteListLen() int64
 	Draw(target pixel.Target)
 	SetScale(scale float64)
 	GetScale() float64
@@ -104,6 +105,8 @@ func (o *Object) SetSpeed(vect *pixel.Vec) {
 
 // getSprite возвращает активный спрайт
 func (o *Object) getSprite() *pixel.Sprite {
+	o.spriteIndex += 1
+	o.spriteIndex %= o.getSriteListLen()
 	if o.orientation == OrientationTop {
 		return o.spriteList.TopSprite[o.spriteIndex]
 	}
@@ -123,6 +126,23 @@ func (o *Object) getSprite() *pixel.Sprite {
 // SetSpriteList обновляет spriteList объекта
 func (o *Object) SetSpriteList(list *SceneObjectAnimateList) {
 	o.spriteList = list
+}
+
+func (o *Object) getSriteListLen() int64 {
+	l := 0
+	if o.orientation == OrientationTop {
+		l = len(o.spriteList.TopSprite)
+	}
+	if o.orientation == OrientationRight {
+		l = len(o.spriteList.RightSprite)
+	}
+	if o.orientation == OrientationBottom {
+		l = len(o.spriteList.BottomSprite)
+	}
+	if o.orientation == OrientationLeft {
+		l = len(o.spriteList.LeftSprite)
+	}
+	return int64(l)
 }
 
 // Draw выполняет отрисовку объекта в target
