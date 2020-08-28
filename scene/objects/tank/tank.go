@@ -57,6 +57,7 @@ func (t *Tank) move() {
 		vec.X = 1 * float64(t.tankSpeed)
 	}
 	t.SetSpeed(&vec)
+	t.NextSprite()
 }
 
 // Stop остановка танка
