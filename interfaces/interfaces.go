@@ -30,17 +30,24 @@ type Orientation uint8
 */
 
 const (
-	BrickWall ObjectType = iota
-	IronWall
-	Water
-	Forest
-	Ice
-	Headquarters
-	PlayerSpawn
-	AISpawn
-	Bonus
-	SimpleOrangeTank
-	Projectile
+	ObjectTypeBrickWall ObjectType = iota
+	ObjectTypeIronWall
+	ObjectTypeWater
+	ObjectTypeForest
+	ObjectTypeIce
+	ObjectTypeHeadquarters
+	ObjectTypePlayerSpawn
+	ObjectTypeAISpawn
+	ObjectTypeBonus
+	ObjectTypePlayerTank1
+	ObjectTypePlayerTank2
+	ObjectTypePlayerTank3
+	ObjectTypePlayerTank4
+	ObjectTypeEnemyTank1
+	ObjectTypeEnemyTank2
+	ObjectTypeEnemyTank3
+	ObjectTypeEnemyTank4
+	ObjectTypeProjectile
 )
 
 const (
@@ -64,6 +71,7 @@ type SceneObjectAnimateList map[Orientation][]*pixel.Sprite
 
 // SceneObject интерфейс
 type SceneObject interface {
+	GetId() int64
 	GetPos() *pixel.Vec
 	SetPos(vect *pixel.Vec)
 	GetSpeed() *pixel.Vec
@@ -85,7 +93,7 @@ type SceneObject interface {
 
 type Scene interface {
 	GetObjects() []SceneObject
-	GetObjectById() SceneObject
+	GetObjectByID(id int64) SceneObject
 	AddObject(object SceneObject)
 	GetSceneMap() SceneMap
 	GetLevelMap() LevelMap

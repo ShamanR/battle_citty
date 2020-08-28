@@ -34,18 +34,23 @@ func (g *Game) Run() {
 	var enemySpawns []interfaces.SceneObject
 	userSpawn = nil
 	for _, obj := range mapObjects {
-		if obj.GetObjectType() == resource_manager.PlayerSpawn {
+		if obj.GetObjectType() == interfaces.ObjectTypePlayerSpawn {
 			userSpawn = obj
 			continue
 		}
-		if obj.GetObjectType() == resource_manager.AISpawn {
+		if obj.GetObjectType() == interfaces.ObjectTypeAISpawn {
 			enemySpawns = append(enemySpawns, obj)
 		}
 	}
 	if userSpawn == nil {
 		panic("userSpawn not found on map")
 	}
+
+	//
+	userTank := rm.MakeTank(interfaces.ObjectTypePlayerTank1)
 }
+
+func (g *Game) MakeTank() {}
 
 func (g *Game) MakeScene() interfaces.Scene {
 	return nil

@@ -7,6 +7,7 @@ import (
 
 // Object базовая структура
 type Object struct {
+	id         int64
 	objectType interfaces.ObjectType
 
 	// props
@@ -32,13 +33,18 @@ type Object struct {
 // - objectType -- тип объекта
 // - pos -- позиция объекта на карте
 // - spriteList -- структура спрайтов для анимации
-func NewObject(objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Object {
+func NewObject(ID int64, objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Object {
 	obj := Object{
+		ID:         ID,
 		objectType: objectType,
 	}
 	obj.SetPos(pos)
 	obj.SetSpriteList(spriteList)
 	return &obj
+}
+
+func (o *Object) GetID() int64 {
+	return o.id
 }
 
 // GetPos возвращает позицию объекта
