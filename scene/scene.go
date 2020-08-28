@@ -56,6 +56,7 @@ func (s *Scene) MakeEmptyObj(objType consts.ObjectType) interfaces.SceneObject {
 	return obj
 }
 
-func (s *Scene) FillSceneObjectsByMap(levelMap consts.LevelMap) {
-	panic("implementMe")
+func (s *Scene) SetSceneObjects(objects []interfaces.SceneObject) {
+	s.objects = objects
+	s.objCounter = int64(len(objects))
 }

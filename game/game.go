@@ -107,11 +107,16 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	var sceneObjects []interfaces.SceneObject
 	for y, row := range levelMap {
 		for x, objType := range row {
-			currentPos := pixel.V(float64(x * consts.MapTileSize), float64(y * consts.MapTileSize))
+			currentPos := pixel.V(float64(x * consts.MapTileSize), g.window.Bounds().Max.Y - float64(y * consts.MapTileSize))
 
-			sceneObjects = append(sceneObjects, g.getGameObjectByType(objType, currentPos))
+			sceneObj := g.getGameObjectByType(objType, currentPos)
+			if sceneObj != nil {
+				sceneObjects = append(sceneObjects, sceneObj)
+			}
 		}
 	}
+
+	g.scene.SetSceneObjects(sceneObjects)
 }
 
 func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfaces.SceneObject {
@@ -121,6 +126,8 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 		return object.NewObject(g.getNewId(), typ, &pos, g.rm.GetSpriteMap(typ))
 	case consts.ObjectTypePlayerSpawn:
 		return object.NewObject(g.getNewId(), typ, &pos, g.rm.GetSpriteMap(typ))
+	case consts.ObjectTypeEmpty:
+		return nil
 	}
 
 	panic(errors.New(fmt.Sprintf("Unable to create object type %s", typ)))

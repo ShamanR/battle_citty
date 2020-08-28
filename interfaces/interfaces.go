@@ -52,7 +52,7 @@ type SceneObject interface {
 type Scene interface {
 	GetObjects() []SceneObject
 	GetObjectByID(id int64) SceneObject
-	FillSceneObjectsByMap(levelMap consts.LevelMap)
+	SetSceneObjects(objects []SceneObject)
 	GetSceneMap() SceneMap
 	GetLevelMap() consts.LevelMap
 	MakeEmptyObj(objType consts.ObjectType) SceneObject
