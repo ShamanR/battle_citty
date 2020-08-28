@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
+	"github.com/shamanr/battle_citty/resources"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
 	"golang.org/x/image/colornames"
 	"image"
@@ -27,13 +28,8 @@ func loadPicture(path string) (pixel.Picture, error) {
 func run() {
 	// ресурсы
 	// open and load the spritesheet
-	tank1DFile, err := loadPicture("textures.png")
-	if err != nil {
-		panic("error opening tank1D: " + err.Error())
-	}
-	tank1DFile.Bounds()
-	//sprite := pixel.NewSprite(tank1DFile, tank1DFile.Bounds())
-	sprite := pixel.NewSprite(tank1DFile, pixel.Rect{pixel.Vec{0, 256}, pixel.Vec{15, 256 - 15}})
+	manager := resources.NewResourceManager("resources/textures.png")
+	sprite := manager.GetSprite(resources.SimpleTankOrangeUp)
 
 	cfg := pixelgl.WindowConfig{
 		Title:  "Platformer",
