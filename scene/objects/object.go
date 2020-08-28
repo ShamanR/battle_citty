@@ -2,13 +2,14 @@ package object
 
 import (
 	"github.com/faiface/pixel"
+	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
 )
 
 // Object базовая структура
 type Object struct {
 	id         int64
-	objectType interfaces.ObjectType
+	objectType consts.ObjectType
 
 	// props
 	visible bool
@@ -16,7 +17,7 @@ type Object struct {
 
 	// bounds and pos
 	pos         pixel.Vec
-	orientation interfaces.Orientation
+	orientation consts.Orientation
 	angle       float64 // возможно не нужно пока или рассчитывать автоматически по orientation
 	speed       pixel.Vec
 	bounds      pixel.Rect
@@ -33,7 +34,7 @@ type Object struct {
 // - objectType -- тип объекта
 // - pos -- позиция объекта на карте
 // - spriteList -- структура спрайтов для анимации
-func NewObject(ID int64, objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Object {
+func NewObject(ID int64, objectType consts.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Object {
 	obj := Object{
 		id:         ID,
 		objectType: objectType,
@@ -118,12 +119,12 @@ func (o *Object) GetObjects() []interfaces.SceneObject {
 }
 
 // GetObjectType возвращает тип объекта
-func (o *Object) GetObjectType() interfaces.ObjectType {
+func (o *Object) GetObjectType() consts.ObjectType {
 	return o.objectType
 }
 
 // SetOrientation выставляет ориентацию объекта
-func (o *Object) SetOrientation(orient interfaces.Orientation) {
+func (o *Object) SetOrientation(orient consts.Orientation) {
 	o.orientation = orient
 }
 

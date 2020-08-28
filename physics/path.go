@@ -1,12 +1,11 @@
 package physics
 
 import (
-	"github.com/beefsack/go-astar"
 	"github.com/faiface/pixel"
-	i "github.com/shamanr/battle_citty/interfaces"
+	"github.com/shamanr/battle_citty/consts"
 )
 
-func (p *Physics) PathTo(from, to pixel.Vec, sceneMap i.LevelMap) {
+func (p *Physics) PathTo(from, to pixel.Vec, sceneMap consts.LevelMap) {
 	fromTile := newTile(from, sceneMap)
 	toTile := newTile(to, sceneMap)
 

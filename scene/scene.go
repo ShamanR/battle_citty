@@ -2,6 +2,7 @@ package scene
 
 import (
 	"github.com/faiface/pixel"
+	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
 	object "github.com/shamanr/battle_citty/scene/objects"
 )
@@ -31,15 +32,11 @@ func (s *Scene) GetObjectByID(id int64) interfaces.SceneObject {
 	return nil
 }
 
-func (s *Scene) AddObject(object interfaces.SceneObject) {
-	s.objects = append(s.objects, object)
-}
-
 func (s *Scene) GetSceneMap() interfaces.SceneMap {
 	return s.objects
 }
 
-func (s *Scene) GetLevelMap() interfaces.LevelMap {
+func (s *Scene) GetLevelMap() consts.LevelMap {
 	panic("implement me")
 }
 
@@ -53,7 +50,12 @@ func (s *Scene) MakeEmptyObj() interfaces.SceneObject {
 	id := s.objCounter
 	s.objCounter++
 	pos := pixel.V(-100, -100) // за пределами экрана
-	obj := object.NewObject(id, interfaces.ObjectTypeEmpty, &pos, nil)
+	obj := object.NewObject(id, consts.ObjectTypeEmpty, &pos, nil)
 	obj.SetVisible(false)
+	s.objects = append(s.objects, obj)
 	return obj
+}
+
+func (s *Scene) FillSceneObjectsByMap(levelMap consts.LevelMap) {
+	panic("implementMe")
 }

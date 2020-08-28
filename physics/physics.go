@@ -1,17 +1,19 @@
 package physics
 
 import (
-	i "github.com/shamanr/battle_citty/interfaces"
+	"github.com/shamanr/battle_citty/consts"
 	"time"
 )
 
 type Physics struct {
-	frameDuration time.Duration
-	collisionRules map[i.ObjectType]map[i.ObjectType]bool
+	frameDuration  time.Duration
+	collisionRules map[consts.ObjectType]map[consts.ObjectType]bool
 }
 
 func New(frameDuration time.Duration) *Physics {
-	p := &Physics{}
+	p := &Physics{
+		frameDuration: frameDuration,
+	}
 	p.initCollisionsMap()
 	return p
 }

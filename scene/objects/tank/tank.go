@@ -2,6 +2,7 @@ package tank
 
 import (
 	"github.com/faiface/pixel"
+	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
 )
 
@@ -18,25 +19,25 @@ type Tank struct {
 // MoveLeft передвигает танк влево
 func (t *Tank) MoveLeft() {
 	t.move()
-	t.SetOrientation(interfaces.OrientationLeft)
+	t.SetOrientation(consts.OrientationLeft)
 }
 
 // MoveRight передвигает танк вправо
 func (t *Tank) MoveRight() {
 	t.move()
-	t.SetOrientation(interfaces.OrientationRight)
+	t.SetOrientation(consts.OrientationRight)
 }
 
 // MoveUp передвигает танк влево
 func (t *Tank) MoveUp() {
 	t.move()
-	t.SetOrientation(interfaces.OrientationTop)
+	t.SetOrientation(consts.OrientationTop)
 }
 
 // MoveDown передвигает танк вправо
 func (t *Tank) MoveDown() {
 	t.move()
-	t.SetOrientation(interfaces.OrientationBottom)
+	t.SetOrientation(consts.OrientationBottom)
 }
 
 func (t *Tank) move() {

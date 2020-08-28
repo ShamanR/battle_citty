@@ -1,6 +1,7 @@
 package brickwall
 
 import (
+	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
 	object "github.com/shamanr/battle_citty/scene/objects"
 
@@ -8,8 +9,8 @@ import (
 )
 
 // NewBrickWall возвращает объект стены
-func NewBrickWall(objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *BrickWall {
-	obj := object.NewObject(objectType, pos, spriteList)
+func NewBrickWall(Id int64, objectType consts.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *BrickWall {
+	obj := object.NewObject(Id, objectType, pos, spriteList)
 	return &BrickWall{obj}
 }
 
@@ -20,20 +21,20 @@ type BrickWall struct {
 
 // BreakLeft разрушение стены слева
 func (t *BrickWall) BreakLeft() {
-	t.SetOrientation(interfaces.OrientationLeft)
+	t.SetOrientation(consts.OrientationLeft)
 }
 
 // BreakRight разрушение стены справа
 func (t *BrickWall) BreakRight() {
-	t.SetOrientation(interfaces.OrientationRight)
+	t.SetOrientation(consts.OrientationRight)
 }
 
 // BreakUp разрушение стены сверху
 func (t *BrickWall) BreakUp() {
-	t.SetOrientation(interfaces.OrientationTop)
+	t.SetOrientation(consts.OrientationTop)
 }
 
 // BreakDown разрушение стены снизу
 func (t *BrickWall) BreakDown() {
-	t.SetOrientation(interfaces.OrientationBottom)
+	t.SetOrientation(consts.OrientationBottom)
 }
