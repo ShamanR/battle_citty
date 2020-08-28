@@ -1,8 +1,6 @@
 package game
 
 import (
-	"errors"
-	"fmt"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/actors"
@@ -159,7 +157,11 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 		return nil
 	}
 
-	panic(errors.New(fmt.Sprintf("Unable to create object type %d", typ)))
+	obj := g.scene.MakeEmptyObj(typ)
+	obj.SetPos(&pos)
+	obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+	return obj
+	//panic(errors.New(fmt.Sprintf("Unable to create object type %d", typ)))
 }
 
 func (g *Game) MakeTank() *tank.Tank {
