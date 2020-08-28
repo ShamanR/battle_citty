@@ -1,12 +1,18 @@
 package resource_manager
 
-import "github.com/faiface/pixel"
+import "github.com/shamanr/battle_citty/interfaces"
 
-type SceneObjectAnimateList struct {
-	LeftSprite []*pixel.Sprite
-	RightSprite []*pixel.Sprite
-	TopSprite []*pixel.Sprite
-	BottomSprite []*pixel.Sprite
+func NewSceneObjectAnimateList(startX, startY, frames int) *interfaces.SceneObjectAnimateList {
+	for i := 0; i < frames * 4; i++ {
+		sprite := newSpritePosition(spriteSheetSize, defaultSpriteSize, startX+i, startY+i)
+	}
+
+	return &interfaces.SceneObjectAnimateList{
+		LeftSprite:   nil,
+		RightSprite:  nil,
+		TopSprite:    nil,
+		BottomSprite: nil,
+	}
 }
 
 

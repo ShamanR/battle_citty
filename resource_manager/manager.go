@@ -3,25 +3,9 @@ package resource_manager
 import (
 	"github.com/faiface/pixel"
 	"github.com/pkg/errors"
+	"github.com/shamanr/battle_citty/interfaces"
 	"image"
 	"os"
-)
-
-type ObjectType uint8
-//type SceneMap []SceneObject
-type LevelMap [][]ObjectType
-type SpriteType string
-
-const (
-	BrickWall ObjectType = iota
-	IronWall
-	Water
-	Forest
-	Ice
-	Headquarters
-	PlayerSpawn
-	AISpawn
-	Bonus
 )
 
 const (
@@ -29,26 +13,34 @@ const (
 	spriteSheetSizeX = 400
 	defaultSpriteSize = 16
 
-	SimpleTankOrangeUp     SpriteType = "SimpleTankOrangeUp"
+	SimpleTankOrangeUp     interfaces.SpriteType = "SimpleTankOrangeUp"
 	SimpleTankOrangeUpMove            = "SimpleTankOrangeUpMove"
 )
 
 var spriteSheetSize = pixel.V(spriteSheetSizeX, spriteSheetSizeY)
 
-var spriteMap = map[SpriteType]*SpritePosition{
-	SimpleTankOrangeUp:     newSpritePosition(spriteSheetSize, defaultSpriteSize, 0, 0),
+var spriteMap = map[interfaces.SpriteType]*spritePosition{
+	:     newSpritePosition(spriteSheetSize, defaultSpriteSize, 0, 0),
 	SimpleTankOrangeUpMove: newSpritePosition(spriteSheetSize, defaultSpriteSize, 1, 0),
 }
 
-type SpritePosition struct {
+//var animationsMap = map[interfaces.ObjectType]*interfaces.SceneObjectAnimateList{
+//	interfaces.SimpleOrangeTank:
+//}
+//
+//type animation struct {
+//
+//}
+
+type spritePosition struct {
 	spriteSheetSize pixel.Vec
-	spriteSize float64
-	positionX float64
-	positionY float64
+	spriteSize int
+	positionX int
+	positionY int
 }
 
-func newSpritePosition(spriteSheetSize pixel.Vec, size float64, posX float64, posY float64) *SpritePosition {
-	return &SpritePosition{
+func newSpritePosition(spriteSheetSize pixel.Vec, size int, posX int, posY int) *spritePosition {
+	return &spritePosition{
 		spriteSheetSize: spriteSheetSize,
 		spriteSize: size,
 		positionX:  posX,
@@ -56,16 +48,16 @@ func newSpritePosition(spriteSheetSize pixel.Vec, size float64, posX float64, po
 	}
 }
 
-func (s *SpritePosition) Bounds() pixel.Rect {
-	spriteStartY := s.spriteSheetSize.Y - s.positionY * s.spriteSize
-	spriteStartX := s.positionX * s.spriteSize
+func (s *spritePosition) Bounds() pixel.Rect {
+	spriteStartY := s.spriteSheetSize.Y - float64(s.positionY * s.spriteSize)
+	spriteStartX := float64(s.positionX * s.spriteSize)
 
-	return pixel.R(spriteStartX, spriteStartY, spriteStartX + s.spriteSize, spriteStartY - s.spriteSize)
+	return pixel.R(spriteStartX, spriteStartY, spriteStartX + float64(s.spriteSize), spriteStartY - float64(s.spriteSize))
 }
 
 type resourceManager struct {
 	spriteSheet pixel.Picture
-	cache map[SpriteType]*pixel.Sprite
+	cache map[interfaces.SpriteType]*pixel.Sprite
 }
 
 func NewResourceManager(spritePath string) *resourceManager {
@@ -76,11 +68,11 @@ func NewResourceManager(spritePath string) *resourceManager {
 
 	return &resourceManager{
 		spriteSheet: spriteSheet,
-		cache: make(map[SpriteType]*pixel.Sprite),
+		cache: make(map[interfaces.SpriteType]*pixel.Sprite),
 	}
 }
 
-func (s *resourceManager) GetSprite(name SpriteType) *pixel.Sprite {
+func (s *resourceManager) GetSprite(name interfaces.SpriteType) *pixel.Sprite {
 	if sprite, ok := s.cache[name]; ok {
 		return sprite
 	}
@@ -94,6 +86,14 @@ func (s *resourceManager) GetSprite(name SpriteType) *pixel.Sprite {
 	s.cache[name] = sprite
 
 	return sprite
+}
+
+func (s *resourceManager) GetSpriteMap(name interfaces.ObjectType) *interfaces.SceneObjectAnimateList {
+
+}
+
+func (s *resourceManager) LoadMap() *interfaces.SceneMap {
+	return &interfaces.SceneMap{}
 }
 
 func loadPicture(path string) (pixel.Picture, error) {
