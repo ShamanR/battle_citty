@@ -24,7 +24,7 @@ func run() {
 	if err != nil {
 		panic(err)
 	}
-	tank := tank.NewTank(sprite, win.Bounds().Center())
+	tank := tank.NewTank(sprite, 3)
 	last := time.Now()
 	for !win.Closed() {
 

@@ -7,25 +7,29 @@ import (
 )
 
 // NewTank возвращает объект танка
-func NewTank(obj interfaces.SceneObject) *Tank {
-	return &Tank{obj}
+func NewTank(obj interfaces.SceneObject, speed int) *Tank {
+	return &Tank{
+		SceneObject: obj,
+		tankSpeed:   speed,
+	}
 }
 
 // Tank структруа танка
 type Tank struct {
 	interfaces.SceneObject
+	tankSpeed int
 }
 
 // MoveLeft передвигает танк влево
 func (t *Tank) MoveLeft() {
-	t.move()
 	t.SetOrientation(consts.OrientationLeft)
+	t.move()
 }
 
 // MoveRight передвигает танк вправо
 func (t *Tank) MoveRight() {
-	t.move()
 	t.SetOrientation(consts.OrientationRight)
+	t.move()
 }
 
 // MoveUp передвигает танк влево
@@ -36,21 +40,29 @@ func (t *Tank) MoveUp() {
 
 // MoveDown передвигает танк вправо
 func (t *Tank) MoveDown() {
-	t.move()
 	t.SetOrientation(consts.OrientationBottom)
+	t.move()
 }
 
 func (t *Tank) move() {
-	v := t.GetPos()
-	s := t.GetSpeed()
-	vn := pixel.V(v.X+s.X, v.Y+s.Y)
-	t.SetPos(&vn)
+	var vec pixel.Vec
+	switch t.GetOrientation() {
+	case consts.OrientationTop:
+		vec.Y = 1 * float64(t.tankSpeed)
+	case consts.OrientationLeft:
+		vec.X = -1 * float64(t.tankSpeed)
+	case consts.OrientationBottom:
+		vec.Y = -1 * float64(t.tankSpeed)
+	case consts.OrientationRight:
+		vec.X = 1 * float64(t.tankSpeed)
+	}
+	t.SetSpeed(&vec)
 }
 
 // Stop остановка танка
 func (t *Tank) Stop() {
-	s := pixel.V(0, 0)
-	t.SetSpeed(&s)
+	//s := pixel.V(0, 0)
+	//t.SetSpeed(&s)
 }
 
 // Shoot стрельба
