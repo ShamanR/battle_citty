@@ -22,7 +22,7 @@ func (p *Physics) initCollisionsMap() {
 	}
 }
 
-func (p *Physics) canCollide(obj, obj2 i.SceneObject) bool {
+func (p *Physics) areColliable(obj, obj2 i.SceneObject) bool {
 	v, ok := p.collisionRules[obj.GetObjectType()]
 	if ok {
 		return v[obj2.GetObjectType()]

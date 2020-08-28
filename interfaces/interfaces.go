@@ -48,6 +48,8 @@ const (
 	OrientationRight  = 1
 	OrientationBottom = 2
 	OrientationLeft   = 3
+
+	FrameDuration = 30 * time.Millisecond
 )
 
 type ResourceManager interface {
@@ -77,7 +79,7 @@ type SceneObject interface {
 	Draw(target pixel.Target)
 	SetScale(scale float64)
 	GetScale() float64
-	Bounds() *pixel.Rect
+	GetSize() *pixel.Rect
 	IsVisible() bool
 	SetVisible(visible bool)
 	GetObjects() []SceneObject

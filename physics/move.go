@@ -13,19 +13,19 @@ loop:
 			continue
 		}
 
-		movement := currentObj.GetSpeed().Scaled(float64(dt))
-		newBounds := currentObj.Bounds().Moved(movement)
+		movement := calcMovement(currentObj, dt, p.frameDuration)
+		newBounds := bounds(currentObj).Moved(movement)
 
 		for _, anotherObj := range sceneMap {
 			if anotherObj == currentObj {
 				continue
 			}
 
-			if !p.canCollide(currentObj, anotherObj) {
+			if !p.areColliable(currentObj, anotherObj) {
 				continue
 			}
 
-			if newBounds.Intersects(*anotherObj.Bounds()) {
+			if newBounds.Intersects(bounds(anotherObj)) {
 				continue loop
 			}
 		}
@@ -35,6 +35,16 @@ loop:
 	}
 }
 
+func calcMovement(currentObj interfaces.SceneObject, dt, fd time.Duration) pixel.Vec {
+	frames := dt / fd
+	movement := currentObj.GetSpeed().Scaled(float64(frames))
+	return movement
+}
+
 func isMoving(object interfaces.SceneObject) bool {
-	return object.GetSpeed().Eq(pixel.Vec{X: 0, Y: 0})
+	return object.GetSpeed().Eq(pixel.ZV)
+}
+
+func bounds(obj interfaces.SceneObject) pixel.Rect {
+	return obj.GetSize().Moved(*obj.GetPos())
 }

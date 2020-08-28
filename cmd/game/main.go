@@ -39,7 +39,7 @@ func run() {
 		win.Clear(colornames.Black)
 		win.SetSmooth(true)
 		time.Since(last).Seconds()
-		//mat := pixel.IM.Moved(win.Bounds().Center()).Scaled(pixel.ZV, 0.5)
+		//mat := pixel.IM.Moved(win.GetSize().Center()).Scaled(pixel.ZV, 0.5)
 		//sprite.Draw(win, mat)
 		tank.Draw(win)
 		win.Update()
