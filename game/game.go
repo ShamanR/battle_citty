@@ -12,6 +12,7 @@ import (
 	"github.com/shamanr/battle_citty/resource_manager"
 	"github.com/shamanr/battle_citty/scene"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
+	"golang.org/x/image/colornames"
 	"math"
 	"time"
 )
@@ -77,6 +78,7 @@ func (g *Game) StartLevel() {
 		dt := time.Since(last)
 		last = time.Now()
 		<-time.After(time.Millisecond * 30)
+		g.window.Clear(colornames.Black)
 		g.player.AttachToKeyboard(g.window)
 		g.physics.MoveObjects(g.scene.GetObjects(), dt)
 		g.scene.Draw(g.window)
