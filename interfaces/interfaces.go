@@ -32,6 +32,7 @@ type SceneObjectAnimateList map[consts.Orientation][]*pixel.Sprite
 // SceneObject интерфейс
 type SceneObject interface {
 	GetID() int64
+	GetScene() Scene
 	GetPos() *pixel.Vec
 	SetPos(vect *pixel.Vec)
 	GetSpeed() *pixel.Vec
