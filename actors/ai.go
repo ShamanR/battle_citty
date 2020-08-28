@@ -28,6 +28,7 @@ func (ai *AI) SetTank(tank Tank) {
 }
 
 func (ai *AI) Tick(dt time.Duration) {
+	ai.RandomShoot()
 	if ai.wait < time.Millisecond*300 {
 		ai.wait += dt
 		ai.Move(ai.currentOrientation)
@@ -66,5 +67,11 @@ func (ai *AI) RandomDirection() {
 		ai.Move(consts.OrientationBottom)
 	case consts.OrientationRight:
 		ai.Move(consts.OrientationRight)
+	}
+}
+
+func (ai *AI) RandomShoot() {
+	if ai.rand.Intn(100) > 90 {
+		ai.Tank.Shoot()
 	}
 }

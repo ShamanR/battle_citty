@@ -9,6 +9,7 @@ import (
 // Object базовая структура
 type Object struct {
 	id         int64
+	scene      interfaces.Scene
 	objectType consts.ObjectType
 
 	// props
@@ -34,9 +35,10 @@ type Object struct {
 // - objectType -- тип объекта
 // - pos -- позиция объекта на карте
 // - spriteList -- структура спрайтов для анимации
-func NewObject(ID int64, objectType consts.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Object {
+func NewObject(ID int64, scene interfaces.Scene, objectType consts.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Object {
 	obj := Object{
 		id:         ID,
+		scene:      scene,
 		objectType: objectType,
 		bounds: pixel.Rect{
 			Min: pixel.Vec{0, 0},
@@ -50,6 +52,10 @@ func NewObject(ID int64, objectType consts.ObjectType, pos *pixel.Vec, spriteLis
 
 func (o *Object) GetID() int64 {
 	return o.id
+}
+
+func (o *Object) GetScene() interfaces.Scene {
+	return o.scene
 }
 
 // GetPos возвращает позицию объекта
@@ -93,17 +99,20 @@ func (o *Object) SetSpriteList(list *interfaces.SceneObjectAnimateList) {
 // Draw выполняет отрисовку объекта в target
 func (o *Object) Draw(target pixel.Target) {
 	s := o.GetSprite()
-	if s == nil {
+	if s == nil || !o.IsVisible() {
 		return
 	}
 	m := pixel.IM.ScaledXY(pixel.ZV, o.scale).Moved(*o.GetPos())
 	s.Draw(target, m)
+	for _, nestedObj := range o.GetObjects() {
+		nestedObj.Draw(target)
+	}
 }
 
 // SetScale устанавливает коэф. масштабирования объекта
 func (o *Object) SetScale(scale pixel.Vec) {
 	o.scale = scale
-	o.bounds = pixel.R(0, 0, consts.MapTileSize * scale.X, consts.MapTileSize * scale.Y)
+	o.bounds = pixel.R(0, 0, consts.MapTileSize*scale.X, consts.MapTileSize*scale.Y)
 }
 
 // GetScale возвращает коэф. масштабирования объекта
@@ -155,4 +164,7 @@ func (o *Object) Delete() {
 		o.children = nil
 
 	}
+}
+
+func (o *Object) onCollide(obj interfaces.SceneObject) {
 }

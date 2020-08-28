@@ -17,6 +17,14 @@ const (
 	ObjectTypePlayerSpawn
 	ObjectTypeAISpawn
 	ObjectTypeBonus
+	ObjectTypeBrickWallDamagedLeft
+	ObjectTypeBrickWallDamagedTop
+	ObjectTypeBrickWallDamagedRight
+	ObjectTypeBrickWallDamagedDown
+	ObjectTypeIronWallDamagedLeft
+	ObjectTypeIronWallDamagedTop
+	ObjectTypeIronWallDamagedRight
+	ObjectTypeIronWallDamagedDown
 	ObjectTypePlayerTank1
 	ObjectTypePlayerTank2
 	ObjectTypePlayerTank3

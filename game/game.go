@@ -1,8 +1,6 @@
 package game
 
 import (
-	"errors"
-	"fmt"
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/actors"
@@ -139,6 +137,7 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 	case consts.ObjectTypeBrickWall:
 		obj := g.scene.MakeEmptyObj(typ)
 		obj.SetPos(&pos)
+		obj.SetVisible(true)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
 		return obj
 	case consts.ObjectTypePlayerSpawn:
@@ -149,22 +148,30 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 	case consts.ObjectTypeIronWall:
 		obj := g.scene.MakeEmptyObj(typ)
 		obj.SetPos(&pos)
+		obj.SetVisible(true)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
 		return obj
 	case consts.ObjectTypeHeadquarters:
 		obj := g.scene.MakeEmptyObj(typ)
 		obj.SetPos(&pos)
+		obj.SetVisible(true)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
 		return obj
 	case consts.ObjectTypeEmpty:
 		return nil
 	}
 
-	panic(errors.New(fmt.Sprintf("Unable to create object type %d", typ)))
+	obj := g.scene.MakeEmptyObj(typ)
+	obj.SetPos(&pos)
+	obj.SetVisible(true)
+	obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+	return obj
+	//panic(errors.New(fmt.Sprintf("Unable to create object type %d", typ)))
 }
 
 func (g *Game) MakeTank() *tank.Tank {
 	obj := g.scene.MakeEmptyObj(consts.ObjectTypePlayerTank1)
 	obj.SetSpriteList(g.rm.GetSpriteMap(consts.ObjectTypePlayerTank1))
+	obj.SetVisible(true)
 	return tank.NewTank(obj, 5)
 }
