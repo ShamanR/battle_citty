@@ -32,10 +32,6 @@ func (s *Scene) GetObjectByID(id int64) interfaces.SceneObject {
 	return nil
 }
 
-func (s *Scene) AddObject(object interfaces.SceneObject) {
-	s.objects = append(s.objects, object)
-}
-
 func (s *Scene) GetSceneMap() interfaces.SceneMap {
 	return s.objects
 }
@@ -57,4 +53,8 @@ func (s *Scene) MakeEmptyObj() interfaces.SceneObject {
 	obj := object.NewObject(id, consts.ObjectTypeEmpty, &pos, nil)
 	obj.SetVisible(false)
 	return obj
+}
+
+func (s *Scene) FillSceneObjectsByMap(levelMap consts.LevelMap) {
+	panic("implementMe")
 }
