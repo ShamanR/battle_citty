@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/aquilax/go-perlin v0.0.0-20191229124216-0af9ce917c28
+	github.com/beefsack/go-astar v0.0.0-20200827232313-4ecf9e304482
 	github.com/faiface/beep v1.0.2
 	github.com/faiface/pixel v0.10.0
 	github.com/faiface/pixel-examples v0.0.0-20190423111245-0d1d22b509d4

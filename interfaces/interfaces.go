@@ -57,6 +57,7 @@ const (
 	OrientationLeft   = 3
 
 	FrameDuration = 30 * time.Millisecond
+	TileSize = 16
 )
 
 type ResourceManager interface {
