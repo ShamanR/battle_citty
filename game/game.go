@@ -23,7 +23,7 @@ type Game struct {
 	window  *pixelgl.Window
 	player  actors.User
 
-	lastID	int64
+	lastID int64
 }
 
 func (g *Game) Init() {
@@ -44,30 +44,21 @@ func (g *Game) Init() {
 	// Создаем ресурс-менеджер
 	g.rm = resource_manager.NewResourceManager("resources/textures.png")
 	// создаем физику
-	g.physics = physics.New(33 * time.Millisecond, 16, 3)
-	// ЗАГРУЖАЕМ НА СЦЕНУ КАРТУ
-	//mapObjects := g.rm.LoadMap("")
-	//for _, obj := range mapObjects {
-	//	g.scene.AddObject(obj)
-	//}
-	//// Ищем точки РЕСПА ИГРОКА и Врагов
-	//var userSpawn interfaces.SceneObject
-	//var enemySpawns []interfaces.SceneObject
-	//userSpawn = nil
-	//for _, obj := range mapObjects {
-	//	if obj.GetObjectType() == consts.ObjectTypePlayerSpawn {
-	//		userSpawn = obj
-	//		continue
-	//	}
-	//	if obj.GetObjectType() == consts.ObjectTypeAISpawn {
-	//		enemySpawns = append(enemySpawns, obj)
-	//	}
-	//}
-	userSpawn := g.scene.MakeEmptyObj(consts.ObjectTypeEmpty)
-	pos := g.window.Bounds().Center()
-	userSpawn.SetPos(&pos)
-	if userSpawn == nil {
-		panic("userSpawn not found on map")
+	g.physics = physics.New(33*time.Millisecond, 16, 3)
+	// Стартуем первый уровень
+	g.fillSceneByMap("resources/level1.json")
+	// Ищем точки РЕСПА ИГРОКА и Врагов
+	var userSpawn interfaces.SceneObject
+	var enemySpawns []interfaces.SceneObject
+	userSpawn = nil
+	for _, obj := range g.scene.GetObjects() {
+		if obj.GetObjectType() == consts.ObjectTypePlayerSpawn {
+			userSpawn = obj
+			continue
+		}
+		if obj.GetObjectType() == consts.ObjectTypeAISpawn {
+			enemySpawns = append(enemySpawns, obj)
+		}
 	}
 
 	// Создаем объект танка
@@ -83,8 +74,6 @@ func (g *Game) Init() {
 func (g *Game) StartLevel() {
 	last := time.Now()
 	g.lastID = 0
-	// Стартуем первый уровень
-	g.fillSceneByMap("resources/level1.json")
 	for !g.window.Closed() {
 		dt := time.Since(last)
 		last = time.Now()
@@ -107,7 +96,7 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	var sceneObjects []interfaces.SceneObject
 	for y, row := range levelMap {
 		for x, objType := range row {
-			currentPos := pixel.V(float64(x * consts.MapTileSize), g.window.Bounds().Max.Y - float64(y * consts.MapTileSize))
+			currentPos := pixel.V(float64(x*consts.MapTileSize), g.window.Bounds().Max.Y-float64(y*consts.MapTileSize))
 
 			sceneObj := g.getGameObjectByType(objType, currentPos)
 			if sceneObj != nil {
@@ -136,5 +125,5 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 func (g *Game) MakeTank() *tank.Tank {
 	obj := g.scene.MakeEmptyObj(consts.ObjectTypePlayerTank1)
 	obj.SetSpriteList(g.rm.GetSpriteMap(consts.ObjectTypePlayerTank1))
-	return tank.NewTank(obj, 3)
+	return tank.NewTank(obj, 5)
 }
