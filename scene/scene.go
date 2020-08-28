@@ -7,7 +7,7 @@ import (
 )
 
 type Scene struct {
-	objects []interfaces.SceneObject
+	objects    []interfaces.SceneObject
 	objCounter int64
 }
 
@@ -17,7 +17,7 @@ func (s *Scene) GetObjects() []interfaces.SceneObject {
 
 func (s *Scene) GetObjectByID(id int64) interfaces.SceneObject {
 	for _, obj := range s.objects {
-		if obj.GetId() == id {
+		if obj.GetID() == id {
 			return obj
 		}
 	}
@@ -42,8 +42,11 @@ func (s *Scene) Draw(target pixel.Target) {
 	}
 }
 
-func (s *Scene) MakeObj() interfaces.SceneObject{
-	id := s.objCounter ++
-	obj :=  object.NewObject(id, interfaces.ObjectTypeBrickWall, pixel.V( -1, -1), nil)
-	obj.
+func (s *Scene) MakeEmptyObj() interfaces.SceneObject {
+	id := s.objCounter
+	s.objCounter++
+	pos := pixel.V(-100, -100) // за пределами экрана
+	obj := object.NewObject(id, interfaces.ObjectTypeEmpty, &pos, nil)
+	obj.SetVisible(false)
+	return obj
 }
