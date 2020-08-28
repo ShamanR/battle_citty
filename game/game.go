@@ -29,12 +29,21 @@ func (g *Game) Run() {
 	for _, obj := range mapObjects {
 		scene.AddObject(obj)
 	}
-	// Ищем точки РЕСПА
-	var userResp interfaces.SceneObject
+	// Ищем точки РЕСПА ИГРОКА и Врагов
+	var userSpawn interfaces.SceneObject
+	var enemySpawns []interfaces.SceneObject
+	userSpawn = nil
 	for _, obj := range mapObjects {
-		if obj.GetObjectType() == resource_manager.Spawn {
-			userResp = obj
+		if obj.GetObjectType() == resource_manager.PlayerSpawn {
+			userSpawn = obj
+			continue
 		}
+		if obj.GetObjectType() == resource_manager.AISpawn {
+			enemySpawns = append(enemySpawns, obj)
+		}
+	}
+	if userSpawn == nil {
+		panic("userSpawn not found on map")
 	}
 }
 
