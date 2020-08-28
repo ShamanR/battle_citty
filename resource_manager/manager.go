@@ -9,18 +9,20 @@ import (
 	"os"
 )
 
+type SpriteType string
+
 const (
 	spriteSheetSizeY  = 256
 	spriteSheetSizeX  = 400
 	defaultSpriteSize = 16
 
-	SimpleTankOrangeUp     interfaces.SpriteType = "SimpleTankOrangeUp"
-	SimpleTankOrangeUpMove                       = "SimpleTankOrangeUpMove"
+	SimpleTankOrangeUp     SpriteType = "SimpleTankOrangeUp"
+	SimpleTankOrangeUpMove            = "SimpleTankOrangeUpMove"
 )
 
 var spriteSheetSize = pixel.V(spriteSheetSizeX, spriteSheetSizeY)
 
-var spriteMap = map[interfaces.SpriteType]*spritePosition{
+var spriteMap = map[SpriteType]*spritePosition{
 	SimpleTankOrangeUp:     newSpritePosition(spriteSheetSize, defaultSpriteSize, 0, 0),
 	SimpleTankOrangeUpMove: newSpritePosition(spriteSheetSize, defaultSpriteSize, 1, 0),
 }
@@ -54,7 +56,7 @@ func (s *spritePosition) Bounds() pixel.Rect {
 
 type resourceManager struct {
 	spriteSheet pixel.Picture
-	cache       map[interfaces.SpriteType]*pixel.Sprite
+	cache       map[SpriteType]*pixel.Sprite
 }
 
 func NewResourceManager(spritePath string) *resourceManager {
@@ -65,11 +67,11 @@ func NewResourceManager(spritePath string) *resourceManager {
 
 	return &resourceManager{
 		spriteSheet: spriteSheet,
-		cache:       make(map[interfaces.SpriteType]*pixel.Sprite),
+		cache:       make(map[SpriteType]*pixel.Sprite),
 	}
 }
 
-func (s *resourceManager) GetSprite(name interfaces.SpriteType) *pixel.Sprite {
+func (s *resourceManager) GetSprite(name SpriteType) *pixel.Sprite {
 	spriteElement, ok := spriteMap[name]
 	if !ok {
 		panic(errors.New("Unable to find sprite by name"))
@@ -86,7 +88,7 @@ func (rm *resourceManager) getSceneObjectAnimateList(name interfaces.ObjectType,
 	framesBuff := make([]*pixel.Sprite, position.frames, 0)
 	for i := 0; i < position.frames*4; i++ {
 		spritePos := newSpritePosition(spriteSheetSize, defaultSpriteSize, position.positionX+i, position.positionY+i)
-		sprite := rm.loadSprite(interfaces.SpriteType(fmt.Sprintf("%v%d", name, currentSide)), spritePos)
+		sprite := rm.loadSprite(SpriteType(fmt.Sprintf("%v%d", name, currentSide)), spritePos)
 		framesBuff = append(framesBuff, sprite)
 
 		framesCounter += 1
@@ -108,7 +110,7 @@ func (s *resourceManager) GetSpriteMap(name interfaces.ObjectType) *interfaces.S
 	return s.getSceneObjectAnimateList(name, animationPos)
 }
 
-func (s *resourceManager) loadSprite(name interfaces.SpriteType, spriteElement *spritePosition) *pixel.Sprite {
+func (s *resourceManager) loadSprite(name SpriteType, spriteElement *spritePosition) *pixel.Sprite {
 	if sprite, ok := s.cache[name]; ok {
 		return sprite
 	}
