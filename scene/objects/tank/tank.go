@@ -8,8 +8,7 @@ import (
 )
 
 // NewTank возвращает объект танка
-func NewTank(objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Tank {
-	obj := object.NewObject(objectType, pos, spriteList)
+func NewTank(obj *object.Object) *Tank {
 	return &Tank{obj}
 }
 
@@ -53,4 +52,9 @@ func (t *Tank) move() {
 func (t *Tank) Stop() {
 	s := pixel.V(0, 0)
 	t.SetSpeed(&s)
+}
+
+// Shoot стрельба
+func (t *Tank) Shoot() {
+	// TODO:
 }

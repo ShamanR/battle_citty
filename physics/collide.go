@@ -6,18 +6,18 @@ import (
 
 func (p *Physics) initCollisionsMap() {
 	p.collisionRules = map[i.ObjectType]map[i.ObjectType]bool{
-		i.SimpleOrangeTank: {
-			i.SimpleOrangeTank: true,
-			i.BrickWall:        true,
-			i.IronWall:         true,
-			i.Water:            true,
-			i.Projectile:       true,
+		i.ObjectTypePlayerTank1: {
+			i.ObjectTypePlayerTank1: true,
+			i.ObjectTypeBrickWall:   true,
+			i.ObjectTypeIronWall:    true,
+			i.ObjectTypeWater:       true,
+			i.ObjectTypeProjectile:  true,
 		},
-		i.Projectile: {
-			i.SimpleOrangeTank: true,
-			i.BrickWall:        true,
-			i.IronWall:         true,
-			i.Headquarters:     true,
+		i.ObjectTypeProjectile: {
+			i.ObjectTypePlayerTank1:  true,
+			i.ObjectTypeBrickWall:    true,
+			i.ObjectTypeIronWall:     true,
+			i.ObjectTypeHeadquarters: true,
 		},
 	}
 }

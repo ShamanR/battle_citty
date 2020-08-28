@@ -22,6 +22,10 @@ type keyboardInterface interface {
 	Pressed(button pixelgl.Button) bool
 }
 
+func (u *User) SetTank(tank *Tank) {
+	u.Tank = tank
+}
+
 func (u *User) AttachToKeyboard(keyboard keyboardInterface) {
 	for {
 		<-time.After(time.Millisecond * 30)

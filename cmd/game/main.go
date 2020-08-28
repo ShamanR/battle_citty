@@ -4,6 +4,7 @@ import (
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/resource_manager"
+	object "github.com/shamanr/battle_citty/scene/objects"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
 	"golang.org/x/image/colornames"
 	_ "image/png"
