@@ -41,6 +41,9 @@ github.com/go-gl/mathgl/mgl32
 ## explicit
 github.com/golang/freetype/raster
 github.com/golang/freetype/truetype
+# github.com/google/uuid v1.1.1
+## explicit
+github.com/google/uuid
 # github.com/gopherjs/gopherjs v0.0.0-20180825215210-0210a2f0f73c
 github.com/gopherjs/gopherjs/js
 # github.com/gopherjs/gopherwasm v1.0.0

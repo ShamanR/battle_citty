@@ -3,6 +3,7 @@ package resource_manager
 import (
 	"fmt"
 	"github.com/faiface/pixel"
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
@@ -90,9 +91,9 @@ func (rm *resourceManager) getSceneObjectAnimateList(name consts.ObjectType, pos
 	framesCounter := 0
 	currentSide := 0
 	framesBuff := make([]*pixel.Sprite, 0, position.frames)
-	for i := 0; i < position.frames*4; i++ {
+	for i := 0; i < position.frames * len(sides); i++ {
 		spritePos := newSpritePosition(spriteSheetSize, defaultSpriteSize, position.positionX+i, position.positionY)
-		sprite := rm.loadSprite(SpriteType(fmt.Sprintf("%v%d", name, currentSide)), spritePos)
+		sprite := rm.loadSprite(SpriteType(fmt.Sprintf("%d%d", spritePos.positionY, spritePos.positionX)), spritePos)
 		framesBuff = append(framesBuff, sprite)
 
 		framesCounter++
@@ -119,13 +120,13 @@ func (s *resourceManager) GetSpriteMap(name consts.ObjectType) *interfaces.Scene
 	return s.getSceneObjectAnimateList(name, animationPos)
 }
 
-func (s *resourceManager) loadSprite(name SpriteType, spriteElement *spritePosition) *pixel.Sprite {
-	if sprite, ok := s.cache[name]; ok {
+func (s *resourceManager) loadSprite(id SpriteType, spriteElement *spritePosition) *pixel.Sprite {
+	if sprite, ok := s.cache[id]; ok {
 		return sprite
 	}
 
 	sprite := pixel.NewSprite(s.spriteSheet, spriteElement.Bounds())
-	s.cache[name] = sprite
+	s.cache[id] = sprite
 
 	return sprite
 }

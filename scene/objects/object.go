@@ -100,6 +100,8 @@ func (o *Object) Draw(target pixel.Target) {
 // SetScale устанавливает коэф. масштабирования объекта
 func (o *Object) SetScale(scale pixel.Vec) {
 	o.scale = scale
+	o.bounds.Max = o.bounds.Max.ScaledXY(scale)
+	o.bounds.Min = o.bounds.Min.ScaledXY(scale)
 }
 
 // GetScale возвращает коэф. масштабирования объекта
