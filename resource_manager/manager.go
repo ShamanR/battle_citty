@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/faiface/pixel"
 	"github.com/pkg/errors"
+	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
 	"image"
 	"os"
@@ -27,9 +28,9 @@ var spriteMap = map[SpriteType]*spritePosition{
 	SimpleTankOrangeUpMove: newSpritePosition(spriteSheetSize, defaultSpriteSize, 1, 0),
 }
 
-var animationsMap = map[interfaces.ObjectType]*animationPosition{
-	interfaces.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
-	interfaces.ObjectTypeBrickWall: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 4, false),
+var animationsMap = map[consts.ObjectType]*animationPosition{
+	consts.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
+	consts.ObjectTypeBrickWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 4, false),
 }
 
 type spritePosition struct {
@@ -81,18 +82,18 @@ func (s *resourceManager) GetSprite(name SpriteType) *pixel.Sprite {
 	return s.loadSprite(name, spriteElement)
 }
 
-func (rm *resourceManager) getSceneObjectAnimateList(name interfaces.ObjectType, position *animationPosition) *interfaces.SceneObjectAnimateList {
+func (rm *resourceManager) getSceneObjectAnimateList(name consts.ObjectType, position *animationPosition) *interfaces.SceneObjectAnimateList {
 	animationsList := &interfaces.SceneObjectAnimateList{}
 
 	framesCounter := 0
 	currentSide := 0
 	framesBuff := make([]*pixel.Sprite, 0, position.frames)
-	for i := 0; i < position.frames * 4; i++ {
+	for i := 0; i < position.frames*4; i++ {
 		spritePos := newSpritePosition(spriteSheetSize, defaultSpriteSize, position.positionX+i, position.positionY)
 		sprite := rm.loadSprite(SpriteType(fmt.Sprintf("%v%d", name, currentSide)), spritePos)
 		framesBuff = append(framesBuff, sprite)
 
-		framesCounter ++
+		framesCounter++
 		if framesCounter == position.frames {
 			(*animationsList)[sides[currentSide]] = framesBuff
 			if !position.movable {
@@ -107,7 +108,7 @@ func (rm *resourceManager) getSceneObjectAnimateList(name interfaces.ObjectType,
 	return animationsList
 }
 
-func (s *resourceManager) GetSpriteMap(name interfaces.ObjectType) *interfaces.SceneObjectAnimateList {
+func (s *resourceManager) GetSpriteMap(name consts.ObjectType) *interfaces.SceneObjectAnimateList {
 	animationPos, ok := animationsMap[name]
 	if !ok {
 		panic(errors.New(fmt.Sprintf("Unable to load animations by name %f", name)))

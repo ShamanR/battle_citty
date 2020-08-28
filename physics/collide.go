@@ -1,46 +1,47 @@
 package physics
 
 import (
+	"github.com/shamanr/battle_citty/consts"
 	i "github.com/shamanr/battle_citty/interfaces"
 )
 
 func (p *Physics) initCollisionsMap() {
-	tank := map[i.ObjectType]bool{
-		i.ObjectTypePlayerTank1: true,
-		i.ObjectTypePlayerTank2: true,
-		i.ObjectTypePlayerTank3: true,
-		i.ObjectTypePlayerTank4: true,
-		i.ObjectTypeEnemyTank1:  true,
-		i.ObjectTypeEnemyTank2:  true,
-		i.ObjectTypeEnemyTank3:  true,
-		i.ObjectTypeEnemyTank4:  true,
-		i.ObjectTypeBrickWall:   true,
-		i.ObjectTypeIronWall:    true,
-		i.ObjectTypeWater:       true,
-		i.ObjectTypeProjectile:  true,
+	tank := map[consts.ObjectType]bool{
+		consts.ObjectTypePlayerTank1: true,
+		consts.ObjectTypePlayerTank2: true,
+		consts.ObjectTypePlayerTank3: true,
+		consts.ObjectTypePlayerTank4: true,
+		consts.ObjectTypeEnemyTank1:  true,
+		consts.ObjectTypeEnemyTank2:  true,
+		consts.ObjectTypeEnemyTank3:  true,
+		consts.ObjectTypeEnemyTank4:  true,
+		consts.ObjectTypeBrickWall:   true,
+		consts.ObjectTypeIronWall:    true,
+		consts.ObjectTypeWater:       true,
+		consts.ObjectTypeProjectile:  true,
 	}
 
-	p.collisionRules = map[i.ObjectType]map[i.ObjectType]bool{
-		i.ObjectTypePlayerTank1: tank,
-		i.ObjectTypePlayerTank2: tank,
-		i.ObjectTypePlayerTank3: tank,
-		i.ObjectTypePlayerTank4: tank,
-		i.ObjectTypeEnemyTank1:  tank,
-		i.ObjectTypeEnemyTank2:  tank,
-		i.ObjectTypeEnemyTank3:  tank,
-		i.ObjectTypeEnemyTank4:  tank,
-		i.ObjectTypeProjectile: {
-			i.ObjectTypePlayerTank1:  true,
-			i.ObjectTypePlayerTank2:  true,
-			i.ObjectTypePlayerTank3:  true,
-			i.ObjectTypePlayerTank4:  true,
-			i.ObjectTypeEnemyTank1:   true,
-			i.ObjectTypeEnemyTank2:   true,
-			i.ObjectTypeEnemyTank3:   true,
-			i.ObjectTypeEnemyTank4:   true,
-			i.ObjectTypeBrickWall:    true,
-			i.ObjectTypeIronWall:     true,
-			i.ObjectTypeHeadquarters: true,
+	p.collisionRules = map[consts.ObjectType]map[consts.ObjectType]bool{
+		consts.ObjectTypePlayerTank1: tank,
+		consts.ObjectTypePlayerTank2: tank,
+		consts.ObjectTypePlayerTank3: tank,
+		consts.ObjectTypePlayerTank4: tank,
+		consts.ObjectTypeEnemyTank1:  tank,
+		consts.ObjectTypeEnemyTank2:  tank,
+		consts.ObjectTypeEnemyTank3:  tank,
+		consts.ObjectTypeEnemyTank4:  tank,
+		consts.ObjectTypeProjectile: {
+			consts.ObjectTypePlayerTank1:  true,
+			consts.ObjectTypePlayerTank2:  true,
+			consts.ObjectTypePlayerTank3:  true,
+			consts.ObjectTypePlayerTank4:  true,
+			consts.ObjectTypeEnemyTank1:   true,
+			consts.ObjectTypeEnemyTank2:   true,
+			consts.ObjectTypeEnemyTank3:   true,
+			consts.ObjectTypeEnemyTank4:   true,
+			consts.ObjectTypeBrickWall:    true,
+			consts.ObjectTypeIronWall:     true,
+			consts.ObjectTypeHeadquarters: true,
 		},
 	}
 }

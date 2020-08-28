@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/shamanr/battle_citty/interfaces"
+	"github.com/shamanr/battle_citty/consts"
 	"io/ioutil"
 )
 
 type JsonMap struct {
-	Cells *interfaces.LevelMap `json:"cells"`
+	Cells consts.LevelMap `json:"cells"`
 }
 
-func (s *resourceManager) LoadMap(path string) *interfaces.LevelMap {
+func (s *resourceManager) LoadMap(path string) consts.LevelMap {
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
 		panic(errors.Wrap(err, "Unable to load map"))
