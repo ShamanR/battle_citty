@@ -2,7 +2,6 @@ package interfaces
 
 import (
 	"github.com/faiface/pixel"
-	"github.com/shamanr/battle_citty/scene/objects/tank"
 )
 
 // ObjectType тип объекта
@@ -49,7 +48,7 @@ type ResourceManager interface {
 	GetSprite(name SpriteType) *pixel.Sprite
 	GetSpriteMap(name ObjectType) *SceneObjectAnimateList
 	LoadMap() *SceneMap
-	MakeTank(name ObjectType) *tank.Tank
+	MakeTank(name ObjectType) SceneObject
 }
 
 // SceneObjectAnimateList структуры анимации (для танков?)

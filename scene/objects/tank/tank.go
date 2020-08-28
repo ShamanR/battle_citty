@@ -20,34 +20,37 @@ type Tank struct {
 
 // MoveLeft передвигает танк влево
 func (t *Tank) MoveLeft() {
-	v := t.GetPos()
-	vn := pixel.V(v.X-5, v.Y)
-	t.SetPos(&vn)
-	// t.pos.X = t.pos.X - 5
+	t.move()
 	t.SetOrientation(interfaces.OrientationLeft)
 }
 
 // MoveRight передвигает танк вправо
 func (t *Tank) MoveRight() {
-	v := t.GetPos()
-	vn := pixel.V(v.X+5, v.Y)
-	t.SetPos(&vn)
+	t.move()
 	t.SetOrientation(interfaces.OrientationRight)
 }
 
 // MoveUp передвигает танк влево
 func (t *Tank) MoveUp() {
-	v := t.GetPos()
-	vn := pixel.V(v.X, v.Y+5)
-	t.SetPos(&vn)
-	// t.pos.X = t.pos.X - 5
+	t.move()
 	t.SetOrientation(interfaces.OrientationTop)
 }
 
 // MoveDown передвигает танк вправо
 func (t *Tank) MoveDown() {
-	v := t.GetPos()
-	vn := pixel.V(v.X, v.Y-5)
-	t.SetPos(&vn)
+	t.move()
 	t.SetOrientation(interfaces.OrientationBottom)
+}
+
+func (t *Tank) move() {
+	v := t.GetPos()
+	s := t.GetSpeed()
+	vn := pixel.V(v.X+s.X, v.Y+s.Y)
+	t.SetPos(&vn)
+}
+
+// Stop остановка танка
+func (t *Tank) Stop() {
+	s := pixel.V(0, 0)
+	t.SetSpeed(&s)
 }
