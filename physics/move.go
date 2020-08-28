@@ -46,5 +46,6 @@ func isMoving(object interfaces.SceneObject) bool {
 }
 
 func bounds(obj interfaces.SceneObject) pixel.Rect {
-	return obj.GetSize().Moved(*obj.GetPos())
+	b := obj.GetSize().Moved(*obj.GetPos())
+	return b.Resized(b.Center(), pixel.V(b.W()*0.96, b.H()*0.96))
 }
