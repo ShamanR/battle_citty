@@ -39,6 +39,10 @@ func NewObject(ID int64, objectType consts.ObjectType, pos *pixel.Vec, spriteLis
 		id:         ID,
 		objectType: objectType,
 		scale:      3,
+		bounds: pixel.Rect{
+			Min: pixel.Vec{0, 0},
+			Max: pixel.Vec{16 * 3, 16 * 3},
+		},
 	}
 	obj.SetPos(pos)
 	obj.SetSpriteList(spriteList)
