@@ -45,6 +45,13 @@ func (t *Tank) MoveDown() {
 }
 
 func (t *Tank) move() {
+	speedVec := t.getOrientationVec()
+	speedVec.Scaled(float64(t.tankSpeed))
+	t.SetSpeed(speedVec)
+	t.NextSprite()
+}
+
+func (t *Tank) getOrientationVec() *pixel.Vec {
 	var vec pixel.Vec
 	switch t.GetOrientation() {
 	case consts.OrientationTop:
@@ -56,8 +63,7 @@ func (t *Tank) move() {
 	case consts.OrientationRight:
 		vec.X = 1 * float64(t.tankSpeed)
 	}
-	t.SetSpeed(&vec)
-	t.NextSprite()
+	return &vec
 }
 
 // Stop остановка танка
@@ -68,5 +74,16 @@ func (t *Tank) Stop() {
 
 // Shoot стрельба
 func (t *Tank) Shoot() {
-
+	bulletObj := t.GetScene().MakeEmptyObj(consts.ObjectTypeProjectile)
+	vec := t.GetPos().Add((*t.getOrientationVec()).Scaled(48))
+	bulletObj.SetPos(&vec)
+	bulletObj.SetOrientation(t.GetOrientation())
+	bulletObj.SetVisible(true)
+	bulletObj.SetScale(t.GetScale().Scaled(0.5))
+	spriteList := interfaces.SceneObjectAnimateList{}
+	sprite := t.GetSprite()
+	spriteList[t.GetOrientation()] = []*pixel.Sprite{sprite}
+	bulletObj.SetSpriteList(&spriteList)
+	speed := t.GetSpeed().Scaled(2)
+	bulletObj.SetSpeed(&speed)
 }

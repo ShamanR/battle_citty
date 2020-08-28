@@ -30,6 +30,9 @@ func (u *User) SetTank(tank Tank) {
 }
 
 func (u *User) AttachToKeyboard(keyboard keyboardInterface) {
+	if keyboard.Pressed(pixelgl.KeySpace) {
+		u.Tank.Shoot()
+	}
 	if keyboard.Pressed(pixelgl.KeyLeft) {
 		u.Tank.MoveLeft()
 		return

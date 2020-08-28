@@ -54,6 +54,10 @@ func (o *Object) GetID() int64 {
 	return o.id
 }
 
+func (o *Object) GetScene() interfaces.Scene {
+	return o.scene
+}
+
 // GetPos возвращает позицию объекта
 func (o *Object) GetPos() *pixel.Vec {
 	return &o.pos
