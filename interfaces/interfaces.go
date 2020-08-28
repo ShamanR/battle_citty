@@ -38,8 +38,8 @@ type SceneObject interface {
 	GetSprite() *pixel.Sprite
 	SetSpriteList(list *SceneObjectAnimateList)
 	Draw(target pixel.Target)
-	SetScale(scale float64)
-	GetScale() float64
+	SetScale(scale pixel.Vec)
+	GetScale() pixel.Vec
 	GetSize() *pixel.Rect
 	IsVisible() bool
 	SetVisible(visible bool)

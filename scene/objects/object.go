@@ -13,7 +13,7 @@ type Object struct {
 
 	// props
 	visible bool
-	scale   float64
+	scale pixel.Vec
 
 	// bounds and pos
 	pos         pixel.Vec
@@ -38,7 +38,6 @@ func NewObject(ID int64, objectType consts.ObjectType, pos *pixel.Vec, spriteLis
 	obj := Object{
 		id:         ID,
 		objectType: objectType,
-		scale:      consts.ScaleSprites,
 	}
 	obj.SetPos(pos)
 	obj.SetSpriteList(spriteList)
@@ -90,17 +89,17 @@ func (o *Object) Draw(target pixel.Target) {
 	if s == nil {
 		return
 	}
-	m := pixel.IM.Scaled(pixel.ZV, o.scale).Moved(*o.GetPos())
+	m := pixel.IM.ScaledXY(pixel.ZV, o.scale).Moved(*o.GetPos())
 	s.Draw(target, m)
 }
 
 // SetScale устанавливает коэф. масштабирования объекта
-func (o *Object) SetScale(scale float64) {
+func (o *Object) SetScale(scale pixel.Vec) {
 	o.scale = scale
 }
 
 // GetScale возвращает коэф. масштабирования объекта
-func (o *Object) GetScale() float64 {
+func (o *Object) GetScale() pixel.Vec {
 	return o.scale
 }
 

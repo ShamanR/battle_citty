@@ -110,10 +110,14 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	var sceneObjects []interfaces.SceneObject
 	for y, row := range levelMap {
 		for x, objType := range row {
-			currentPos := pixel.V(float64(x * consts.MapTileSize * consts.ScaleSprites), g.window.Bounds().Max.Y - float64(y * consts.MapTileSize * consts.ScaleSprites))
+			tileSize := g.getTileSize()
+			currentPos := pixel.V(float64(x) * tileSize.X, g.window.Bounds().Max.Y - float64(y) * tileSize.Y)
 
 			sceneObj := g.getGameObjectByType(objType, currentPos)
+			scale := g.getScale()
 			if sceneObj != nil {
+				// Увеличиваем спрайт в соответствии с размером игрового поля
+				sceneObj.SetScale(scale)
 				sceneObjects = append(sceneObjects, sceneObj)
 			}
 		}
