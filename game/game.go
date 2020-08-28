@@ -57,7 +57,7 @@ func (g *Game) Init() {
 	//		enemySpawns = append(enemySpawns, obj)
 	//	}
 	//}
-	userSpawn := g.scene.MakeEmptyObj()
+	userSpawn := g.scene.MakeEmptyObj(consts.ObjectTypeEmpty)
 	pos := g.window.Bounds().Center()
 	userSpawn.SetPos(&pos)
 	if userSpawn == nil {
@@ -87,7 +87,7 @@ func (g *Game) StartLevel() {
 }
 
 func (g *Game) MakeTank() *tank.Tank {
-	obj := g.scene.MakeEmptyObj()
+	obj := g.scene.MakeEmptyObj(consts.ObjectTypePlayerTank1)
 	obj.SetSpriteList(g.rm.GetSpriteMap(consts.ObjectTypePlayerTank1))
 	return &tank.Tank{obj}
 }

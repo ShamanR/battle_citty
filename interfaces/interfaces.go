@@ -55,7 +55,7 @@ type Scene interface {
 	FillSceneObjectsByMap(levelMap consts.LevelMap)
 	GetSceneMap() SceneMap
 	GetLevelMap() consts.LevelMap
-	MakeEmptyObj() SceneObject
+	MakeEmptyObj(objType consts.ObjectType) SceneObject
 	Draw(target pixel.Target)
 }
 type Physics interface {
