@@ -35,7 +35,7 @@ type Object struct {
 // - spriteList -- структура спрайтов для анимации
 func NewObject(ID int64, objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Object {
 	obj := Object{
-		ID:         ID,
+		id:         ID,
 		objectType: objectType,
 	}
 	obj.SetPos(pos)
@@ -70,43 +70,13 @@ func (o *Object) SetSpeed(vect *pixel.Vec) {
 // getSprite возвращает активный спрайт
 func (o *Object) getSprite() *pixel.Sprite {
 	o.spriteIndex++
-	o.spriteIndex %= o.getSriteListLen()
-	if o.orientation == interfaces.OrientationTop {
-		return o.spriteList.TopSprite[o.spriteIndex]
-	}
-	if o.orientation == interfaces.OrientationRight {
-		return o.spriteList.RightSprite[o.spriteIndex]
-	}
-	if o.orientation == interfaces.OrientationBottom {
-		return o.spriteList.BottomSprite[o.spriteIndex]
-	}
-	if o.orientation == interfaces.OrientationLeft {
-		return o.spriteList.LeftSprite[o.spriteIndex]
-	}
-	// TODO: возможно тут понадобится другая логика
-	return nil
+	o.spriteIndex %= int64(len((*o.spriteList)[o.orientation]))
+	return (*o.spriteList)[o.orientation][o.spriteIndex]
 }
 
 // SetSpriteList обновляет spriteList объекта
 func (o *Object) SetSpriteList(list *interfaces.SceneObjectAnimateList) {
 	o.spriteList = list
-}
-
-func (o *Object) getSriteListLen() int64 {
-	l := 0
-	if o.orientation == interfaces.OrientationTop {
-		l = len(o.spriteList.TopSprite)
-	}
-	if o.orientation == interfaces.OrientationRight {
-		l = len(o.spriteList.RightSprite)
-	}
-	if o.orientation == interfaces.OrientationBottom {
-		l = len(o.spriteList.BottomSprite)
-	}
-	if o.orientation == interfaces.OrientationLeft {
-		l = len(o.spriteList.LeftSprite)
-	}
-	return int64(l)
 }
 
 // Draw выполняет отрисовку объекта в target
