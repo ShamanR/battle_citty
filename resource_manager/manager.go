@@ -32,6 +32,7 @@ var spriteMap = map[SpriteType]*spritePosition{
 var animationsMap = map[consts.ObjectType]*animationPosition{
 	consts.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
 	consts.ObjectTypeBrickWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 4, false),
+	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 7, 4, false),
 }
 
 type spritePosition struct {
