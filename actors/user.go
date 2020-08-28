@@ -1,6 +1,7 @@
 package actors
 
 import (
+	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 )
 
@@ -11,6 +12,9 @@ type Tank interface {
 	MoveDown()
 	Stop()
 	Shoot()
+
+	GetSpeed() *pixel.Vec
+	GetPos() *pixel.Vec
 }
 
 type User struct {

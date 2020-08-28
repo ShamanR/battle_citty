@@ -22,9 +22,9 @@ type Game struct {
 	rm      interfaces.ResourceManager
 	physics interfaces.Physics
 	window  *pixelgl.Window
-	player  actors.User
-
-	lastID int64
+	player  *actors.User
+	ai      *actors.AI
+	lastID  int64
 }
 
 func (g *Game) Init() {
@@ -69,17 +69,28 @@ func (g *Game) Init() {
 	// PlayerActor
 	player := actors.User{}
 	player.SetTank(playerTank)
-	g.player = player
+	g.player = &player
+
+	// AI
+	g.ai = actors.NewAI()
+	aiTank := g.MakeTank()
+	// Инстанцируем объект на сцену в точку респа
+	enemyPos := userSpawn.GetPos().Add(pixel.V(100, 100))
+	aiTank.SetPos(&enemyPos)
+	aiTank.SetScale(g.getScale())
+	g.ai.SetTank(aiTank)
 }
 
 func (g *Game) StartLevel() {
 	last := time.Now()
+
 	for !g.window.Closed() {
 		dt := time.Since(last)
 		last = time.Now()
 		<-time.After(time.Millisecond * 30)
 		g.window.Clear(colornames.Black)
 		g.player.AttachToKeyboard(g.window)
+		g.ai.Tick(dt)
 		g.physics.MoveObjects(g.scene.GetObjects(), dt)
 		g.scene.Draw(g.window)
 		g.window.Update()
