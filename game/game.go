@@ -66,6 +66,7 @@ func (g *Game) Init() {
 	playerTank := g.MakeTank()
 	// Инстанцируем объект на сцену в точку респа
 	playerTank.SetPos(userSpawn.GetPos())
+	playerTank.SetScale(g.getScale())
 	// PlayerActor
 	player := actors.User{}
 	player.SetTank(playerTank)
