@@ -70,6 +70,9 @@ func (o *Object) SetSpeed(vect *pixel.Vec) {
 
 // GetSprite возвращает активный спрайт
 func (o *Object) GetSprite() *pixel.Sprite {
+	if o.spriteList == nil || len(*o.spriteList) == 0 {
+		return nil
+	}
 	o.spriteIndex++
 	o.spriteIndex %= int64(len((*o.spriteList)[o.orientation]))
 	return (*o.spriteList)[o.orientation][o.spriteIndex]
@@ -83,6 +86,9 @@ func (o *Object) SetSpriteList(list *interfaces.SceneObjectAnimateList) {
 // Draw выполняет отрисовку объекта в target
 func (o *Object) Draw(target pixel.Target) {
 	s := o.GetSprite()
+	if s == nil {
+		return
+	}
 	m := pixel.IM.Scaled(pixel.ZV, o.scale).Moved(*o.GetPos())
 	s.Draw(target, m)
 }
