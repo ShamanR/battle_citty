@@ -3,6 +3,7 @@ package interfaces
 import (
 	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
+	"time"
 )
 
 // ObjectType тип объекта
@@ -39,6 +40,10 @@ const (
 	AISpawn
 	Bonus
 	SimpleOrangeTank
+	Projectile
+)
+
+const (
 	OrientationTop    = 0
 	OrientationRight  = 1
 	OrientationBottom = 2
@@ -90,7 +95,7 @@ type Scene interface {
 	Draw(target pixel.Target)
 }
 type Physics interface {
-	MoveObjects(sceneMap SceneMap)
+	MoveObjects(sceneMap SceneMap, dt time.Duration)
 	canCollide(obj, obj2 SceneObject) bool
 	PathTo(from, to pixel.Vec, sceneMap LevelMap)
 }
