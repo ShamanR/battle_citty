@@ -9,8 +9,8 @@ import (
 )
 
 // NewBrickWall возвращает объект стены
-func NewBrickWall(Id int64, objectType consts.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *BrickWall {
-	obj := object.NewObject(Id, objectType, pos, spriteList)
+func NewBrickWall(Id int64, scene interfaces.Scene, objectType consts.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *BrickWall {
+	obj := object.NewObject(Id, scene, objectType, pos, spriteList)
 	return &BrickWall{obj}
 }
 

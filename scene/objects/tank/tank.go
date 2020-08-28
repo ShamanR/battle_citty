@@ -68,5 +68,5 @@ func (t *Tank) Stop() {
 
 // Shoot стрельба
 func (t *Tank) Shoot() {
-	// TODO:
+
 }
