@@ -1,20 +1,18 @@
 package tank
 
 import (
-	"github.com/shamanr/battle_citty/interfaces"
-	object "github.com/shamanr/battle_citty/scene/objects"
-
 	"github.com/faiface/pixel"
+	"github.com/shamanr/battle_citty/interfaces"
 )
 
 // NewTank возвращает объект танка
-func NewTank(obj *object.Object) *Tank {
+func NewTank(obj interfaces.SceneObject) *Tank {
 	return &Tank{obj}
 }
 
 // Tank структруа танка
 type Tank struct {
-	*object.Object
+	interfaces.SceneObject
 }
 
 // MoveLeft передвигает танк влево
@@ -52,4 +50,9 @@ func (t *Tank) move() {
 func (t *Tank) Stop() {
 	s := pixel.V(0, 0)
 	t.SetSpeed(&s)
+}
+
+// Shoot стрельба
+func (t *Tank) Shoot() {
+	// TODO:
 }
