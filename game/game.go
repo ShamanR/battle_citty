@@ -90,5 +90,5 @@ func (g *Game) StartLevel() {
 func (g *Game) MakeTank() *tank.Tank {
 	obj := g.scene.MakeEmptyObj(consts.ObjectTypePlayerTank1)
 	obj.SetSpriteList(g.rm.GetSpriteMap(consts.ObjectTypePlayerTank1))
-	return &tank.Tank{obj}
+	return tank.NewTank(obj, 3)
 }

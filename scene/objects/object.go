@@ -135,6 +135,10 @@ func (o *Object) SetOrientation(orient consts.Orientation) {
 	o.orientation = orient
 }
 
+func (o *Object) GetOrientation() consts.Orientation {
+	return o.orientation
+}
+
 // Delete TODO: вроде как так должно работать
 func (o *Object) Delete() {
 	if o.children != nil {

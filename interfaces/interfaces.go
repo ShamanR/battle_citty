@@ -46,6 +46,7 @@ type SceneObject interface {
 	GetObjects() []SceneObject
 	GetObjectType() consts.ObjectType
 	SetOrientation(orient consts.Orientation)
+	GetOrientation() consts.Orientation
 	Delete()
 }
 
