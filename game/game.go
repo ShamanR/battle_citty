@@ -106,7 +106,7 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	for y, row := range levelMap {
 		for x, objType := range row {
 			tileSize := g.getTileSize()
-			currentPos := pixel.V(float64(x)*tileSize.X, g.window.Bounds().Max.Y-float64(y)*tileSize.Y)
+			currentPos := pixel.V(float64(x)*tileSize.X + tileSize.X/2, g.window.Bounds().Max.Y-float64(y)*tileSize.Y - tileSize.Y/2)
 
 			sceneObj := g.getGameObjectByType(objType, currentPos)
 			scale := g.getScale()
@@ -134,11 +134,21 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 		obj.SetPos(&pos)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
 		return obj
+	case consts.ObjectTypeIronWall:
+		obj := g.scene.MakeEmptyObj(typ)
+		obj.SetPos(&pos)
+		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+		return obj
+	case consts.ObjectTypeHeadquarters:
+		obj := g.scene.MakeEmptyObj(typ)
+		obj.SetPos(&pos)
+		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+		return obj
 	case consts.ObjectTypeEmpty:
 		return nil
 	}
 
-	panic(errors.New(fmt.Sprintf("Unable to create object type %s", typ)))
+	panic(errors.New(fmt.Sprintf("Unable to create object type %d", typ)))
 }
 
 func (g *Game) MakeTank() *tank.Tank {

@@ -33,6 +33,8 @@ var spriteMap = map[SpriteType]*spritePosition{
 var animationsMap = map[consts.ObjectType]*animationPosition{
 	consts.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
 	consts.ObjectTypeBrickWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 1, false),
+	consts.ObjectTypeIronWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 1, 1, false),
+	consts.ObjectTypeHeadquarters:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
 	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
 }
 
