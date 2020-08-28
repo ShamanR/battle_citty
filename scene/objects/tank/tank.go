@@ -8,13 +8,14 @@ import (
 )
 
 // NewTank возвращает объект танка
-func NewTank() *Tank {
-	return &Tank{}
+func NewTank(objectType interfaces.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *Tank {
+	obj := object.NewObject(objectType, pos, spriteList)
+	return &Tank{obj}
 }
 
 // Tank структруа танка
 type Tank struct {
-	object.Object
+	*object.Object
 }
 
 // MoveLeft передвигает танк влево
