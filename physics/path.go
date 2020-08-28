@@ -6,10 +6,20 @@ import (
 	"github.com/shamanr/battle_citty/consts"
 )
 
-func (p *Physics) PathTo(from, to pixel.Vec, sceneMap consts.LevelMap) {
+func (p *Physics) PathTo(from, to pixel.Vec, sceneMap consts.LevelMap) []*pixel.Vec {
 	fromTile := newTile(from, sceneMap)
 	toTile := newTile(to, sceneMap)
 
-	//path, distance, found := astar.Path(fromTile, toTile)
-	_, _, _ = astar.Path(fromTile, toTile)
+	path, _, found := astar.Path(fromTile, toTile)
+	if !found {
+		return nil
+	}
+
+	res := make([]*pixel.Vec, len(path))
+	for _, p := range path {
+		t := p.(*tile)
+		v := pixel.V(float64(t.x * tileSize), float64(t.y * tileSize))
+		res = append(res, &v)
+	}
+	return res
 }

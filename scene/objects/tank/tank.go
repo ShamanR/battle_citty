@@ -61,8 +61,8 @@ func (t *Tank) move() {
 
 // Stop остановка танка
 func (t *Tank) Stop() {
-	//s := pixel.V(0, 0)
-	//t.SetSpeed(&s)
+	s := pixel.V(0, 0)
+	t.SetSpeed(&s)
 }
 
 // Shoot стрельба
