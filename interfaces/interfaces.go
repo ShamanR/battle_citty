@@ -2,6 +2,7 @@ package interfaces
 
 import (
 	"github.com/faiface/pixel"
+	"github.com/shamanr/battle_citty/resource_manager"
 )
 
 type ObjectType uint8
@@ -17,6 +18,7 @@ type LevelMap [][]ObjectType
 	}
 }
 */
+
 type ResourceManager interface {
 	GetSprite(name string) *pixel.Sprite
 	LoadMap() SceneMap
@@ -42,7 +44,7 @@ type SceneObject interface {
 	IsVisible() bool
 	SetVisible(visible bool)
 	GetObjects() []SceneObject
-	GetObjectType() ObjectType
+	GetObjectType() resource_manager.ObjectType
 	Delete()
 }
 type Scene interface {
