@@ -5,10 +5,19 @@ import (
 	"github.com/shamanr/battle_citty/scene/objects/tank"
 )
 
+// ObjectType тип объекта
 type ObjectType uint8
+
+// SceneMap ...
 type SceneMap []SceneObject
+
+// LevelMap ...
 type LevelMap [][]ObjectType
 type SpriteType string
+
+// Orientation ориентация
+type Orientation uint8
+
 /*
 {
 	"maps": {
@@ -30,6 +39,10 @@ const (
 	AISpawn
 	Bonus
 	SimpleOrangeTank
+	OrientationTop    = 0
+	OrientationRight  = 1
+	OrientationBottom = 2
+	OrientationLeft   = 3
 )
 
 type ResourceManager interface {
@@ -38,30 +51,36 @@ type ResourceManager interface {
 	LoadMap() *SceneMap
 	MakeTank(name ObjectType) *tank.Tank
 }
+
+// SceneObjectAnimateList структуры анимации (для танков?)
 type SceneObjectAnimateList struct {
 	LeftSprite   []*pixel.Sprite
 	RightSprite  []*pixel.Sprite
 	TopSprite    []*pixel.Sprite
 	BottomSprite []*pixel.Sprite
 }
+
+// SceneObject интерфейс
 type SceneObject interface {
-	GetID() int64
 	GetPos() *pixel.Vec
 	SetPos(vect *pixel.Vec)
 	GetSpeed() *pixel.Vec
 	SetSpeed(vect *pixel.Vec)
 	getSprite() *pixel.Sprite
 	SetSpriteList(list *SceneObjectAnimateList)
+	getSriteListLen() int64
 	Draw(target pixel.Target)
 	SetScale(scale float64)
-	GetScale(scale float64)
-	Bounds() pixel.Rect
+	GetScale() float64
+	Bounds() *pixel.Rect
 	IsVisible() bool
 	SetVisible(visible bool)
 	GetObjects() []SceneObject
 	GetObjectType() ObjectType
+	SetOrientation(orient Orientation)
 	Delete()
 }
+
 type Scene interface {
 	GetObjects() []SceneObject
 	GetObjectById() SceneObject
