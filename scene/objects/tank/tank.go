@@ -53,3 +53,8 @@ func (t *Tank) Stop() {
 	s := pixel.V(0, 0)
 	t.SetSpeed(&s)
 }
+
+// Shoot стрельба
+func (t *Tank) Shoot() {
+	// TODO:
+}
