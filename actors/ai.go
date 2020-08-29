@@ -73,7 +73,7 @@ func (ai *AI) RandomDirection() {
 }
 
 func (ai *AI) RandomShoot() {
-	if ai.rand.Intn(100) > 90 {
-		//ai.Tank.Shoot()
+	if ai.rand.Intn(1000) > 950 {
+		ai.Tank.Shoot()
 	}
 }

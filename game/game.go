@@ -52,7 +52,7 @@ func (g *Game) Init() {
 	// Создаем менеджер игровых объектов
 	g.gameObjectsManager = objects.NewGameObjectsManager(g.rm, g.scene)
 
-	// g.rm.PlaySound(consts.SoundGameIntro)
+	g.rm.PlaySound(consts.SoundGameIntro)
 	// Ищем точки РЕСПА ИГРОКА и Врагов
 	var userSpawn interfaces.SceneObject
 	enemySpawns := []interfaces.SceneObject{}
