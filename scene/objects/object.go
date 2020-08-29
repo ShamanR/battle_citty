@@ -22,7 +22,7 @@ type Object struct {
 	angle       float64 // возможно не нужно пока или рассчитывать автоматически по orientation
 	speed       pixel.Vec
 	bounds      pixel.Rect
-	life		uint8 // Количество жизней у объекта
+	life        uint8 // Количество жизней у объекта
 
 	// sprite
 	spriteList  *interfaces.SceneObjectAnimateList
@@ -106,12 +106,12 @@ func (o *Object) Draw(target pixel.Target) {
 	if ok {
 		drawListener.OnDraw()
 	}
-	if o.objectType == consts.ObjectTypeProjectile {
-		//fmt.Println("here")
-	}
 	s := o.GetSprite()
 	if s == nil || !o.IsVisible() {
 		return
+	}
+	if o.objectType == consts.ObjectTypeProjectile {
+		//fmt.Println("here")
 	}
 	m := pixel.IM.ScaledXY(pixel.ZV, o.scale).Moved(*o.GetPos())
 	s.Draw(target, m)

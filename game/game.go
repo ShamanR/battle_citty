@@ -53,7 +53,6 @@ func (g *Game) Init() {
 	g.gameObjectsManager = objects.NewGameObjectsManager(g.rm, g.scene)
 
 	// g.rm.PlaySound(consts.SoundGameIntro)
-
 	// Ищем точки РЕСПА ИГРОКА и Врагов
 	var userSpawn interfaces.SceneObject
 	enemySpawns := []interfaces.SceneObject{}
@@ -201,4 +200,3 @@ func (g *Game) Spawn(objType consts.ObjectType, pos pixel.Vec) {
 		sceneObj.SetScale(scale)
 	}
 }
-

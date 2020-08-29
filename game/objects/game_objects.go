@@ -15,7 +15,7 @@ var gameObjectsDefaultConfigs = map[consts.ObjectType]*GameObjectConfig{
 }
 
 type GameObjectsManager struct {
-	rm interfaces.ResourceManager
+	rm    interfaces.ResourceManager
 	scene interfaces.Scene
 }
 
@@ -37,6 +37,7 @@ func (manager *GameObjectsManager) MakeTank(typ consts.ObjectType) *tank.Tank {
 	obj.SetVisible(true)
 	sceneTank := object.NewMovableObject(obj, config.Speed)
 	bullet := manager.MakeProjectile(consts.ObjectTypeProjectile)
+	bullet.SetVisible(false)
 
 	return tank.NewTank(sceneTank, bullet)
 }
@@ -56,16 +57,15 @@ func (manager *GameObjectsManager) MakeProjectile(typ consts.ObjectType) *projec
 }
 
 type GameObjectConfig struct {
-	Typ consts.ObjectType
-	Life uint8
+	Typ   consts.ObjectType
+	Life  uint8
 	Speed int
 }
 
 func newGameObjectConfig(typ consts.ObjectType, Life uint8, Speed int) *GameObjectConfig {
 	return &GameObjectConfig{
-		Typ: typ,
+		Typ:   typ,
 		Life:  Life,
 		Speed: Speed,
 	}
 }
-

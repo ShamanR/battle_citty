@@ -45,13 +45,13 @@ func (t *MovableObject) MoveDown() {
 }
 
 func (t *MovableObject) move() {
-	speedVec := t.getOrientationVec()
+	speedVec := t.GetOrientationVec()
 	speedVec.Scaled(float64(t.speed))
 	t.SetSpeed(speedVec)
 	t.NextSprite()
 }
 
-func (t *MovableObject) getOrientationVec() *pixel.Vec {
+func (t *MovableObject) GetOrientationVec() *pixel.Vec {
 	var vec pixel.Vec
 	switch t.GetOrientation() {
 	case consts.OrientationTop:
