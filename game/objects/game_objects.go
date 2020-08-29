@@ -11,7 +11,7 @@ import (
 
 var gameObjectsDefaultConfigs = map[consts.ObjectType]*GameObjectConfig{
 	consts.ObjectTypePlayerTank1: newGameObjectConfig(consts.ObjectTypePlayerTank1, 1, 5),
-	consts.ObjectTypeProjectile:  newGameObjectConfig(consts.ObjectTypeProjectile, 1, 1),
+	consts.ObjectTypeProjectile:  newGameObjectConfig(consts.ObjectTypeProjectile, 1, 20),
 }
 
 type GameObjectsManager struct {
