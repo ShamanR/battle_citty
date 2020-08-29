@@ -45,7 +45,8 @@ var animationsMap = map[consts.ObjectType]*animationPosition{
 	consts.ObjectTypeHeadquarters:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
 	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
 	consts.ObjectTypeProjectile: newAnimationPosition(spriteSheetSize, 4, 16, 6, 1, true),
-	consts.ObjectTypeExplosion:             newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 8, 3, false),
+	consts.ObjectTypeExplosion:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 8, 3, false),
+	consts.ObjectTypeHiddenWall: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 23, 0, 1, false),
 }
 
 type spritePosition struct {

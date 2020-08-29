@@ -27,6 +27,7 @@ func (p *Physics) initCollisionsMap() {
 		consts.ObjectTypeIronWallDamagedLeft: true,
 		consts.ObjectTypeIronWallDamagedRight: true,
 		consts.ObjectTypeIronWallDamagedDown: true,
+		consts.ObjectTypeHiddenWall: true,
 	}
 
 	p.collisionRules = map[consts.ObjectType]map[consts.ObjectType]bool{
@@ -58,6 +59,7 @@ func (p *Physics) initCollisionsMap() {
 			consts.ObjectTypeIronWallDamagedLeft: true,
 			consts.ObjectTypeIronWallDamagedRight: true,
 			consts.ObjectTypeIronWallDamagedDown: true,
+			consts.ObjectTypeHiddenWall: true,
 		},
 	}
 }

@@ -35,4 +35,5 @@ const (
 	ObjectTypeEnemyTank4
 	ObjectTypeProjectile
 	ObjectTypeExplosion
+	ObjectTypeHiddenWall
 )
