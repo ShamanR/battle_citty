@@ -5,7 +5,6 @@ import (
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/resource_manager"
 	object "github.com/shamanr/battle_citty/scene/objects"
-	"github.com/shamanr/battle_citty/scene/objects/tank"
 	"golang.org/x/image/colornames"
 	_ "image/png"
 	"time"
@@ -24,7 +23,7 @@ func run() {
 	if err != nil {
 		panic(err)
 	}
-	tank := tank.NewTank(sprite, 3)
+	tank := object.NewMovableObject(sprite, 3)
 	last := time.Now()
 	for !win.Closed() {
 

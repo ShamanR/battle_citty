@@ -3,12 +3,13 @@ package actors
 import (
 	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/consts"
+	"github.com/shamanr/battle_citty/scene/objects/tank"
 	"math/rand"
 	"time"
 )
 
 type AI struct {
-	Tank
+	*tank.Tank
 	rand               *rand.Rand
 	prevPosition       *pixel.Vec
 	currentOrientation consts.Orientation
@@ -22,7 +23,7 @@ func NewAI() *AI {
 	}
 }
 
-func (ai *AI) SetTank(tank Tank) {
+func (ai *AI) SetTank(tank *tank.Tank) {
 	ai.Tank = tank
 	ai.rand = rand.New(rand.NewSource(time.Now().Unix()))
 }

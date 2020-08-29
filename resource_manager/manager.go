@@ -44,6 +44,7 @@ var animationsMap = map[consts.ObjectType]*animationPosition{
 	consts.ObjectTypeIronWallDamagedDown: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 1, 1, false),
 	consts.ObjectTypeHeadquarters:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
 	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
+	consts.ObjectTypeProjectile: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 6, 1, true),
 }
 
 type spritePosition struct {

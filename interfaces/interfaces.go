@@ -11,16 +11,6 @@ import (
 // SceneMap ...
 type SceneMap []SceneObject
 
-/*
-{
-	"maps": {
-		"1": [
-			[ 1, 2, 3, 4]
-		]
-	}
-}
-*/
-
 type ResourceManager interface {
 	GetSpriteMap(name consts.ObjectType) *SceneObjectAnimateList
 	LoadMap(path string) consts.LevelMap
@@ -51,6 +41,7 @@ type SceneObject interface {
 	GetOrientation() consts.Orientation
 	NextSprite()
 	Delete()
+	OnCollide(obj SceneObject) // Коллизия произошла, вызываем этот метод
 }
 
 type Scene interface {
@@ -63,6 +54,6 @@ type Scene interface {
 	Draw(target pixel.Target)
 }
 type Physics interface {
-	MoveObjects(sceneMap SceneMap, dt time.Duration)
+	MoveObjects(gameMap SceneMap, dt time.Duration)
 	PathTo(from, to pixel.Vec, sceneMap consts.LevelMap) []*pixel.Vec
 }

@@ -1,6 +1,7 @@
 package object
 
 import (
+	"fmt"
 	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
@@ -22,6 +23,7 @@ type Object struct {
 	angle       float64 // возможно не нужно пока или рассчитывать автоматически по orientation
 	speed       pixel.Vec
 	bounds      pixel.Rect
+	life		uint8 // Количество жизней у объекта
 
 	// sprite
 	spriteList  *interfaces.SceneObjectAnimateList
@@ -166,5 +168,7 @@ func (o *Object) Delete() {
 	}
 }
 
-func (o *Object) onCollide(obj interfaces.SceneObject) {
+// Метод вызывается при столкновении с другим объектом сцены
+func (o *Object) OnCollide(with interfaces.SceneObject) {
+	fmt.Println(fmt.Sprintf("Object %d collide with object %d", o.GetObjectType(), with.GetObjectType()))
 }

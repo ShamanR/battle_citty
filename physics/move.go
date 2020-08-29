@@ -26,6 +26,8 @@ loop:
 			}
 
 			if newBounds.Intersects(bounds(anotherObj)) {
+				anotherObj.OnCollide(currentObj)
+				currentObj.OnCollide(anotherObj)
 				continue loop
 			}
 		}
