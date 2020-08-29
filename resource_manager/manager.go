@@ -36,15 +36,16 @@ var animationsMap = map[consts.ObjectType]*animationPosition{
 	consts.ObjectTypeBrickWallDamagedLeft:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 0, 1, false),
 	consts.ObjectTypeBrickWallDamagedTop:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 0, 1, false),
 	consts.ObjectTypeBrickWallDamagedRight: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 0, 1, false),
-	consts.ObjectTypeBrickWallDamagedDown: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 0, 1, false),
-	consts.ObjectTypeIronWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedLeft: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedTop: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedRight: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedDown: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 1, 1, false),
-	consts.ObjectTypeHeadquarters:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
-	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
-	consts.ObjectTypeProjectile: newAnimationPosition(spriteSheetSize, 4, 16, 6, 1, true),
+	consts.ObjectTypeBrickWallDamagedDown:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 0, 1, false),
+	consts.ObjectTypeIronWall:              newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedLeft:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedTop:    newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedRight:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedDown:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 1, 1, false),
+	consts.ObjectTypeHeadquarters:          newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
+	consts.ObjectTypePlayerSpawn:           newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
+	consts.ObjectTypeAISpawn:               newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
+	consts.ObjectTypeProjectile:            newAnimationPosition(spriteSheetSize, 4, 16, 6, 1, true),
 	consts.ObjectTypeExplosion:             newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 8, 3, false),
 }
 
@@ -53,8 +54,8 @@ type spritePosition struct {
 	spriteSize      int
 	positionX       int
 	positionY       int
-	startX			int
-	startY			int
+	startX          int
+	startY          int
 }
 
 func newSpritePosition(spriteSheetSize pixel.Vec, size int, posX int, posY int) *spritePosition {
@@ -63,8 +64,8 @@ func newSpritePosition(spriteSheetSize pixel.Vec, size int, posX int, posY int) 
 		spriteSize:      size,
 		positionX:       posX,
 		positionY:       posY,
-		startX:			 defaultSpriteSize*posX,
-		startY:			 spriteSheetSizeY - defaultSpriteSize*posY,
+		startX:          defaultSpriteSize * posX,
+		startY:          spriteSheetSizeY - defaultSpriteSize*posY,
 	}
 }
 
@@ -113,7 +114,6 @@ func (rm *resourceManager) getSceneObjectAnimateList(name consts.ObjectType, pos
 	//		rm.loadSprite(),
 	//	}
 	//}
-
 
 	framesCounter := 0
 	currentSide := 0
