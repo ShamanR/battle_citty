@@ -65,7 +65,7 @@ func (t *Tank) OnDamage(other interfaces.SceneObject) {
 	}
 
 	t.SceneObject.SetLife(t.SceneObject.GetLife() - 1)
-	if t.SceneObject.GetLife() <= 0 {
+	if t.SceneObject.GetLife() <= 0 || t.SceneObject.GetLife() > 100 {
 		t.SceneObject.GetScene().GetSpawner().Spawn(consts.ObjectTypeExplosion, *t.SceneObject.GetPos())
 		t.Delete()
 	}
