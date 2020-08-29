@@ -14,7 +14,7 @@ require (
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200707082815-5321531c36a2 // indirect
 	github.com/go-gl/mathgl v0.0.0-20190416160123-c4601bc793c7
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
-	github.com/google/uuid v1.1.1
+	github.com/google/uuid v1.1.1 // indirect
 	github.com/gotk3/gotk3 v0.4.0 // indirect
 	github.com/hajimehoshi/oto v0.6.4 // indirect
 	github.com/pkg/errors v0.8.1
