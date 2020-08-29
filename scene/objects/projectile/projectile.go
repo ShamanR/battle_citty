@@ -21,13 +21,13 @@ type Projectile struct {
 }
 
 func (p *Projectile) OnDamage(other interfaces.SceneObject) {
-	p.MovableObject.SetPos(&pixel.Vec{
-		X: -100,
-		Y: -110,
-	})
+	p.SetVisible(false)
 	p.MovableObject.SetSpeed(&pixel.Vec{
 		X: 0,
 		Y: 0,
 	})
+	p.MovableObject.SetPos(&pixel.Vec{
+		X: -100,
+		Y: -110,
+	})
 }
-

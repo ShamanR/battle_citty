@@ -167,12 +167,14 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 		obj.SetPos(&pos)
 		obj.SetVisible(true)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+		obj.SetGameObject(brickwall.NewBrickWall(obj))
 		return obj
 	case consts.ObjectTypeHeadquarters:
 		obj := g.scene.MakeEmptyObj(typ)
 		obj.SetPos(&pos)
 		obj.SetVisible(true)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+		obj.SetGameObject(brickwall.NewBrickWall(obj))
 		return obj
 	case consts.ObjectTypeExplosion:
 		obj := g.scene.MakeEmptyObj(typ)
