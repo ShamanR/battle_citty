@@ -1,12 +1,13 @@
 package resource_manager
 
 import (
+	"os"
+	"path"
+	"time"
 
-	// "github.com/faiface/beep"
-
-	// "github.com/faiface/beep/mp3"
-	// "github.com/faiface/beep/speaker"
 	"github.com/faiface/beep"
+	"github.com/faiface/beep/mp3"
+	"github.com/faiface/beep/speaker"
 	"github.com/pkg/errors"
 	"github.com/shamanr/battle_citty/consts"
 )
@@ -47,31 +48,33 @@ var soundsMap = map[consts.SoundType]*sound{
 }
 
 func newSound(soundFile string) *sound {
-	return &sound{
+	s := sound{
 		soundFile: soundFile,
 	}
+	s.Init()
+	return &s
 }
 
 func (s *sound) Init() {
-	// f, err := os.Open(path.Join(soundPath, s.soundFile))
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// streamer, format, err := mp3.Decode(f)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// s.streamer = &streamer
-	// s.format = &format
+	f, err := os.Open(path.Join(soundPath, s.soundFile))
+	if err != nil {
+		panic(err)
+	}
+	streamer, format, err := mp3.Decode(f)
+	if err != nil {
+		panic(err)
+	}
+	s.streamer = &streamer
+	s.format = &format
 }
 
 func (s *sound) Play() {
-	// speaker.Init(s.format.SampleRate, s.format.SampleRate.N(time.Second/10))
-	// speaker.Play(*s.streamer)
+	speaker.Init(s.format.SampleRate, s.format.SampleRate.N(time.Second/10))
+	speaker.Play(*s.streamer)
 }
 
 func (s *sound) Close() {
-	// (*s.streamer).Close()
+	(*s.streamer).Close()
 }
 
 func (s *resourceManager) PlaySound(name consts.SoundType) {

@@ -1,6 +1,9 @@
 package game
 
 import (
+	"math"
+	"time"
+
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/actors"
@@ -11,8 +14,6 @@ import (
 	"github.com/shamanr/battle_citty/scene"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
 	"golang.org/x/image/colornames"
-	"math"
-	"time"
 )
 
 type Game struct {
@@ -45,6 +46,7 @@ func (g *Game) Init() {
 	g.physics = physics.New(33*time.Millisecond, 16, 3)
 	// Стартуем первый уровень
 	g.fillSceneByMap("resources/level1.json")
+	g.rm.PlaySound(consts.SoundGameIntro)
 	// Ищем точки РЕСПА ИГРОКА и Врагов
 	var userSpawn interfaces.SceneObject
 	var enemySpawns []interfaces.SceneObject

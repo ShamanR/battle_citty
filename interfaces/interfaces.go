@@ -24,6 +24,7 @@ type SceneMap []SceneObject
 type ResourceManager interface {
 	GetSpriteMap(name consts.ObjectType) *SceneObjectAnimateList
 	LoadMap(path string) consts.LevelMap
+	PlaySound(name consts.SoundType)
 }
 
 // SceneObjectAnimateList структуры анимации (для танков?)
