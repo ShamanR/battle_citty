@@ -83,7 +83,7 @@ func (g *Game) Init() {
 
 func (g *Game) StartLevel() {
 	last := time.Now()
-
+	defer g.rm.CloseSound()
 	for !g.window.Closed() {
 		dt := time.Since(last)
 		last = time.Now()

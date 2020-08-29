@@ -84,3 +84,9 @@ func (s *resourceManager) PlaySound(name consts.SoundType) {
 	}
 	sound.Play()
 }
+
+func (s *resourceManager) CloseSound() {
+	for _, sound := range soundsMap {
+		sound.Close()
+	}
+}
