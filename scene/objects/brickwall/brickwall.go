@@ -38,6 +38,9 @@ func (t *BrickWall) BreakDown() {
 }
 
 func (t *BrickWall) OnDamage(other interfaces.SceneObject) {
+	if other.GetObjectType() != consts.ObjectTypeProjectile {
+		return
+	}
 	t.GetScene().RemoveObject(t.GetID())
 	t.SceneObject.GetScene().GetSpawner().Spawn(consts.ObjectTypeExplosion, *t.SceneObject.GetPos())
 }
