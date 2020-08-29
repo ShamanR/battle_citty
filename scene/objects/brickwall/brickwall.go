@@ -3,20 +3,18 @@ package brickwall
 import (
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
-	object "github.com/shamanr/battle_citty/scene/objects"
-
-	"github.com/faiface/pixel"
 )
 
 // NewBrickWall возвращает объект стены
-func NewBrickWall(Id int64, scene interfaces.Scene, objectType consts.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *BrickWall {
-	obj := object.NewObject(Id, scene, objectType, pos, spriteList)
-	return &BrickWall{obj}
+func NewBrickWall(obj interfaces.SceneObject) *BrickWall {
+	bw := &BrickWall{obj}
+	obj.SetGameObject(bw)
+	return bw
 }
 
 // BrickWall структруа танка
 type BrickWall struct {
-	*object.Object
+	interfaces.SceneObject
 }
 
 // BreakLeft разрушение стены слева
@@ -37,4 +35,9 @@ func (t *BrickWall) BreakUp() {
 // BreakDown разрушение стены снизу
 func (t *BrickWall) BreakDown() {
 	t.SetOrientation(consts.OrientationBottom)
+}
+
+func (t *BrickWall) OnDamage(other interfaces.SceneObject) {
+	t.GetScene().RemoveObject(t.GetID())
+	t.SceneObject.GetScene().GetSpawner().Spawn(consts.ObjectTypeExplosion, *t.SceneObject.GetPos())
 }

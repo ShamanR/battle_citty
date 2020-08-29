@@ -44,19 +44,37 @@ type SceneObject interface {
 	NextSprite()
 	Delete()
 	OnCollide(obj SceneObject) // Коллизия произошла, вызываем этот метод
+	GetGameObject() interface{}
+	SetGameObject(gObj interface{})
+	SetLife(life uint8)
+	GetLife() uint8
 }
 
 type Scene interface {
 	GetObjects() []SceneObject
 	GetObjectByID(id int64) SceneObject
+	RemoveObject(id int64)
 	SetSceneObjects(objects []SceneObject)
 	GetSceneMap() SceneMap
 	GetLevelMap() consts.LevelMap
 	SetLevelMap(levelMap consts.LevelMap)
 	MakeEmptyObj(objType consts.ObjectType) SceneObject
 	Draw(target pixel.Target)
+	GetSpawner() Spawner
 }
 type Physics interface {
 	MoveObjects(gameMap SceneMap, dt time.Duration)
 	PathTo(from, to pixel.Vec, sceneMap consts.LevelMap) []*pixel.Vec
+}
+
+type Damageable interface {
+	OnDamage(other SceneObject)
+}
+
+type Spawner interface {
+	Spawn(objType consts.ObjectType, pos pixel.Vec)
+}
+
+type DrawListener interface {
+	OnDraw()
 }

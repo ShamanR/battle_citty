@@ -1,6 +1,8 @@
 package game
 
 import (
+	"github.com/shamanr/battle_citty/scene/objects/brickwall"
+	"github.com/shamanr/battle_citty/scene/objects/explosion"
 	"math"
 	"time"
 
@@ -40,7 +42,7 @@ func (g *Game) Init() {
 	}
 	g.window = win
 	// Создаем СЦЕНУ
-	g.scene = scene.NewScene()
+	g.scene = scene.NewScene(g)
 	// Создаем ресурс-менеджер
 	g.rm = resource_manager.NewResourceManager("resources/textures.png")
 	// создаем физику
@@ -144,6 +146,7 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 		obj.SetPos(&pos)
 		obj.SetVisible(true)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+		obj.SetGameObject(brickwall.NewBrickWall(obj))
 		return obj
 	case consts.ObjectTypePlayerSpawn:
 		obj := g.scene.MakeEmptyObj(typ)
@@ -162,6 +165,13 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 		obj.SetVisible(true)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
 		return obj
+	case consts.ObjectTypeExplosion:
+		obj := g.scene.MakeEmptyObj(typ)
+		obj.SetPos(&pos)
+		obj.SetVisible(true)
+		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
+		obj.SetGameObject(explosion.NewExplosion(obj))
+		return obj
 	case consts.ObjectTypeEmpty:
 		return nil
 	}
@@ -172,5 +182,13 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 	obj.SetSpriteList(g.rm.GetSpriteMap(typ))
 	return obj
 	//panic(errors.New(fmt.Sprintf("Unable to create object type %d", typ)))
+}
+
+func (g *Game) Spawn(objType consts.ObjectType, pos pixel.Vec) {
+	sceneObj := g.getGameObjectByType(objType, pos)
+	scale := g.getScale()
+	if sceneObj != nil {
+		sceneObj.SetScale(scale)
+	}
 }
 
