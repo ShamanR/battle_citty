@@ -25,17 +25,18 @@ import (
 // Use Write method to play samples.
 type Player struct {
 	context *Context
-	r       *io.PipeReader
-	w       *io.PipeWriter
+	r       io.ReadCloser
+	w       io.WriteCloser
 }
 
 func newPlayer(context *Context) *Player {
-	r, w := io.Pipe()
+	r, w := pipe()
 	p := &Player{
 		context: context,
 		r:       r,
 		w:       w,
 	}
+	context.mux.AddSource(r)
 	runtime.SetFinalizer(p, (*Player).Close)
 	return p
 }
@@ -57,7 +58,21 @@ func newPlayer(context *Context) *Player {
 //
 // Note, that the Player won't start playing anything until the buffer is full.
 func (p *Player) Write(buf []byte) (int, error) {
-	return p.w.Write(buf)
+	select {
+	case err := <-p.context.errCh:
+		return 0, err
+	default:
+	}
+	n, err := p.w.Write(buf)
+	// When the error is io.ErrClosedPipe, the context is already closed.
+	if err == io.ErrClosedPipe {
+		select {
+		case err := <-p.context.errCh:
+			return n, err
+		default:
+		}
+	}
+	return n, err
 }
 
 // Close closes the Player and frees any resources associated with it. The Player is no longer
@@ -70,6 +85,12 @@ func (p *Player) Close() error {
 		return nil
 	}
 
+	select {
+	case err := <-p.context.errCh:
+		return err
+	default:
+	}
+
 	// Close the pipe writer before RemoveSource, or Read-ing in the mux takes forever.
 	if err := p.w.Close(); err != nil {
 		return err
@@ -79,10 +100,7 @@ func (p *Player) Close() error {
 	p.context = nil
 
 	// Close the pipe reader after RemoveSource, or ErrClosedPipe happens at Read-ing.
-	if err := p.r.Close(); err != nil {
-		return err
-	}
-	return nil
+	return p.r.Close()
 }
 
 func max(a, b int) int {
