@@ -87,6 +87,7 @@ func (g *Game) Init() {
 			aiTank.SetPos(enemyPos)
 			aiTank.SetScale(g.getScale())
 			ai.SetTank(aiTank)
+			enemySpawn.SetVisible(false)
 
 			g.ai = append(g.ai, ai)
 		}

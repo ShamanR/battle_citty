@@ -122,23 +122,23 @@ func (rm *resourceManager) getSceneObjectAnimateList(name consts.ObjectType, pos
 	for i := 0; i < position.frames*len(sides); i++ {
 		spritePos := newSpritePosition(position.spriteSheetSize, position.spriteSize, position.positionX+i, position.positionY)
 
-		//if name == consts.ObjectTypeProjectile {
-		//	spritePos = newSpritePosition(position.spriteSheetSize, position.spriteSize, 1, 1)
-		//	y := 104
-		//	if i == consts.OrientationTop {
-		//		spritePos.startX = 321
-		//		spritePos.startY = y
-		//	} else if i == consts.OrientationRight {
-		//		spritePos.startX = 328
-		//		spritePos.startY = y
-		//	} else if i == consts.OrientationBottom {
-		//		spritePos.startX = 337
-		//		spritePos.startY = y
-		//	} else if i == consts.OrientationRight {
-		//		spritePos.startX = 344
-		//		spritePos.startY = y
-		//	}
-		//}
+		if name == consts.ObjectTypeProjectile {
+			spritePos = newSpritePosition(position.spriteSheetSize, position.spriteSize, 1, 1)
+			y := 104
+			if i == consts.OrientationTop {
+				spritePos.startX = 321
+				spritePos.startY = y
+			} else if i == consts.OrientationRight {
+				spritePos.startX = 328
+				spritePos.startY = y
+			} else if i == consts.OrientationBottom {
+				spritePos.startX = 337
+				spritePos.startY = y
+			} else if i == consts.OrientationRight {
+				spritePos.startX = 344
+				spritePos.startY = y
+			}
+		}
 
 		sprite := rm.loadSprite(SpriteType(fmt.Sprintf("%d%d", spritePos.positionY, spritePos.positionX)), spritePos)
 		framesBuff = append(framesBuff, sprite)
