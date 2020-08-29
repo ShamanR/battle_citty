@@ -1,13 +1,11 @@
 package tank
 
 import (
-	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
 	object "github.com/shamanr/battle_citty/scene/objects"
 	"github.com/shamanr/battle_citty/scene/objects/projectile"
 )
-
 
 // NewTank возвращает объект танка
 func NewTank(obj *object.MovableObject, bullet *projectile.Projectile) *Tank {
@@ -26,20 +24,29 @@ type Tank struct {
 }
 
 func (t *Tank) Shoot() {
-	startPos := pixel.V(t.GetPos().X + t.GetSize().Max.X, t.GetPos().Y + t.GetSize().Max.Y)
-	t.Bullet.SetPos(&startPos)
+	t.Bullet.SetScale(t.GetScale())
+	t.Bullet.SetVisible(true)
 	t.AddChild(t.Bullet)
+	startPos := t.GetPos()
 	switch t.GetOrientation() {
 	case consts.OrientationTop:
+		startPos.Y += t.GetSize().H()
+		t.Bullet.SetPos(startPos)
 		t.Bullet.MoveUp()
 		return
 	case consts.OrientationRight:
+		startPos.X += t.GetSize().W()
+		t.Bullet.SetPos(startPos)
 		t.Bullet.MoveRight()
 		return
 	case consts.OrientationBottom:
+		startPos.Y -= t.GetSize().H()
+		t.Bullet.SetPos(startPos)
 		t.Bullet.MoveDown()
 		return
 	case consts.OrientationLeft:
+		startPos.X -= t.GetSize().W()
+		t.Bullet.SetPos(startPos)
 		t.Bullet.MoveLeft()
 		return
 	}
