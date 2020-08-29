@@ -27,26 +27,26 @@ func (t *Tank) Shoot() {
 	t.Bullet.SetScale(t.GetScale())
 	t.Bullet.SetVisible(true)
 	t.AddChild(t.Bullet)
-	startPos := t.GetPos()
+	startPos := *t.GetPos()
 	switch t.GetOrientation() {
 	case consts.OrientationTop:
 		startPos.Y += t.GetSize().H()
-		t.Bullet.SetPos(startPos)
+		t.Bullet.SetPos(&startPos)
 		t.Bullet.MoveUp()
 		return
 	case consts.OrientationRight:
 		startPos.X += t.GetSize().W()
-		t.Bullet.SetPos(startPos)
+		t.Bullet.SetPos(&startPos)
 		t.Bullet.MoveRight()
 		return
 	case consts.OrientationBottom:
 		startPos.Y -= t.GetSize().H()
-		t.Bullet.SetPos(startPos)
+		t.Bullet.SetPos(&startPos)
 		t.Bullet.MoveDown()
 		return
 	case consts.OrientationLeft:
 		startPos.X -= t.GetSize().W()
-		t.Bullet.SetPos(startPos)
+		t.Bullet.SetPos(&startPos)
 		t.Bullet.MoveLeft()
 		return
 	}
