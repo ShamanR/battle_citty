@@ -34,4 +34,5 @@ const (
 	ObjectTypeEnemyTank3
 	ObjectTypeEnemyTank4
 	ObjectTypeProjectile
+	ObjectTypeExplosion
 )
