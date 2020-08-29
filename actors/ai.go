@@ -1,11 +1,12 @@
 package actors
 
 import (
+	"math/rand"
+	"time"
+
 	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/scene/objects/tank"
-	"math/rand"
-	"time"
 )
 
 type AI struct {
@@ -25,7 +26,7 @@ func NewAI() *AI {
 
 func (ai *AI) SetTank(tank *tank.Tank) {
 	ai.Tank = tank
-	ai.rand = rand.New(rand.NewSource(time.Now().Unix()))
+	ai.rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 }
 
 func (ai *AI) Tick(dt time.Duration) {
