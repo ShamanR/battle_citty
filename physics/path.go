@@ -7,18 +7,26 @@ import (
 )
 
 func (p *Physics) PathTo(from, to pixel.Vec, sceneMap consts.LevelMap) []*pixel.Vec {
-	fromTile := newTile(from, sceneMap, p.tileSize, p.scale)
-	toTile := newTile(to, sceneMap, p.tileSize, p.scale)
+	tc := newTileContainer(sceneMap)
 
-	path, _, found := astar.Path(fromTile, toTile)
+	fromTile := tc.getTile(
+		int(from.X/float64(p.tileSize*p.scale)),
+		int(from.Y/float64(p.tileSize*p.scale)),
+	)
+	toTile := tc.getTile(
+		int(to.X/float64(p.tileSize*p.scale)),
+		int(to.Y/float64(p.tileSize*p.scale)),
+	)
+
+	path, _, found := astar.Path(toTile, fromTile)
 	if !found {
 		return nil
 	}
 
-	res := make([]*pixel.Vec, len(path))
+	res := make([]*pixel.Vec, 0, len(path))
 	for _, pp := range path {
 		t := pp.(*tile)
-		v := pixel.V(float64(t.x * p.tileSize * p.scale), float64(t.y * p.tileSize * p.scale))
+		v := pixel.V(float64(t.x*p.tileSize*p.scale), float64(t.y*p.tileSize*p.scale))
 		res = append(res, &v)
 	}
 	return res

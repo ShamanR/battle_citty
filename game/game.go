@@ -1,6 +1,9 @@
 package game
 
 import (
+	"math"
+	"time"
+
 	"github.com/faiface/pixel"
 	"github.com/faiface/pixel/pixelgl"
 	"github.com/shamanr/battle_citty/actors"
@@ -11,8 +14,6 @@ import (
 	"github.com/shamanr/battle_citty/resource_manager"
 	"github.com/shamanr/battle_citty/scene"
 	"golang.org/x/image/colornames"
-	"math"
-	"time"
 )
 
 type Game struct {
@@ -48,6 +49,7 @@ func (g *Game) Init() {
 	g.fillSceneByMap("resources/level1.json")
 	// Создаем менеджер игровых объектов
 	g.gameObjectsManager = objects.NewGameObjectsManager(g.rm, g.scene)
+	g.rm.PlaySound(consts.SoundGameIntro)
 	// Ищем точки РЕСПА ИГРОКА и Врагов
 	var userSpawn interfaces.SceneObject
 	var enemySpawns []interfaces.SceneObject
@@ -84,7 +86,7 @@ func (g *Game) Init() {
 
 func (g *Game) StartLevel() {
 	last := time.Now()
-
+	defer g.rm.CloseSound()
 	for !g.window.Closed() {
 		dt := time.Since(last)
 		last = time.Now()
@@ -131,6 +133,7 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 	}
 
 	g.scene.SetSceneObjects(sceneObjects)
+	g.scene.SetLevelMap(levelMap)
 }
 
 func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfaces.SceneObject {

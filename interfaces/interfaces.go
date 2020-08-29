@@ -14,6 +14,8 @@ type SceneMap []SceneObject
 type ResourceManager interface {
 	GetSpriteMap(name consts.ObjectType) *SceneObjectAnimateList
 	LoadMap(path string) consts.LevelMap
+	PlaySound(name consts.SoundType)
+	CloseSound()
 }
 
 // SceneObjectAnimateList структуры анимации (для танков?)
@@ -50,6 +52,7 @@ type Scene interface {
 	SetSceneObjects(objects []SceneObject)
 	GetSceneMap() SceneMap
 	GetLevelMap() consts.LevelMap
+	SetLevelMap(levelMap consts.LevelMap)
 	MakeEmptyObj(objType consts.ObjectType) SceneObject
 	Draw(target pixel.Target)
 }

@@ -164,7 +164,6 @@ func (o *Object) Delete() {
 			ch.Delete()
 		}
 		o.children = nil
-
 	}
 }
 

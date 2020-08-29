@@ -10,6 +10,7 @@ import (
 type Scene struct {
 	objects    []interfaces.SceneObject
 	objCounter int64
+	level      consts.LevelMap
 }
 
 func NewScene() *Scene {
@@ -37,7 +38,11 @@ func (s *Scene) GetSceneMap() interfaces.SceneMap {
 }
 
 func (s *Scene) GetLevelMap() consts.LevelMap {
-	panic("implement me")
+	return s.level
+}
+
+func (s *Scene) SetLevelMap(level consts.LevelMap) {
+	s.level = level
 }
 
 func (s *Scene) Draw(target pixel.Target) {
