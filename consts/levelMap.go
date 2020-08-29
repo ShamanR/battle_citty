@@ -1,6 +1,6 @@
 package consts
 
 const (
-	MapSize = 13
+	MapSize = 15
 	MapTileSize = 16
 )

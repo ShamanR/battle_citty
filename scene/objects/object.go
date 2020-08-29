@@ -1,7 +1,6 @@
 package object
 
 import (
-	"fmt"
 	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
@@ -102,7 +101,7 @@ func (o *Object) SetSpriteList(list *interfaces.SceneObjectAnimateList) {
 // Draw выполняет отрисовку объекта в target
 func (o *Object) Draw(target pixel.Target) {
 	if o.objectType == consts.ObjectTypeProjectile {
-		fmt.Println("here")
+		//fmt.Println("here")
 	}
 	s := o.GetSprite()
 	if s == nil || !o.IsVisible() {
@@ -177,5 +176,5 @@ func (o *Object) Delete() {
 
 // Метод вызывается при столкновении с другим объектом сцены
 func (o *Object) OnCollide(with interfaces.SceneObject) {
-	fmt.Println(fmt.Sprintf("Object %d collide with object %d", o.GetObjectType(), with.GetObjectType()))
+	//fmt.Println(fmt.Sprintf("Object %d collide with object %d", o.GetObjectType(), with.GetObjectType()))
 }
