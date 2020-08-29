@@ -25,6 +25,7 @@ type Tank struct {
 func (t *Tank) Shoot() {
 	startPos := pixel.V(t.GetPos().Y + t.GetSize().Max.Y, t.GetPos().X + t.GetSize().Max.X)
 	t.Bullet.SetPos(&startPos)
+	t.AddChild(t.Bullet)
 	switch t.GetOrientation() {
 	case consts.OrientationTop:
 		t.Bullet.MoveUp()

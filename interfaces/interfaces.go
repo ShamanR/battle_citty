@@ -37,6 +37,7 @@ type SceneObject interface {
 	GetSize() *pixel.Rect
 	IsVisible() bool
 	SetVisible(visible bool)
+	AddChild(obj SceneObject)
 	GetObjects() []SceneObject
 	GetObjectType() consts.ObjectType
 	SetOrientation(orient consts.Orientation)

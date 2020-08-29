@@ -46,6 +46,7 @@ func NewObject(ID int64, scene interfaces.Scene, objectType consts.ObjectType, p
 			Min: pixel.Vec{0, 0},
 			Max: pixel.Vec{16 * consts.ScaleSprites, 16 * consts.ScaleSprites},
 		},
+		children: []interfaces.SceneObject{},
 	}
 	obj.SetPos(pos)
 	obj.SetSpriteList(spriteList)
@@ -100,6 +101,9 @@ func (o *Object) SetSpriteList(list *interfaces.SceneObjectAnimateList) {
 
 // Draw выполняет отрисовку объекта в target
 func (o *Object) Draw(target pixel.Target) {
+	if o.objectType == consts.ObjectTypeProjectile {
+		fmt.Println("here")
+	}
 	s := o.GetSprite()
 	if s == nil || !o.IsVisible() {
 		return
@@ -135,6 +139,10 @@ func (o *Object) IsVisible() bool {
 // SetVisible устанавливает видимость объекта
 func (o *Object) SetVisible(visible bool) {
 	o.visible = visible
+}
+
+func (o *Object) AddChild(obj interfaces.SceneObject) {
+	o.children = append(o.children, obj)
 }
 
 // GetObjects возвращает жочерние объекты

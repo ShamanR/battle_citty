@@ -44,7 +44,7 @@ var animationsMap = map[consts.ObjectType]*animationPosition{
 	consts.ObjectTypeIronWallDamagedDown: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 1, 1, false),
 	consts.ObjectTypeHeadquarters:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
 	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
-	consts.ObjectTypeProjectile: newAnimationPosition(spriteSheetSize, 4, 20, 6, 1, true),
+	consts.ObjectTypeProjectile: newAnimationPosition(spriteSheetSize, 4, 16, 6, 1, true),
 	consts.ObjectTypeExplosion:             newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 8, 3, false),
 }
 
@@ -121,23 +121,23 @@ func (rm *resourceManager) getSceneObjectAnimateList(name consts.ObjectType, pos
 	for i := 0; i < position.frames*len(sides); i++ {
 		spritePos := newSpritePosition(position.spriteSheetSize, position.spriteSize, position.positionX+i, position.positionY)
 
-		if name == consts.ObjectTypeProjectile {
-			spritePos = newSpritePosition(position.spriteSheetSize, position.spriteSize, 1, 1)
-			y := spriteSheetSizeY - 104
-			if i == consts.OrientationTop {
-				spritePos.startX = 321
-				spritePos.startY = y
-			} else if i == consts.OrientationRight {
-				spritePos.startX = 328
-				spritePos.startY = y
-			} else if i == consts.OrientationBottom {
-				spritePos.startX = 337
-				spritePos.startY = y
-			} else if i == consts.OrientationRight {
-				spritePos.startX = 344
-				spritePos.startY = y
-			}
-		}
+		//if name == consts.ObjectTypeProjectile {
+		//	spritePos = newSpritePosition(position.spriteSheetSize, position.spriteSize, 1, 1)
+		//	y := 104
+		//	if i == consts.OrientationTop {
+		//		spritePos.startX = 321
+		//		spritePos.startY = y
+		//	} else if i == consts.OrientationRight {
+		//		spritePos.startX = 328
+		//		spritePos.startY = y
+		//	} else if i == consts.OrientationBottom {
+		//		spritePos.startX = 337
+		//		spritePos.startY = y
+		//	} else if i == consts.OrientationRight {
+		//		spritePos.startX = 344
+		//		spritePos.startY = y
+		//	}
+		//}
 
 		sprite := rm.loadSprite(SpriteType(fmt.Sprintf("%d%d", spritePos.positionY, spritePos.positionX)), spritePos)
 		framesBuff = append(framesBuff, sprite)
