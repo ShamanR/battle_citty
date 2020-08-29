@@ -19,13 +19,13 @@ import (
 )
 
 type Game struct {
-	scene   interfaces.Scene
-	rm      interfaces.ResourceManager
-	physics interfaces.Physics
-	window  *pixelgl.Window
-	player  *actors.User
-	ai      *actors.AI
-	lastID  int64
+	scene              interfaces.Scene
+	rm                 interfaces.ResourceManager
+	physics            interfaces.Physics
+	window             *pixelgl.Window
+	player             *actors.User
+	ai                 []*actors.AI
+	lastID             int64
 	gameObjectsManager *objects.GameObjectsManager
 }
 
@@ -51,10 +51,12 @@ func (g *Game) Init() {
 	g.fillSceneByMap("resources/level1.json")
 	// Создаем менеджер игровых объектов
 	g.gameObjectsManager = objects.NewGameObjectsManager(g.rm, g.scene)
-	g.rm.PlaySound(consts.SoundGameIntro)
+
+	// g.rm.PlaySound(consts.SoundGameIntro)
+
 	// Ищем точки РЕСПА ИГРОКА и Врагов
 	var userSpawn interfaces.SceneObject
-	var enemySpawns []interfaces.SceneObject
+	enemySpawns := []interfaces.SceneObject{}
 	userSpawn = nil
 	for _, obj := range g.scene.GetObjects() {
 		if obj.GetObjectType() == consts.ObjectTypePlayerSpawn {
@@ -77,13 +79,19 @@ func (g *Game) Init() {
 	g.player = &player
 
 	// AI
-	g.ai = actors.NewAI()
-	aiTank := g.gameObjectsManager.MakeTank(consts.ObjectTypePlayerTank1)
 	// Инстанцируем объект на сцену в точку респа
-	enemyPos := userSpawn.GetPos().Add(pixel.V(100, 140))
-	aiTank.SetPos(&enemyPos)
-	aiTank.SetScale(g.getScale())
-	g.ai.SetTank(aiTank)
+	if enemySpawns != nil {
+		for _, enemySpawn := range enemySpawns {
+			ai := actors.NewAI()
+			aiTank := g.gameObjectsManager.MakeTank(consts.ObjectTypePlayerTank1)
+			enemyPos := enemySpawn.GetPos() //.Add(pixel.V(100, 140))
+			aiTank.SetPos(enemyPos)
+			aiTank.SetScale(g.getScale())
+			ai.SetTank(aiTank)
+
+			g.ai = append(g.ai, ai)
+		}
+	}
 }
 
 func (g *Game) StartLevel() {
@@ -95,7 +103,9 @@ func (g *Game) StartLevel() {
 		<-time.After(time.Millisecond * 30)
 		g.window.Clear(colornames.Black)
 		g.player.AttachToKeyboard(g.window)
-		g.ai.Tick(dt)
+		for _, ai := range g.ai {
+			ai.Tick(dt)
+		}
 		g.physics.MoveObjects(g.scene.GetObjects(), dt)
 		g.scene.Draw(g.window)
 		g.window.Update()

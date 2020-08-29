@@ -31,21 +31,23 @@ var spriteMap = map[SpriteType]*spritePosition{
 }
 
 var animationsMap = map[consts.ObjectType]*animationPosition{
-	consts.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
-	consts.ObjectTypeBrickWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 1, false),
-	consts.ObjectTypeBrickWallDamagedLeft: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 0, 1, false),
-	consts.ObjectTypeBrickWallDamagedTop: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 0, 1, false),
+	consts.ObjectTypePlayerTank1:           newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
+	consts.ObjectTypeBrickWall:             newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 1, false),
+	consts.ObjectTypeBrickWallDamagedLeft:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 0, 1, false),
+	consts.ObjectTypeBrickWallDamagedTop:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 0, 1, false),
 	consts.ObjectTypeBrickWallDamagedRight: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 0, 1, false),
-	consts.ObjectTypeBrickWallDamagedDown: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 0, 1, false),
-	consts.ObjectTypeIronWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedLeft: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedTop: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedRight: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedDown: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 1, 1, false),
-	consts.ObjectTypeHeadquarters:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
-	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
-	consts.ObjectTypeProjectile: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 6, 1, true),
-	consts.ObjectTypeExplosion: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 8, 3, false),
+	consts.ObjectTypeBrickWallDamagedDown:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 0, 1, false),
+	consts.ObjectTypeIronWall:              newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedLeft:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedTop:    newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedRight:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedDown:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 1, 1, false),
+	consts.ObjectTypeHeadquarters:          newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
+	consts.ObjectTypePlayerSpawn:           newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
+	consts.ObjectTypeAISpawn:               newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
+	consts.ObjectTypeProjectile:            newAnimationPosition(spriteSheetSize, 4, 16, 6, 1, true),
+	consts.ObjectTypeExplosion:             newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 8, 3, false),
+	consts.ObjectTypeHiddenWall:            newAnimationPosition(spriteSheetSize, defaultSpriteSize, 23, 0, 1, false),
 }
 
 type spritePosition struct {
@@ -53,6 +55,8 @@ type spritePosition struct {
 	spriteSize      int
 	positionX       int
 	positionY       int
+	startX          int
+	startY          int
 }
 
 func newSpritePosition(spriteSheetSize pixel.Vec, size int, posX int, posY int) *spritePosition {
@@ -61,14 +65,17 @@ func newSpritePosition(spriteSheetSize pixel.Vec, size int, posX int, posY int) 
 		spriteSize:      size,
 		positionX:       posX,
 		positionY:       posY,
+		startX:          defaultSpriteSize * posX,
+		startY:          spriteSheetSizeY - defaultSpriteSize*posY,
 	}
 }
 
 func (s *spritePosition) Bounds() pixel.Rect {
-	spriteStartY := s.spriteSheetSize.Y - float64(s.positionY*s.spriteSize)
-	spriteStartX := float64(s.positionX * s.spriteSize)
-
-	return pixel.R(spriteStartX, spriteStartY, spriteStartX+float64(s.spriteSize), spriteStartY-float64(s.spriteSize))
+	//mult := 0
+	//if s.spriteSize < defaultSpriteSize {
+	//	mult = defaultSpriteSize-s.spriteSize
+	//}
+	return pixel.R(float64(s.startX), float64(s.startY), float64(s.startX+s.spriteSize), float64(s.startY-s.spriteSize))
 }
 
 type resourceManager struct {
@@ -99,12 +106,40 @@ func (s *resourceManager) GetSprite(name SpriteType) *pixel.Sprite {
 
 func (rm *resourceManager) getSceneObjectAnimateList(name consts.ObjectType, position *animationPosition) *interfaces.SceneObjectAnimateList {
 	animationsList := &interfaces.SceneObjectAnimateList{}
+	// 325 104
+	// 332 103
+	// 341 104
+	// 348 104
+	//if name == consts.ObjectTypeProjectile {
+	//	(*animationsList)[consts.OrientationTop] = []*pixel.Sprite{
+	//		rm.loadSprite(),
+	//	}
+	//}
 
 	framesCounter := 0
 	currentSide := 0
 	framesBuff := make([]*pixel.Sprite, 0, position.frames)
 	for i := 0; i < position.frames*len(sides); i++ {
-		spritePos := newSpritePosition(spriteSheetSize, defaultSpriteSize, position.positionX+i, position.positionY)
+		spritePos := newSpritePosition(position.spriteSheetSize, position.spriteSize, position.positionX+i, position.positionY)
+
+		//if name == consts.ObjectTypeProjectile {
+		//	spritePos = newSpritePosition(position.spriteSheetSize, position.spriteSize, 1, 1)
+		//	y := 104
+		//	if i == consts.OrientationTop {
+		//		spritePos.startX = 321
+		//		spritePos.startY = y
+		//	} else if i == consts.OrientationRight {
+		//		spritePos.startX = 328
+		//		spritePos.startY = y
+		//	} else if i == consts.OrientationBottom {
+		//		spritePos.startX = 337
+		//		spritePos.startY = y
+		//	} else if i == consts.OrientationRight {
+		//		spritePos.startX = 344
+		//		spritePos.startY = y
+		//	}
+		//}
+
 		sprite := rm.loadSprite(SpriteType(fmt.Sprintf("%d%d", spritePos.positionY, spritePos.positionX)), spritePos)
 		framesBuff = append(framesBuff, sprite)
 

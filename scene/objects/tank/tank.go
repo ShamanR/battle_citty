@@ -1,6 +1,7 @@
 package tank
 
 import (
+	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
 	object "github.com/shamanr/battle_citty/scene/objects"
@@ -25,7 +26,9 @@ type Tank struct {
 }
 
 func (t *Tank) Shoot() {
-	t.Bullet.SetPos(t.GetPos())
+	startPos := pixel.V(t.GetPos().X + t.GetSize().Max.X, t.GetPos().Y + t.GetSize().Max.Y)
+	t.Bullet.SetPos(&startPos)
+	t.AddChild(t.Bullet)
 	switch t.GetOrientation() {
 	case consts.OrientationTop:
 		t.Bullet.MoveUp()
