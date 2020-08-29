@@ -1,7 +1,6 @@
 package object
 
 import (
-	"fmt"
 	"github.com/faiface/pixel"
 	"github.com/shamanr/battle_citty/consts"
 	"github.com/shamanr/battle_citty/interfaces"
@@ -31,6 +30,8 @@ type Object struct {
 
 	// child
 	children []interfaces.SceneObject
+
+	gameObject interface{}
 }
 
 // NewObject конструктор:
@@ -165,9 +166,34 @@ func (o *Object) Delete() {
 		}
 		o.children = nil
 	}
+	o.scene.RemoveObject(o.id)
+}
+
+func (o *Object) GetGameObject() interface{} {
+	return o.gameObject
+}
+
+func (o *Object) SetGameObject(gObj interface{}) {
+	o.gameObject = gObj
+}
+
+func (o *Object) SetLife(life uint8) {
+	o.life = life
+}
+
+func (o *Object) GetLife() uint8 {
+	return o.life
 }
 
 // Метод вызывается при столкновении с другим объектом сцены
 func (o *Object) OnCollide(with interfaces.SceneObject) {
-	fmt.Println(fmt.Sprintf("Object %d collide with object %d", o.GetObjectType(), with.GetObjectType()))
+	if firstDestructable, ok := o.gameObject.(interfaces.Damageable); ok {
+		firstDestructable.OnDamage(with)
+	}
+
+	if secondDestroyable, ok := with.GetGameObject().(interfaces.Damageable); ok {
+		secondDestroyable.OnDamage(o)
+	}
+
+	//fmt.Println(fmt.Sprintf("Object %d collide with object %d", o.GetObjectType(), with.GetObjectType()))
 }

@@ -31,21 +31,21 @@ var spriteMap = map[SpriteType]*spritePosition{
 }
 
 var animationsMap = map[consts.ObjectType]*animationPosition{
-	consts.ObjectTypePlayerTank1:           newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
-	consts.ObjectTypeBrickWall:             newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 1, false),
-	consts.ObjectTypeBrickWallDamagedLeft:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 0, 1, false),
-	consts.ObjectTypeBrickWallDamagedTop:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 0, 1, false),
+	consts.ObjectTypePlayerTank1: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 0, 0, 2, true),
+	consts.ObjectTypeBrickWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 0, 1, false),
+	consts.ObjectTypeBrickWallDamagedLeft: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 0, 1, false),
+	consts.ObjectTypeBrickWallDamagedTop: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 0, 1, false),
 	consts.ObjectTypeBrickWallDamagedRight: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 0, 1, false),
-	consts.ObjectTypeBrickWallDamagedDown:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 0, 1, false),
-	consts.ObjectTypeIronWall:              newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedLeft:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedTop:    newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedRight:  newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 1, 1, false),
-	consts.ObjectTypeIronWallDamagedDown:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 1, 1, false),
-	consts.ObjectTypeHeadquarters:          newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
-	consts.ObjectTypePlayerSpawn:           newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
-	consts.ObjectTypeProjectile:            newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 6, 1, true),
-	consts.ObjectTypeExplosion:             newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 8, 3, false),
+	consts.ObjectTypeBrickWallDamagedDown: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 0, 1, false),
+	consts.ObjectTypeIronWall:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedLeft: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 17, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedTop: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 18, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedRight: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 1, 1, false),
+	consts.ObjectTypeIronWallDamagedDown: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 1, 1, false),
+	consts.ObjectTypeHeadquarters:   newAnimationPosition(spriteSheetSize, defaultSpriteSize, 19, 2, 1, false),
+	consts.ObjectTypePlayerSpawn: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 6, 4, false),
+	consts.ObjectTypeProjectile: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 20, 6, 1, true),
+	consts.ObjectTypeExplosion: newAnimationPosition(spriteSheetSize, defaultSpriteSize, 16, 8, 3, false),
 }
 
 type spritePosition struct {

@@ -40,7 +40,7 @@ func (g *Game) Init() {
 	}
 	g.window = win
 	// Создаем СЦЕНУ
-	g.scene = scene.NewScene()
+	g.scene = scene.NewScene(g)
 	// Создаем ресурс-менеджер
 	g.rm = resource_manager.NewResourceManager("resources/textures.png")
 	// создаем физику
@@ -172,5 +172,13 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 	obj.SetSpriteList(g.rm.GetSpriteMap(typ))
 	return obj
 	//panic(errors.New(fmt.Sprintf("Unable to create object type %d", typ)))
+}
+
+func (g *Game) Spawn(objType consts.ObjectType, pos pixel.Vec) {
+	sceneObj := g.getGameObjectByType(objType, pos)
+	scale := g.getScale()
+	if sceneObj != nil {
+		sceneObj.SetScale(scale)
+	}
 }
 

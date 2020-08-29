@@ -11,7 +11,9 @@ import (
 // NewBrickWall возвращает объект стены
 func NewBrickWall(Id int64, scene interfaces.Scene, objectType consts.ObjectType, pos *pixel.Vec, spriteList *interfaces.SceneObjectAnimateList) *BrickWall {
 	obj := object.NewObject(Id, scene, objectType, pos, spriteList)
-	return &BrickWall{obj}
+	bw := &BrickWall{obj}
+	obj.SetGameObject(bw)
+	return bw
 }
 
 // BrickWall структруа танка
@@ -37,4 +39,8 @@ func (t *BrickWall) BreakUp() {
 // BreakDown разрушение стены снизу
 func (t *BrickWall) BreakDown() {
 	t.SetOrientation(consts.OrientationBottom)
+}
+
+func (t *BrickWall) OnDamage(other interfaces.SceneObject) {
+	t.GetScene().RemoveObject(t.GetID())
 }
