@@ -150,7 +150,11 @@ func (g *Game) fillSceneByMap(levelMapPath string) {
 func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfaces.SceneObject {
 	// Сейчас switch не очень нужен, но в будущем будем так создавать игровые объекты Танк, Стена и т.д.
 	switch typ {
-	case consts.ObjectTypeBrickWall:
+	case consts.ObjectTypeBrickWall,
+		consts.ObjectTypeBrickWallDamagedLeft,
+		consts.ObjectTypeBrickWallDamagedTop,
+		consts.ObjectTypeBrickWallDamagedRight,
+		consts.ObjectTypeBrickWallDamagedDown:
 		obj := g.scene.MakeEmptyObj(typ)
 		obj.SetPos(&pos)
 		obj.SetVisible(true)
@@ -162,7 +166,11 @@ func (g *Game) getGameObjectByType(typ consts.ObjectType, pos pixel.Vec) interfa
 		obj.SetPos(&pos)
 		obj.SetSpriteList(g.rm.GetSpriteMap(typ))
 		return obj
-	case consts.ObjectTypeIronWall:
+	case consts.ObjectTypeIronWall,
+		consts.ObjectTypeIronWallDamagedLeft,
+		consts.ObjectTypeIronWallDamagedTop,
+		consts.ObjectTypeIronWallDamagedRight,
+		consts.ObjectTypeIronWallDamagedDown:
 		obj := g.scene.MakeEmptyObj(typ)
 		obj.SetPos(&pos)
 		obj.SetVisible(true)
