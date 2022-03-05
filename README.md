@@ -5,7 +5,7 @@
 # Battle city 1990
 Old NES classic game. Written on golang
 
-This project was made on hackathon by 4 backend engenieres for 48 hours
+This project was made on hackathon by 4 backend engineers for 48 hours
 Just core gameplay, without level changes, tank upgrades or score
 
 ## Features
