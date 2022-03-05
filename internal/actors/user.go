@@ -1,0 +1,53 @@
+package actors
+
+import (
+	"github.com/faiface/pixel"
+	"github.com/faiface/pixel/pixelgl"
+)
+
+type Tank interface {
+	MoveLeft()
+	MoveRight()
+	MoveUp()
+	MoveDown()
+	Stop()
+	Shoot()
+
+	GetSpeed() *pixel.Vec
+	GetPos() *pixel.Vec
+}
+
+type User struct {
+	Tank Tank
+}
+
+type keyboardInterface interface {
+	Pressed(button pixelgl.Button) bool
+}
+
+func (u *User) SetTank(tank Tank) {
+	u.Tank = tank
+}
+
+func (u *User) AttachToKeyboard(keyboard keyboardInterface) {
+	if keyboard.Pressed(pixelgl.KeySpace) {
+		u.Tank.Shoot()
+	}
+	if keyboard.Pressed(pixelgl.KeyLeft) {
+		u.Tank.MoveLeft()
+		return
+	}
+	if keyboard.Pressed(pixelgl.KeyRight) {
+		u.Tank.MoveRight()
+		return
+	}
+	if keyboard.Pressed(pixelgl.KeyUp) {
+		u.Tank.MoveUp()
+		return
+	}
+	if keyboard.Pressed(pixelgl.KeyDown) {
+		u.Tank.MoveDown()
+		return
+	}
+	u.Tank.Stop()
+}
